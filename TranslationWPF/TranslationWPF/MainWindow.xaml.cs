@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TranslationWPF.ViewModel;
+using TranslationWPF.Views;
 
 namespace TranslationWPF
 {
@@ -23,6 +25,14 @@ namespace TranslationWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ImportViewBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ImportView view = new ImportView();
+            view.DataContext = new ImportVM();
+            view.Show();
+            this.Close();
         }
     }
 }

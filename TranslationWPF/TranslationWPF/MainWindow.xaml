@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:TranslationWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="ImportViewBTN" Margin="10" Height="50" Width="150" Content="Menu 1" VerticalAlignment="Top" Click="ImportViewBTN_Click"/>
+       
+        </StackPanel>
+
     </Grid>
 </Window>
