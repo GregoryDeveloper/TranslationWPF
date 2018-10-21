@@ -18,8 +18,16 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Français" Binding="{Binding Language1}"/>
                 <DataGridTextColumn Header="Commentaire" Binding="{Binding Language1Comment}"/>
+                <DataGridTextColumn Header="Exemple" Binding="{Binding Language1Example}"/>
+                <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms1String}"/>
+
+
                 <DataGridTextColumn Header="English" Binding="{Binding Language2}"/>
                 <DataGridTextColumn Header="Comentaire" Binding="{Binding Language2Comment}"/>
+                <DataGridTextColumn Header="Exemple" Binding="{Binding Language2Example}"/>
+                <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms2String}"/>
+
+
                 <DataGridTextColumn Header="Ligne" Binding="{Binding Line}"/>
             </DataGrid.Columns>
         </DataGrid>

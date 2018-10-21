@@ -32,7 +32,8 @@ namespace TranslationWPF.ViewModel
                 words = importSingleton.ReadFile(ofd.FileName);
                 foreach (Word w in words)
                 {
-                    Words.Add(new WordVM() { Language1 = w.BasicWord,Language1Comment= w.FrenchComment, Language2 = w.Translation,Language2Comment = w.EnglishComment, Line = w.Line });
+                    Words.Add(new WordVM() { Language1 = w.BasicWord,Language1Comment= w.FrenchComment, Language2 = w.Translation,Language2Comment = w.EnglishComment, Line = w.Line,
+                        Language1Example = w.WordExample,Language2Example = w.TranslationExample, Language1Synonyms = w.BasicWordSynonyms,Language2Synonyms = w.TranslationSynonyms });
                 }
             }
             
