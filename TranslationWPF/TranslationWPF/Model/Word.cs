@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static TranslationLibrary.Enumerations;
 
 namespace TranslationLibrary
 {
@@ -12,7 +11,6 @@ namespace TranslationLibrary
         public string BasicWord { get; set; }
         public string Translation { get; set; }
 
-        public EnglishEnumerations Type { get; set; }
 
         public string FrenchComment { get; set; }
         public string EnglishComment { get; set; }

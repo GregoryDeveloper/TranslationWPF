@@ -29,45 +29,6 @@ namespace TranslationLibrary
             }
         }
 
-        public List<Word> ReadFile(string path)
-        {
-            List<Word> words = new List<Word>();
-            try
-            {
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    while( sr.Peek()>= 0)
-                    {
-                        Word word = new Word();
-                        List<string> synonyms;
-                        string wordLine = "";
-                        string translationLine = "";
-                        String line = sr.ReadLine();
-                        line = RemoveTabs(line);
-                        word.Line = line;
-                        (wordLine,translationLine)= SplitLine(line);
-                        (word.FrenchComment, wordLine) = ExtractComment(wordLine);
-                        (word.EnglishComment, translationLine) = ExtractComment(translationLine);
-                        (word.WordExample,word.BasicWord) = ExtractExample(wordLine);
-                        (word.TranslationExample, word.Translation) = ExtractExample(translationLine);
-                        (synonyms,word.BasicWord) = ExtractSynonyms(word.BasicWord);
-                        word.BasicWordSynonyms.AddRange(synonyms);
-                        (synonyms, word.Translation)  = ExtractSynonyms(word.Translation);
-                        word.TranslationSynonyms.AddRange(synonyms);
-                        //word = GetWord(line);
-                        //translation = GetTranslation(line);
-                        words.Add(word);
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Could not read the file");
-            }
-            return words;
-        }
-
         //private string GetWord(string line)
         //{
         //    string word = "";
@@ -78,7 +39,7 @@ namespace TranslationLibrary
 
         //}
 
-        private (string,string) SplitLine(string line)
+        public (string,string) SplitLine(string line)
         {
             line.Replace("\t", "");
             string[] splitLine =  line.Split('=');
@@ -110,7 +71,7 @@ namespace TranslationLibrary
 
         //}
 
-        private (string, string) ExtractComment(string line)
+        public (string, string) ExtractComment(string line)
         {
             string comment = "";
             string wordLine = "";
@@ -127,7 +88,7 @@ namespace TranslationLibrary
             return (comment, wordLine);
         }
 
-        private (string,string) ExtractExample(string line )
+        public (string,string) ExtractExample(string line )
         {
             string[] lines;
 
@@ -179,7 +140,7 @@ namespace TranslationLibrary
             return sb.ToString();
         }
 
-        private (List<string>,string) ExtractSynonyms(string line)
+        public (List<string>,string) ExtractSynonyms(string line)
         {
             string wordLine = line;
             List<string> synonyms = new List<string>();
@@ -238,7 +199,7 @@ namespace TranslationLibrary
             return false;
         }
 
-        private string RemoveTabs(string line)
+        public string RemoveTabs(string line)
         {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < line.Length; i++)
