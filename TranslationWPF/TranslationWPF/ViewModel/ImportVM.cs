@@ -7,12 +7,13 @@ using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.IO;
 using TranslationLibrary;
+using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
 {
     public class ImportVM
     {
-        public ObservableCollection<WordVM> Words { get; set; } = new ObservableCollection<WordVM>();
+        public ObservableCollection<TranslationVM> Words { get; set; } = new ObservableCollection<TranslationVM>();
 
         private  CommandHandler _importCommand;
             
@@ -24,23 +25,27 @@ namespace TranslationWPF.ViewModel
 
         private void ExecuteImportAsync()
         {
+
             OpenFileDialog ofd = new OpenFileDialog();
-            List<Word> words;
+            List<Translation> translations;
             if (ofd.ShowDialog() == true)
             {
-                words = GetWordsFromImport(ofd.FileName);
-                foreach (Word w in words)
+                translations = GetWordsFromImport(ofd.FileName);
+                foreach (Translation t in translations)
                 {
-                    Words.Add(new WordVM() { Language1 = w.BasicWord,Language1Comment= w.FrenchComment, Language2 = w.Translation,Language2Comment = w.EnglishComment, Line = w.Line,
-                        Language1Example = w.WordExample,Language2Example = w.TranslationExample, Language1Synonyms = w.BasicWordSynonyms,Language2Synonyms = w.TranslationSynonyms });
+                    Words.Add(new TranslationVM() { Language1 = t.Translations[0].Value,Language1Comment= t.Translations[0].Comment, Language2 = t.Translations[1].Value,
+                        Language2Comment = t.Translations[1].Comment, Line = t.Line,Language1Example = t.Translations[0].Example,
+                        Language2Example = t.Translations[1].Example, Language1Synonyms = t.Translations[0].Synonysms,
+                        Language2Synonyms = t.Translations[1].Synonysms
+                    });
                 }
             }
             
         }
 
-        private List<Word> GetWordsFromImport(string path)
+        private List<Translation> GetWordsFromImport(string path)
         {
-            List<Word> words = new List<Word>();
+            List<Translation> translations = new List<Translation >();
             try
             {
                 using (StreamReader sr = new StreamReader(path))
@@ -48,25 +53,32 @@ namespace TranslationWPF.ViewModel
                     while (sr.Peek() >= 0)
                     {
                         ImportSingleton importSingleton = ImportSingleton.Instance;
-                        Word word = new Word();
+                        Translation translation = new Translation();
+                        English englishWord = new English();
+                        French frenchWord = new French();
+
+                        translation.Translations.Add(frenchWord);
+                        translation.Translations.Add(englishWord);
+
+
                         List<string> synonyms;
                         string wordLine = "";
                         string translationLine = "";
                         String line = sr.ReadLine();
                         line = importSingleton.RemoveTabs(line);
-                        word.Line = line;
+                        translation.Line = line;
                         (wordLine, translationLine) = importSingleton.SplitLine(line);
-                        (word.FrenchComment, wordLine) = importSingleton.ExtractComment(wordLine);
-                        (word.EnglishComment, translationLine) = importSingleton.ExtractComment(translationLine);
-                        (word.WordExample, word.BasicWord) = importSingleton.ExtractExample(wordLine);
-                        (word.TranslationExample, word.Translation) = importSingleton.ExtractExample(translationLine);
-                        (synonyms, word.BasicWord) = importSingleton.ExtractSynonyms(word.BasicWord);
-                        word.BasicWordSynonyms.AddRange(synonyms);
-                        (synonyms, word.Translation) = importSingleton.ExtractSynonyms(word.Translation);
-                        word.TranslationSynonyms.AddRange(synonyms);
+                        (frenchWord.Comment, wordLine) = importSingleton.ExtractComment(wordLine);
+                        (englishWord.Comment, translationLine) = importSingleton.ExtractComment(translationLine);
+                        (frenchWord.Example, frenchWord.Value) = importSingleton.ExtractExample(wordLine);
+                        (englishWord.Example, englishWord.Value) = importSingleton.ExtractExample(translationLine);
+                        (synonyms, frenchWord.Value) = importSingleton.ExtractSynonyms(frenchWord.Value);
+                        frenchWord.Synonysms.AddRange(synonyms);
+                        (synonyms, englishWord.Value) = importSingleton.ExtractSynonyms(englishWord.Value);
+                        englishWord.Synonysms.AddRange(synonyms);
                         //word = GetWord(line);
                         //translation = GetTranslation(line);
-                        words.Add(word);
+                        translations.Add(translation);
                     }
                 }
 
@@ -75,7 +87,7 @@ namespace TranslationWPF.ViewModel
             {
                 Console.WriteLine("Could not read the file");
             }
-            return words;
+            return translations;
         }
 
 

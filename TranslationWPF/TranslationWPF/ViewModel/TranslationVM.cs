@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TranslationWPF.ViewModel
 {
-    public class WordVM
+    public class TranslationVM
     {
         public string Language1 { get; set; }
         public string Language2 { get; set; }
