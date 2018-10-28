@@ -61,6 +61,10 @@ namespace TranslationWPF.ViewModel
         public string Language1Example { get; set; }
         public string Language2Example { get; set; }
 
+        public string Language1Type { get; set; }
+        public string Language2Type { get; set; }
+
+
 
         public string Line { get; set; }
     }

@@ -161,8 +161,6 @@ namespace TranslationLibrary
 
         }
 
-
-
         private string ExtractWord(string line)
         {
             StringBuilder sb = new StringBuilder();

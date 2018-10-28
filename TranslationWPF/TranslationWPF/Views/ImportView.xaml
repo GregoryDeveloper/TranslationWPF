@@ -14,7 +14,7 @@
         <StackPanel Orientation="Horizontal">
             <Button x:Name="ImportBTN" Content="Import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
         </StackPanel>
-        <DataGrid Grid.Row="1" Margin="10" ItemsSource="{Binding Words}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Margin="10" ItemsSource="{Binding Translations}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Français" Binding="{Binding Language1}"/>
                 <DataGridTextColumn Header="Commentaire" Binding="{Binding Language1Comment}"/>
