@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.IO;
-using TranslationLibrary;
 using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
@@ -57,23 +56,7 @@ namespace TranslationWPF.ViewModel
             }
 
         }
-        //private void ExecuteExport()
-        //{
-        //    SaveFileDialog sfd = new SaveFileDialog();
-        //    if (sfd.ShowDialog() == true)
-        //    {
-        //        foreach (TranslationVM t in Translations)
-        //        {
-        //            string line = GetStringExport(t)
 
-        //        }
-        //    }
-        //}
-
-        //private string GetStringExport(TranslationVM t)
-        //{
-
-        //}
 
         private List<Translation> GetWordsFromImport(string path)
         {
@@ -84,36 +67,17 @@ namespace TranslationWPF.ViewModel
                 {
                     while (sr.Peek() >= 0)
                     {
-                        ImportSingleton importSingleton = ImportSingleton.Instance;
                         Translation translation = new Translation();
-                        English englishWord = new English();
-                        French frenchWord = new French();
 
-                        translation.Translations.Add(frenchWord);
-                        translation.Translations.Add(englishWord);
-
-
-                        List<string> synonyms;
-                        string wordLine = "";
-                        string translationLine = "";
                         String line = sr.ReadLine();
-                        line = importSingleton.RemoveTabs(line);
                         translation.Line = line;
-                        (wordLine, translationLine) = importSingleton.SplitLine(line);
-                        (englishWord.Comment, wordLine) = importSingleton.ExtractComment(wordLine);
-                        (frenchWord.Comment, translationLine) = importSingleton.ExtractComment(translationLine);
-                        (englishWord.Example, englishWord.Value) = importSingleton.ExtractExample(wordLine);
-                        (frenchWord.Example, frenchWord.Value) = importSingleton.ExtractExample(translationLine);
 
+                        TranslationDirector director = new TranslationDirector();
+                        TranslationBuilder translationBuilder = new TranslationUnformattedBuilder(line);
 
+                        director.Construct(translationBuilder);
 
-                        (synonyms, englishWord.Value) = importSingleton.ExtractSynonyms(englishWord.Value);
-                        englishWord.Synonysms.AddRange(synonyms);
-                        (synonyms, frenchWord.Value) = importSingleton.ExtractSynonyms(frenchWord.Value);
-                        frenchWord.Synonysms.AddRange(synonyms);
-                        //word = GetWord(line);
-                        //translation = GetTranslation(line);
-                        translations.Add(translation);
+                        translations.Add(translationBuilder.GetResult());
                     }
                 }
 
