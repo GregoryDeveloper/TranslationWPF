@@ -13,23 +13,26 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="ImportBTN" Content="Import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
+            <Button x:Name="ExportBTN" Content="Export" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ExportCommand}" />
         </StackPanel>
+
+
         <DataGrid Grid.Row="1" Margin="10" ItemsSource="{Binding Translations}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Français" Binding="{Binding Language1}"/>
-                <DataGridTextColumn Header="Commentaire" Binding="{Binding Language1Comment}"/>
-                <DataGridTextColumn Header="Exemple" Binding="{Binding Language1Example}"/>
+                <DataGridTextColumn Header="Français" Binding="{Binding Language1.Value}"/>
+                <DataGridTextColumn Header="Commentaire" Binding="{Binding Language1.Comment}"/>
+                <DataGridTextColumn Header="Exemple" Binding="{Binding Language1.Example}"/>
                 <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms1String}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Language1Type}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Language1.Type}"/>
 
-                <DataGridTextColumn Header="English" Binding="{Binding Language2}"/>
-                <DataGridTextColumn Header="Comentaire" Binding="{Binding Language2Comment}"/>
-                <DataGridTextColumn Header="Exemple" Binding="{Binding Language2Example}"/>
+                <DataGridTextColumn Header="English" Binding="{Binding Language2.value}"/>
+                <DataGridTextColumn Header="Comentaire" Binding="{Binding Language2.Comment}"/>
+                <DataGridTextColumn Header="Exemple" Binding="{Binding Language2.Example}"/>
                 <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms2String}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Language2Type}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Language2.Type}"/>
 
 
-                <DataGridTextColumn Header="Ligne" Binding="{Binding Line}"/>
+                <DataGridTextColumn Header="Ligne" Binding="{Binding Translation.Line}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

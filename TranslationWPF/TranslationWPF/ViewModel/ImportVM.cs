@@ -24,7 +24,7 @@ namespace TranslationWPF.ViewModel
         private CommandHandler _exportCommand;
         public CommandHandler ExportCommand
         {
-            get { return _exportCommand ?? (_exportCommand = new CommandHandler(() => ExecuteImport(), true)); }
+            get { return _exportCommand ?? (_exportCommand = new CommandHandler(() => ExecuteFormattedExport(), true)); }
 
         }
 
@@ -40,17 +40,9 @@ namespace TranslationWPF.ViewModel
                 {
                     Translations.Add(new TranslationVM()
                     {
-                        Language1 = t.Translations[0].Value,
-                        Language1Comment = t.Translations[0].Comment,
-                        Language2 = t.Translations[1].Value,
-                        Language2Comment = t.Translations[1].Comment,
-                        Line = t.Line,
-                        Language1Example = t.Translations[0].Example,
-                        Language2Example = t.Translations[1].Example,
-                        Language1Synonyms = t.Translations[0].Synonysms,
-                        Language2Synonyms = t.Translations[1].Synonysms,
-                        Language1Type = t.Translations[0].Type,
-                        Language2Type = t.Translations[1].Type
+                        Translation = t,
+                        Language1 = t.Languages[0],
+                        Language2 = t.Languages[1],
                     });
                 }
             }
@@ -86,6 +78,34 @@ namespace TranslationWPF.ViewModel
                 Console.WriteLine("Could not read the file");
             }
             return translations;
+        }
+
+        private void ExecuteFormattedExport()
+        {
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                sfd.FilterIndex = 2;
+
+                if (sfd.ShowDialog() == true)
+                {
+                    using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                    {
+                        foreach (TranslationVM t in Translations)
+                        {
+                            sw.WriteLine(t.Translation.GetTranslationStringRepresentation());
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
     }

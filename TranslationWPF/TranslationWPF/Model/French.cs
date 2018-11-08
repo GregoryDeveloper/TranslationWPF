@@ -8,6 +8,8 @@ namespace TranslationWPF.Model
 {
     public class French : Language
     {
+
+
         public override Types GetType()
         {
             return Types.undefined;

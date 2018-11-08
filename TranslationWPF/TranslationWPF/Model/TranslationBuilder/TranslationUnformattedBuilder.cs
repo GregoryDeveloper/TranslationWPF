@@ -33,8 +33,8 @@ namespace TranslationWPF.Model
             director.Construct(englishBuilder);
             director.Construct(frenchBuilder);
 
-            translation.Translations.Add(englishBuilder.GetResult());
-            translation.Translations.Add(frenchBuilder.GetResult());
+            translation.Languages.Add(englishBuilder.GetResult());
+            translation.Languages.Add(frenchBuilder.GetResult());
 
         }
         public override Translation GetResult()
