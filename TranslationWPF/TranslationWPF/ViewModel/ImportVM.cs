@@ -57,7 +57,6 @@ namespace TranslationWPF.ViewModel
 
         }
 
-
         private List<Translation> GetWordsFromImport(string path)
         {
             List<Translation> translations = new List<Translation>();
@@ -88,8 +87,6 @@ namespace TranslationWPF.ViewModel
             }
             return translations;
         }
-
-
 
     }
 }

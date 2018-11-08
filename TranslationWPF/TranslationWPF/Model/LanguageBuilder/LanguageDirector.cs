@@ -13,6 +13,7 @@ namespace TranslationWPF.Model
             languageBuilder.ExtractComment();
             languageBuilder.ExtractExample();
             languageBuilder.ExtractSynonyms();
+            languageBuilder.ProceedGetType();
         }
     }
 }

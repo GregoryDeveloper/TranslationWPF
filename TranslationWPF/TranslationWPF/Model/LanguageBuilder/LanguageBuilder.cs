@@ -66,6 +66,10 @@ namespace TranslationWPF.Model
             language.Value = wordLine;
             language.Synonysms = synonyms;
         }
+        public void ProceedGetType()
+        {
+            language.Type= language.GetType().ToString();
+        }
 
         public abstract Language GetResult();
 
