@@ -13,6 +13,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="ImportBTN" Content="Import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
+            <Button x:Name="FormatedImportBTN" Content="Formatted import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding FormattedImportCommand}" />
             <Button x:Name="ExportBTN" Content="Export" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ExportCommand}" />
         </StackPanel>
 

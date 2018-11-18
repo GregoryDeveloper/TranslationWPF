@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="ExtractionHelper.cs" />
     <Compile Include="Model\English.cs" />
     <Compile Include="Model\French.cs" />
     <Compile Include="Model\Language.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Model\LanguageBuilder\LanguageFrenchBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationDirector.cs" />
+    <Compile Include="Model\TranslationBuilder\TranslationFormattedBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationUnformattedBuilder.cs" />
     <Compile Include="Model\Translation.cs" />
     <Compile Include="ViewModel\ImportVM.cs" />

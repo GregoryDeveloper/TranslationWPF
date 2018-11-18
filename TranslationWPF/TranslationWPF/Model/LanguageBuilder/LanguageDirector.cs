@@ -8,12 +8,19 @@ namespace TranslationWPF.Model
 {
     public class LanguageDirector
     {
-        public void Construct(LanguageBuilder languageBuilder)
+        public void ConstructUnformattedImport(LanguageBuilder languageBuilder)
         {
-            languageBuilder.ExtractComment();
-            languageBuilder.ExtractExample();
-            languageBuilder.ExtractSynonyms();
+            languageBuilder.CommenUnformattedExtraction();
+            languageBuilder.ExampleUnformattedExtraction();
+            languageBuilder.SynonymsUnformattedExtraction();
             languageBuilder.ProceedGetType();
         }
+
+        public void ConstructformattedImport(LanguageBuilder languageBuilder)
+        {
+            languageBuilder.FormattedExtraction();
+        }
+
+
     }
 }

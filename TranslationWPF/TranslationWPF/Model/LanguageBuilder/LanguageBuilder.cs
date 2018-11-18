@@ -11,7 +11,8 @@ namespace TranslationWPF.Model
         protected string modifiedLine;
         protected Language language;
 
-        public void ExtractComment()
+
+        public void CommenUnformattedExtraction()
         {
 
             string line = "";
@@ -27,7 +28,7 @@ namespace TranslationWPF.Model
             line += ExtractUntilCaractere(modifiedLine, modifiedLine.IndexOf(')') + 1);
             modifiedLine = line;
         }
-        public void ExtractExample()
+        public void ExampleUnformattedExtraction()
         {
             string[] lines;
 
@@ -47,7 +48,7 @@ namespace TranslationWPF.Model
             modifiedLine = lines[0].Remove(lines[0].Length - 2);
             language.Example = lines[1];
         }
-        public void ExtractSynonyms()
+        public void SynonymsUnformattedExtraction()
         {
             string wordLine = modifiedLine;
             List<string> synonyms = new List<string>();
@@ -68,8 +69,15 @@ namespace TranslationWPF.Model
         }
         public void ProceedGetType()
         {
-            language.Type= language.GetType().ToString();
+            language.Type = language.GetType().ToString();
         }
+        public void FormattedExtraction()
+        {
+            language.FillFromStringRepresenttion(modifiedLine);
+        }
+
+        
+
 
         public abstract Language GetResult();
 
@@ -92,5 +100,6 @@ namespace TranslationWPF.Model
                 return true;
             return false;
         }
+        
     }
 }

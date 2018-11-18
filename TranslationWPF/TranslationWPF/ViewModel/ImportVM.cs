@@ -12,6 +12,12 @@ namespace TranslationWPF.ViewModel
 {
     public class ImportVM
     {
+        enum Import
+        {
+            Formatted,
+            Unformatted
+        }
+
         public ObservableCollection<TranslationVM> Translations { get; set; } = new ObservableCollection<TranslationVM>();
 
         private CommandHandler _importCommand;
@@ -21,13 +27,20 @@ namespace TranslationWPF.ViewModel
 
         }
 
+        private CommandHandler _formattedImportCommand;
+        public CommandHandler FormattedImportCommand
+        {
+            get { return _formattedImportCommand ?? (_formattedImportCommand = new CommandHandler(() => ExecuteFormattedImport(), true)); }
+
+        }
+
         private CommandHandler _exportCommand;
         public CommandHandler ExportCommand
         {
             get { return _exportCommand ?? (_exportCommand = new CommandHandler(() => ExecuteFormattedExport(), true)); }
 
         }
-
+        
         private void ExecuteImport()
         {
 
@@ -35,7 +48,7 @@ namespace TranslationWPF.ViewModel
             List<Translation> translations;
             if (ofd.ShowDialog() == true)
             {
-                translations = GetWordsFromImport(ofd.FileName);
+                translations = GetWordsFromImport(ofd.FileName, Import.Unformatted);
                 foreach (Translation t in translations)
                 {
                     Translations.Add(new TranslationVM()
@@ -49,7 +62,26 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        private List<Translation> GetWordsFromImport(string path)
+        private void ExecuteFormattedImport()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            List<Translation> translations;
+            if (ofd.ShowDialog() == true)
+            {
+                translations = GetWordsFromImport(ofd.FileName, Import.Formatted);
+                foreach (Translation t in translations)
+                {
+                    Translations.Add(new TranslationVM()
+                    {
+                        Translation = t,
+                        Language1 = t.Languages[0],
+                        Language2 = t.Languages[1],
+                    });
+                }
+            }
+        }
+
+        private List<Translation> GetWordsFromImport(string path, Import import)
         {
             List<Translation> translations = new List<Translation>();
             try
@@ -64,7 +96,20 @@ namespace TranslationWPF.ViewModel
                         translation.Line = line;
 
                         TranslationDirector director = new TranslationDirector();
-                        TranslationBuilder translationBuilder = new TranslationUnformattedBuilder(line);
+                        TranslationBuilder translationBuilder;
+                        switch (import)
+                        {
+                            case Import.Formatted:
+                                 translationBuilder = new TranslationFormattedBuilder(line);
+                                break;
+                            case Import.Unformatted:
+                                 translationBuilder = new TranslationUnformattedBuilder(line);
+                                break;
+                            default:
+                                throw new InvalidDataException();
+
+                        }
+
 
                         director.Construct(translationBuilder);
 

@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using System.Text;
 
 namespace TranslationWPF.Model
 {
     public class TranslationUnformattedBuilder : TranslationBuilder
     {
-        Translation translation = new Translation();
 
         private TranslationUnformattedBuilder()
         {
@@ -21,7 +19,7 @@ namespace TranslationWPF.Model
         {
             string english;
             string french;
-            line = RemoveTabs(line);
+            line = ExtractionHelper.RemoveTabs(line);
             translation.Line = line;
 
             (english, french) = Splitline(line);
@@ -30,8 +28,8 @@ namespace TranslationWPF.Model
             LanguageBuilder englishBuilder = new LanguageEnglishBuilder(english);
             LanguageBuilder frenchBuilder = new LanguageFrenchBuilder(french);
 
-            director.Construct(englishBuilder);
-            director.Construct(frenchBuilder);
+            director.ConstructUnformattedImport(englishBuilder);
+            director.ConstructUnformattedImport(frenchBuilder);
 
             translation.Languages.Add(englishBuilder.GetResult());
             translation.Languages.Add(frenchBuilder.GetResult());
@@ -42,19 +40,7 @@ namespace TranslationWPF.Model
             return translation;
         }
 
-        private string RemoveTabs(string line)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < line.Length; i++)
-            {
-
-                if (line[i] != '\t')
-                    sb.Append(line[i]);
-
-            }
-            return sb.ToString();
-        }
-        private (string,string) Splitline(string line)
+        public (string, string) Splitline(string line)
         {
             string[] splitLine = line.Split('=');
 
@@ -76,5 +62,6 @@ namespace TranslationWPF.Model
             }
             return ("", "");
         }
+
     }
 }
