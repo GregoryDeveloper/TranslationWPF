@@ -8,6 +8,7 @@ namespace TranslationWPF.Model
 {
     public abstract class Language
     {
+        #region constances
         protected const string valuePrefix = "V";
         protected const string commentPrefix = "C";
         protected const string examplePrefix = "E";
@@ -18,7 +19,9 @@ namespace TranslationWPF.Model
         protected const string exampleRepresentation = "{" + examplePrefix + "=";
         protected const string synonymRepresentation = "{" + synonymPrefix + "= ";
         protected const string typeRepresentation = "{" + typePrefix + "= ";
+        #endregion
 
+        #region Properties
         public enum Types
         {
             noun,
@@ -29,12 +32,16 @@ namespace TranslationWPF.Model
             undefined
         }
 
-        public string Line { get; set; }
-        public string Value { get; set; }
-        public string Comment { get; set; }
-        public string Example { get; set; }
+        public string Line { get; set; } = "";
+        public string Value { get; set; } = "";
+        public string Comment { get; set; } = "";
+        public string Example { get; set; } = "";
         public List<string> Synonysms { get; set; } = new List<string>();
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
+        #endregion
+
+       
+
         public abstract Types[] GetTypesAvailables();
         public abstract new Types GetType();
         public string GetStringRepresentation()

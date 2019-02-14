@@ -43,12 +43,12 @@ namespace TranslationWPF.ViewModel
         
         private void ExecuteImport()
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
             List<Translation> translations;
             if (ofd.ShowDialog() == true)
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Unformatted);
+                ClearTranslations();
                 foreach (Translation t in translations)
                 {
                     Translations.Add(new TranslationVM()
@@ -62,6 +62,11 @@ namespace TranslationWPF.ViewModel
 
         }
 
+        private void ClearTranslations()
+        {
+            Translations.Clear();
+        }
+
         private void ExecuteFormattedImport()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -69,6 +74,7 @@ namespace TranslationWPF.ViewModel
             if (ofd.ShowDialog() == true)
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Formatted);
+                ClearTranslations();
                 foreach (Translation t in translations)
                 {
                     Translations.Add(new TranslationVM()
@@ -131,7 +137,7 @@ namespace TranslationWPF.ViewModel
             {
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                sfd.FilterIndex = 2;
+                sfd.FilterIndex = 1;
 
                 if (sfd.ShowDialog() == true)
                 {

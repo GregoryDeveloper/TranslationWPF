@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TranslationWPF.Model;
 using TranslationWPF.ViewModel;
 using TranslationWPF.Views;
 
@@ -27,12 +28,36 @@ namespace TranslationWPF
             InitializeComponent();
         }
 
-        private void ImportViewBTN_Click(object sender, RoutedEventArgs e)
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+        }
+
+
+        private void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             ImportView view = new ImportView();
             view.DataContext = new ImportVM();
             view.Show();
             this.Close();
+        }
+
+
+        private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DataContext = new EncodingVM(new French(), new English());
         }
     }
 }
