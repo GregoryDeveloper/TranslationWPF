@@ -24,5 +24,7 @@ namespace TranslationWPF.Views
         {
             InitializeComponent();
         }
+
+
     }
 }

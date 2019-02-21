@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewmodels="clr-namespace:TranslationWPF.ViewModel"
         xmlns:views="clr-namespace:TranslationWPF.Views"
-        mc:Ignorable="d" Height="600" Width="1000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Foreground="White">
+        mc:Ignorable="d" Height="700" Width="1000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Foreground="White">
     <Window.Resources>
         <DataTemplate x:Name="encodingViewTemplate" DataType="{x:Type viewmodels:EncodingVM}">
             <views:EncondingUC DataContext="{Binding}"/>

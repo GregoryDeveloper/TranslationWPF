@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TranslationWPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="Black"/>
@@ -24,35 +24,51 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
+        <StackPanel Grid.ColumnSpan="2">
+            <TextBlock Text="French"  HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Margin="0 30 0 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
                 <TextBlock Text="Word:" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
                 <TextBlock Text="Comment:"  />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10 60 10 10" Height="35">
                 <TextBlock Text="Exemple:"   />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10 60 10 10" Height="35">
                 <TextBlock Text="Type:"   />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
                 <TextBlock Text="Synonyms:"   />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Column="1" >
+        <StackPanel Grid.Column="1" Margin="0 30 0 0">
             <StackPanel Orientation="Horizontal" Height="40" Margin="10">
-                <TextBox Width="150" Margin="5" Padding="2" FontSize="16"/>
+                <TextBox Width="150" Margin="5" Padding="2" FontSize="16" Text="{Binding Word.Value}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="10">
-                <TextBox Width="150" Margin="5" Padding="2" FontSize="16"/>
+            <StackPanel Orientation="Horizontal" Height="80" Margin="10">
+                <TextBox Width="150" 
+                         Margin="5" 
+                         Padding="2" 
+                         FontSize="16" 
+                         Text="{Binding Word.Comment}" 
+                         TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="10" >
-                <TextBox Width="150" Margin="5" Padding="2" FontSize="16"/>
+            <StackPanel Orientation="Horizontal" Height="80" Margin="10" >
+                <TextBox Width="150" 
+                         Margin="5" 
+                         Padding="2" 
+                         FontSize="16" 
+                         Text="{Binding Word.Example}" 
+                         TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35" Margin="10">
-                <ComboBox Width="150" Margin="5" Height="35" Foreground="Black" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" FontSize="10">
+                <ComboBox Width="150" Margin="5" Height="35" Foreground="Black" ItemsSource="{Binding WordTypes}" SelectedItem="{Binding WordSelectedType}" FontSize="10">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -63,13 +79,20 @@
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40" Margin="10">
-                <TextBox x:Name="SynonymsInputTB" Width="110" Margin="5" Padding="2" FontSize="16"/>
+                <TextBox x:Name="SynonymsInputTB" Width="110" Margin="5" Padding="2" FontSize="16" Text="{Binding WordAddingSynonym, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding AddCommand}"
+                                    CommandParameter="1"
+                                    Key="Return"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button Content="Add" Height="25" 
-                        Command="{Binding ElementName=SynonymsInputTB,Path=DataContext.AddCommand}" 
-                        CommandParameter="{Binding Text, ElementName=SynonymsInputTB}"/>
+                        Command="{Binding ElementName=SynonymsInputTB,Path=DataContext.AddCommand}"
+                        CommandParameter="1"
+                         />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="200" Margin="10">
-                <ListBox x:Name="WordLB" Height="200" ItemsSource="{Binding OriginalWordSynonyms}">
+            <StackPanel Orientation="Horizontal" Height="140" Margin="10">
+                <ListBox x:Name="WordLB" Height="140" ItemsSource="{Binding OriginalWordSynonyms}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -78,7 +101,7 @@
                                         FontSize="10"
                                         Margin="5"
                                         Height="20"
-                                        Command="{Binding ElementName=WordLB, Path=DataContext.RemoveCommand}"
+                                        Command="{Binding ElementName=WordLB, Path=DataContext.RemoveWordCommand}"
                                         CommandParameter="{Binding}" />
                             </StackPanel>
                         </DataTemplate>
@@ -87,7 +110,105 @@
                 </ListBox>
             </StackPanel>
         </StackPanel>
-        
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="2">
+            <TextBlock Text="English"  HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Margin="0 30 0 0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
+                <TextBlock Text="Translation:" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
+                <TextBlock Text="Comment:"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10 60 10 10" Height="35">
+                <TextBlock Text="Exemple:"   />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10 60 10 10" Height="35">
+                <TextBlock Text="Type:"   />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
+                <TextBlock Text="Synonyms:"   />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Margin="0 30 0 0">
+            <StackPanel Orientation="Horizontal" Height="40" Margin="10">
+                <TextBox Width="150" Margin="5" Padding="2" FontSize="16" Text="{Binding Translation.Value}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="80" Margin="10">
+                <TextBox Width="150" 
+                         Margin="5" 
+                         Padding="2" 
+                         FontSize="16" 
+                         Text="{Binding Translation.Comment}" 
+                         TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="80" Margin="10" >
+                <TextBox Width="150" 
+                         Margin="5" 
+                         Padding="2" 
+                         FontSize="16" 
+                         Text="{Binding Translation.Example}" 
+                         TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Height="35" Margin="10">
+                <ComboBox Width="150" 
+                          Margin="5" 
+                          Height="35" 
+                          Foreground="Black" 
+                          ItemsSource="{Binding TranslationTypes}" 
+                          SelectedItem="{Binding TranslationSelectedType}" 
+                          FontSize="10">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" Margin="5" HorizontalAlignment="Center" FontSize="10" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="40" Margin="10">
+                <TextBox 
+                    x:Name="TranslationSynonymsInputTB" 
+                    Width="110" 
+                    Margin="5" 
+                    Padding="2" 
+                    FontSize="16" 
+                    Text="{Binding TranslationAddingSynonym, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding AddCommand}" 
+                                    CommandParameter="2"
+                                    Key="Return"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Add" Height="25" 
+                        Command="{Binding AddCommand}" 
+                        CommandParameter="2"
+                         />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="140" Margin="10">
+                <ListBox x:Name="TranslationLB" Height="140" ItemsSource="{Binding TranslatedWordSynonyms}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" Margin="5" HorizontalAlignment="Center" FontSize="10" />
+                                <Button Content="Delete"
+                                        FontSize="10"
+                                        Margin="5"
+                                        Height="20"
+                                        Command="{Binding ElementName=TranslationLB, Path=DataContext.RemoveTranslationCommand}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </StackPanel>
+            <Button Content="Add to the list" Margin="10"/>
+        </StackPanel>
 
 
     </Grid>
