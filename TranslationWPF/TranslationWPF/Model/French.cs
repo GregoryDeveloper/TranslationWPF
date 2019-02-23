@@ -20,5 +20,10 @@ namespace TranslationWPF.Model
         {
             return new Types[] { Types.noun, Types.verb, Types.adjective, Types.adverb };
         }
+
+        public override Language GetNewInstance()
+        {
+            return new French();
+        }
     }
 }

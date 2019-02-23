@@ -46,7 +46,6 @@ namespace TranslationWPF.Model
 
             return false;
         }
-
         // Assumes it is already a verb
         private bool IsPhrasalVerb(string s)
         {
@@ -66,8 +65,6 @@ namespace TranslationWPF.Model
                 return true;
             return false;
         }
-
-
         private bool IsAdverb(string s)
         {
             if (s.Length < 2)
@@ -77,7 +74,6 @@ namespace TranslationWPF.Model
                 return true;
             return false;
         }
-
         private bool IsAdjective(string s)
         {
             foreach (string ending in adjectivesEnding)
@@ -89,6 +85,11 @@ namespace TranslationWPF.Model
                     return true;
             }
             return false;
+        }
+
+        public override Language GetNewInstance()
+        {
+            return new English();
         }
     }
 }

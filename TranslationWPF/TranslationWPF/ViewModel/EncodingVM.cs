@@ -11,8 +11,10 @@ using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
 {
-    public class EncodingVM: INotifyPropertyChanged
+    public class EncodingVM : INotifyPropertyChanged
     {
+        List<Translation> translations;
+
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -22,17 +24,27 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Properties
-        public Language Word { get; set; }
-        public Language Translation { get; set; }
-
-        private string wordAddingSynonym ="";
-        public string WordAddingSynonym
+        private Language word;
+        public Language Word
         {
-            get { return wordAddingSynonym;}
-            set { wordAddingSynonym = value; OnPropertyChanged("WordAddingSynonym");}
+            get { return word; }
+            set { word = value; OnPropertyChanged("Word"); }
+        }
+        private Language translation;
+        public Language Translation
+        {
+            get { return translation; }
+            set { translation = value; OnPropertyChanged("Translation"); }
         }
 
-        private string translationAddingSynonym="";
+        private string wordAddingSynonym = "";
+        public string WordAddingSynonym
+        {
+            get { return wordAddingSynonym; }
+            set { wordAddingSynonym = value; OnPropertyChanged("WordAddingSynonym"); }
+        }
+
+        private string translationAddingSynonym = "";
         public string TranslationAddingSynonym
         {
             get { return translationAddingSynonym; }
@@ -41,7 +53,7 @@ namespace TranslationWPF.ViewModel
 
         public Language.Types[] WordTypes
         {
-            get { return Word.GetTypesAvailables();}
+            get { return Word.GetTypesAvailables(); }
         }
         public Language.Types[] TranslationTypes
         {
@@ -68,10 +80,11 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Constructors
-        public EncodingVM(Language word, Language translation)
+        public EncodingVM(Language word, Language translation, List<Translation> _translations)
         {
             Word = word;
             Translation = translation;
+            translations = _translations;
         }
         #endregion
 
@@ -91,8 +104,15 @@ namespace TranslationWPF.ViewModel
         private CommandHandlerWithParameter _addCommand;
         public CommandHandlerWithParameter AddCommand
         {
-            get { return _addCommand ?? (_addCommand = new CommandHandlerWithParameter((item) => AddHandler((string) item), true)); }
-            
+            get { return _addCommand ?? (_addCommand = new CommandHandlerWithParameter((item) => AddHandler((string)item), true)); }
+
+        }
+
+        private CommandHandler _addWordCommand;
+        public CommandHandler AddWordCommand
+        {
+            get { return _addWordCommand ?? (_addWordCommand = new CommandHandler(() => AddWordHandler(), true)); }
+
         }
 
         #endregion
@@ -114,17 +134,44 @@ namespace TranslationWPF.ViewModel
             {
                 case "1":
                     if (!string.IsNullOrEmpty(WordAddingSynonym))
+                    {
                         OriginalWordSynonyms.Add(WordAddingSynonym);
+                        WordAddingSynonym = "";
+                    }
                     break;
                 case "2":
                     if (!string.IsNullOrEmpty(TranslationAddingSynonym))
+                    {
                         TranslatedWordSynonyms.Add(TranslationAddingSynonym);
+                        TranslationAddingSynonym = "";
+                    }
                     break;
                 default:
                     break;
             }
-            WordAddingSynonym = "";
-            TranslationAddingSynonym = "";
+            
+            
+        }
+        void AddWordHandler()
+        {
+            Word.Type = wordSelectedType.ToString();
+            Word.Synonysms = OriginalWordSynonyms.ToList();
+
+            Translation.Type = TranslationSelectedType.ToString();
+            Translation.Synonysms = TranslatedWordSynonyms.ToList();
+
+            Translation translation = new Translation(Word, Translation);
+
+            translations.Add(translation);
+            ResetUI();
+        }
+        void ResetUI()
+        {
+            Word = Word.GetNewInstance();
+            Translation = Translation.GetNewInstance();
+            OriginalWordSynonyms.Clear();
+            TranslatedWordSynonyms.Clear();
+
         }
         #endregion
     }

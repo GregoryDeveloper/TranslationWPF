@@ -207,7 +207,7 @@
 
                 </ListBox>
             </StackPanel>
-            <Button Content="Add to the list" Margin="10"/>
+            <Button Content="Add to the list" Margin="10" Command="{Binding AddWordCommand}"/>
         </StackPanel>
 
 

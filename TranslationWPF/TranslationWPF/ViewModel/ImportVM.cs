@@ -7,19 +7,40 @@ using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.IO;
 using TranslationWPF.Model;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TranslationWPF.ViewModel
 {
-    public class ImportVM
+    public class ImportVM:INotifyPropertyChanged
     {
+        #region PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
         enum Import
         {
             Formatted,
             Unformatted
         }
 
-        public ObservableCollection<TranslationVM> Translations { get; set; } = new ObservableCollection<TranslationVM>();
-
+        #region Properties
+        private ObservableCollection<TranslationVM> translations;
+        public ObservableCollection<TranslationVM> Translations
+        {
+            get { return translations; }
+            set { translations = value; OnPropertyChanged("Translations");}
+        }
+        
+        #endregion
+        public ImportVM(List<Translation> translations)
+        {
+            Translations = GetTranlationsVM(translations);
+        }
+        #region Commands
         private CommandHandler _importCommand;
         public CommandHandler ImportCommand
         {
@@ -40,7 +61,8 @@ namespace TranslationWPF.ViewModel
             get { return _exportCommand ?? (_exportCommand = new CommandHandler(() => ExecuteFormattedExport(), true)); }
 
         }
-        
+        #endregion
+        #region Methods
         private void ExecuteImport()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -49,15 +71,7 @@ namespace TranslationWPF.ViewModel
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Unformatted);
                 ClearTranslations();
-                foreach (Translation t in translations)
-                {
-                    Translations.Add(new TranslationVM()
-                    {
-                        Translation = t,
-                        Language1 = t.Languages[0],
-                        Language2 = t.Languages[1],
-                    });
-                }
+                Translations = GetTranlationsVM(translations);
             }
 
         }
@@ -75,16 +89,27 @@ namespace TranslationWPF.ViewModel
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Formatted);
                 ClearTranslations();
-                foreach (Translation t in translations)
-                {
-                    Translations.Add(new TranslationVM()
-                    {
-                        Translation = t,
-                        Language1 = t.Languages[0],
-                        Language2 = t.Languages[1],
-                    });
-                }
+                Translations = GetTranlationsVM(translations);
             }
+        }
+
+        /// <summary>
+        ///  Get the view model list representation for the translations given as input
+        /// </summary>
+        /// <param name="translations">The list to convert</param>
+        private ObservableCollection<TranslationVM> GetTranlationsVM(List<Translation> translations)
+        {
+            ObservableCollection<TranslationVM> oTranslations = new ObservableCollection<TranslationVM>();
+            foreach (Translation t in translations)
+            {
+                oTranslations.Add(new TranslationVM()
+                {
+                    Translation = t,
+                    Language1 = t.Languages[0],
+                    Language2 = t.Languages[1],
+                });
+            }
+            return oTranslations;
         }
 
         private List<Translation> GetWordsFromImport(string path, Import import)
@@ -159,5 +184,7 @@ namespace TranslationWPF.ViewModel
 
         }
 
+
+        #endregion
     }
 }

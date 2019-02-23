@@ -12,6 +12,10 @@ namespace TranslationWPF.Model
         public string Line { get; set; }
         public List<Language> Languages { get; set; } = new List<Language>();
 
+        public Translation(params Language[] languages)
+        {
+            Array.ForEach(languages, item => Languages.Add(item));
+        }
 
         public string GetTranslationStringRepresentation()
         {

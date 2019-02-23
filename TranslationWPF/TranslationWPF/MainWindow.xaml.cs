@@ -23,6 +23,7 @@ namespace TranslationWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Translation> translations = new List<Translation>();
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace TranslationWPF
         private void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             ImportView view = new ImportView();
-            view.DataContext = new ImportVM();
+            view.DataContext = new ImportVM(translations);
             view.Show();
             this.Close();
         }
@@ -57,7 +58,7 @@ namespace TranslationWPF
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new EncodingVM(new French(), new English());
+            DataContext = new EncodingVM(new French(), new English(),translations);
         }
     }
 }

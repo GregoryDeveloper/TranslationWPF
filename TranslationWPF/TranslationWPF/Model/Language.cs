@@ -43,7 +43,9 @@ namespace TranslationWPF.Model
        
 
         public abstract Types[] GetTypesAvailables();
+        // Guess the type depending on the word value, only available for English
         public abstract new Types GetType();
+        public abstract Language GetNewInstance();
         public string GetStringRepresentation()
         {
             StringBuilder sb = new StringBuilder();
