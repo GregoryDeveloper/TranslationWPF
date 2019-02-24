@@ -10,7 +10,6 @@ namespace TranslationWPF.Model
         {
 
         }
-
         public TranslationFormattedBuilder(string l)
         {
             line = l;
@@ -41,15 +40,15 @@ namespace TranslationWPF.Model
             return translation;
         }
 
-        public (string, string) Splitline(string line)
+
+
+        private (string, string) Splitline(string line)
         {
             int splitIndex = GetSplitIndex(line);
 
             return (ExtractString(line, 0, splitIndex-1),ExtractString(line,splitIndex+1,line.Length-1));
 
         }
-
-
         private string ExtractString(string s, int startIndex, int endIndex)
         {
             StringBuilder sb = new StringBuilder();
@@ -62,7 +61,6 @@ namespace TranslationWPF.Model
 
             return sb.ToString();
         }
-
         private int GetSplitIndex(string line)
         {
             int i = 0;

@@ -32,7 +32,7 @@ namespace TranslationWPF.Model
             undefined
         }
 
-        public string Line { get; set; } = "";
+        //public string Line { get; set; } = "";
         public string Value { get; set; } = "";
         public string Comment { get; set; } = "";
         public string Example { get; set; } = "";
@@ -53,14 +53,14 @@ namespace TranslationWPF.Model
             sb.Append(commentRepresentation).Append(Comment).Append("}");
             sb.Append(exampleRepresentation).Append(Example).Append("}");
             sb.Append(typeRepresentation).Append(Type).Append("}");
-            sb.Append(synonymRepresentation).Append(GetSyonymsString()).Append("}");
+            sb.Append(synonymRepresentation).Append(GetSynonymsString()).Append("}");
 
             return sb.ToString();
 
         }
         public void FillFromStringRepresenttion(string sRepresentation)
         {
-            Line = sRepresentation;
+            //Line = sRepresentation;
             string[] elements = SplitLine(sRepresentation, '{', '}');
 
             foreach (string item in elements)
@@ -138,7 +138,7 @@ namespace TranslationWPF.Model
             return lines;
         }
 
-        private string GetSyonymsString()
+        private string GetSynonymsString()
         {
             string s = "";
 

@@ -11,10 +11,11 @@ namespace TranslationWPF.Model
         protected string modifiedLine;
         protected Language language;
 
-
+        /// <summary>
+        /// Extract the comment from the unformatted file imported
+        /// </summary>
         public void CommenUnformattedExtraction()
         {
-
             string line = "";
 
             if (!modifiedLine.Contains("(") || !modifiedLine.Contains(")") || modifiedLine.Contains('='))
@@ -46,7 +47,8 @@ namespace TranslationWPF.Model
                 return;
             }
             modifiedLine = lines[0].Remove(lines[0].Length - 2);
-            language.Example = lines[1];
+            language.Example = CleanWhiteSpaces(lines[1]);
+
         }
         public void SynonymsUnformattedExtraction()
         {
@@ -61,6 +63,8 @@ namespace TranslationWPF.Model
             if (wordLine.Contains(','))
             {
                 string[] words = wordLine.Split(',');
+
+                words = ExtractFirstCharIfWhiteSpace(words);
                 wordLine = words[0];
                 synonyms.AddRange(words.Skip(1));
             }
@@ -75,9 +79,6 @@ namespace TranslationWPF.Model
         {
             language.FillFromStringRepresenttion(modifiedLine);
         }
-
-        
-
 
         public abstract Language GetResult();
 
@@ -100,6 +101,23 @@ namespace TranslationWPF.Model
                 return true;
             return false;
         }
-        
+
+        private static string[] ExtractFirstCharIfWhiteSpace(string[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = CleanWhiteSpaces(array[i]);
+            }
+            return array;
+        }
+        private static string CleanWhiteSpaces(string s)
+        {
+            if (Char.IsWhiteSpace(s[0]))
+                s =  s.Remove(0, 1);
+            if (Char.IsWhiteSpace(s[s.Length-1]))
+                s = s.Remove(s.Length - 1, 1);
+
+            return s;
+        }
     }
 }

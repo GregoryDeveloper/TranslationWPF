@@ -20,7 +20,5 @@ namespace TranslationWPF.Model
         {
             languageBuilder.FormattedExtraction();
         }
-
-
     }
 }

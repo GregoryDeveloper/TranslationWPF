@@ -51,7 +51,7 @@ namespace TranslationWPF.Model
         {
             string[] splitVerb = s.Split(' ');
 
-            if (splitVerb.Length > 2)
+            if (splitVerb.Length > 2 || s.Contains('['))
                 return true;
 
             return false;
