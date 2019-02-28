@@ -46,34 +46,34 @@ namespace TranslationWPF.Model
                 language.Example = "";
                 return;
             }
-            modifiedLine = lines[0].Remove(lines[0].Length - 2);
-            language.Example = CleanWhiteSpaces(lines[1]);
+            modifiedLine = lines[0].Remove(lines[0].Length - NumberOfCharToRemove(lines[0], '('));
+            language.Example = CleanWhiteSpaces(lines[1].Replace(")",""));
 
         }
         public void SynonymsUnformattedExtraction()
         {
-            string wordLine = modifiedLine;
+            string wordLine = "";
+            string sSynonyms = "";
             List<string> synonyms = new List<string>();
-            if (wordLine.Contains("(") || wordLine.Contains(")") || wordLine.Contains('='))
+            if (modifiedLine.Contains("(") && modifiedLine.Contains(")") && modifiedLine.Contains('='))
             {
                 wordLine = ExtractUntilCaractere(modifiedLine, 0, '(');
-                synonyms.Add(ExtractUntilCaractere(modifiedLine, modifiedLine.IndexOf('=') + 1, ')'));
+                sSynonyms = ExtractUntilCaractere(modifiedLine, modifiedLine.IndexOf('=') + 1, ')');
             }
-
-            if (wordLine.Contains(','))
+            else if (modifiedLine.Contains(','))
             {
-                string[] words = wordLine.Split(',');
-
-                words = ExtractFirstCharIfWhiteSpace(words);
-                wordLine = words[0];
-                synonyms.AddRange(words.Skip(1));
+                wordLine = ExtractUntilCaractere(modifiedLine, 0, ',');
+                sSynonyms = ExtractUntilCaractere(modifiedLine, modifiedLine.IndexOf(',') + 1);
             }
-            language.Value = wordLine;
-            language.Synonysms = synonyms;
+            else
+                wordLine = modifiedLine;
+
+            language.Value = CleanWhiteSpaces(wordLine);
+            language.Synonysms = GetSynonysms(sSynonyms);
         }
         public void ProceedGetType()
         {
-            language.Type = language.GetType().ToString();
+            language.Type = language.GetType();
         }
         public void FormattedExtraction()
         {
@@ -82,6 +82,13 @@ namespace TranslationWPF.Model
 
         public abstract Language GetResult();
 
+        /// <summary>
+        /// Extract a part of the string starting at a given index and ending at a given character if given
+        /// </summary>
+        /// <param name="line">The string containing the substring to be extracted</param>
+        /// <param name="index">The starting index </param>
+        /// <param name="caractere">Optionnal: the character the extraction stops when it is met</param>
+        /// <returns></returns>
         private string ExtractUntilCaractere(string line, int index, char? caractere = null)
         {
             StringBuilder sb = new StringBuilder();
@@ -102,6 +109,25 @@ namespace TranslationWPF.Model
             return false;
         }
 
+        /// <summary>
+        /// Get a list of synonyms
+        /// </summary>
+        /// <param name="sSynonysms">The string representation of the synonyms</param>
+        /// <returns></returns>
+        private static List<string> GetSynonysms(string sSynonysms)
+        {
+            if (String.IsNullOrEmpty(sSynonysms))
+                return new List<string>();
+
+            string[] words = sSynonysms.Split(',');
+            words = ExtractFirstCharIfWhiteSpace(words);
+            return words.ToList();
+        }
+        /// <summary>
+        /// Clean the white spaces at the beginning and at the end of the string
+        /// </summary>
+        /// <param name="array">The array containing the strings</param>
+        /// <returns></returns>
         private static string[] ExtractFirstCharIfWhiteSpace(string[] array)
         {
             for (int i = 0; i < array.Length; i++)
@@ -112,12 +138,31 @@ namespace TranslationWPF.Model
         }
         private static string CleanWhiteSpaces(string s)
         {
+            if (String.IsNullOrEmpty(s))
+                return s;
+
             if (Char.IsWhiteSpace(s[0]))
-                s =  s.Remove(0, 1);
-            if (Char.IsWhiteSpace(s[s.Length-1]))
+                s = s.Remove(0, 1);
+            if (Char.IsWhiteSpace(s[s.Length - 1]))
                 s = s.Remove(s.Length - 1, 1);
 
             return s;
+        }
+        /// <summary>
+        /// Get the number of character between the last char of the string and the char specified
+        /// return 2 if the specified char is not met
+        /// </summary>
+        /// <param name="s">The string getting processed</param>
+        /// <param name="c">The character to be met</param>
+        /// <returns></returns>
+        private static int NumberOfCharToRemove(string s, char c)
+        {
+            int i = s.Length - 1;
+
+            while (i > -1 && s[i] != c)
+                i--;
+
+            return i != -1 && (s.Length) - i > 2 ? (s.Length) - i : 2;
         }
     }
 }

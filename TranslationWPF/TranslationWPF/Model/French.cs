@@ -8,7 +8,9 @@ namespace TranslationWPF.Model
 {
     public class French : Language
     {
-
+        public French() : base() { }
+        public French(string value, string comment, string example, Types type, List<string> synonysms)
+            : base(value, comment, example, type, synonysms) { }
 
         public override Types GetType()
         {

@@ -10,8 +10,8 @@ namespace TranslationWPF.Model
     {
         public void ConstructUnformattedImport(LanguageBuilder languageBuilder)
         {
-            languageBuilder.CommenUnformattedExtraction();
             languageBuilder.ExampleUnformattedExtraction();
+            languageBuilder.CommenUnformattedExtraction();
             languageBuilder.SynonymsUnformattedExtraction();
             languageBuilder.ProceedGetType();
         }

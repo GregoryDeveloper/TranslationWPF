@@ -154,10 +154,10 @@ namespace TranslationWPF.ViewModel
         }
         void AddWordHandler()
         {
-            Word.Type = wordSelectedType.ToString();
+            Word.Type = wordSelectedType;
             Word.Synonysms = OriginalWordSynonyms.ToList();
 
-            Translation.Type = TranslationSelectedType.ToString();
+            Translation.Type = TranslationSelectedType;
             Translation.Synonysms = TranslatedWordSynonyms.ToList();
 
             Translation translation = new Translation(Word, Translation);

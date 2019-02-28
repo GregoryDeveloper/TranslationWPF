@@ -36,11 +36,24 @@ namespace TranslationWPF.Model
         public string Value { get; set; } = "";
         public string Comment { get; set; } = "";
         public string Example { get; set; } = "";
+        public Types Type { get; set; } = Types.undefined;
         public List<string> Synonysms { get; set; } = new List<string>();
-        public string Type { get; set; } = "";
         #endregion
 
-       
+        #region Constructors
+        protected Language()
+        {
+
+        }
+        protected Language(string value, string comment, string example, Types type ,List<string> synonysms)
+        {
+            this.Value = value;
+            this.Comment = comment;
+            this.Example = example;
+            this.Type = type;
+            this.Synonysms = synonysms;
+        }
+        #endregion
 
         public abstract Types[] GetTypesAvailables();
         // Guess the type depending on the word value, only available for English
@@ -81,7 +94,8 @@ namespace TranslationWPF.Model
                         Synonysms = new List<string>(arr[1].Split(','));
                         break;
                     case typePrefix:
-                        Type = arr[1];
+                        // TODO convert type to the enum type
+                        //Type = arr[1];
                         break;
                     default:
                         break;

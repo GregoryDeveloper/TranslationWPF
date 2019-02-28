@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TranslationWPF.Model;
 
@@ -118,7 +119,7 @@ namespace TrabslationUnitTest
         [TestMethod]
         public void PVTypeUnformattedExtractionSuccessCaseTest1()
         {
-            string expected = English.Types.phrasalVerb.ToString();
+            Language.Types expected = English.Types.phrasalVerb;
             LanguageDirector director = new LanguageDirector();
 
             LanguageBuilder englishBuilder = new LanguageEnglishBuilder("to call[sb]in");
@@ -126,14 +127,14 @@ namespace TrabslationUnitTest
             director.ConstructUnformattedImport(englishBuilder);
             englishBuilder.ProceedGetType();
 
-            string actual = englishBuilder.GetResult().Type;
+            Language.Types actual = englishBuilder.GetResult().Type;
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void PVTypeUnformattedExtractionSuccessCaseTest2()
         {
-           string expected = English.Types.phrasalVerb.ToString();
+            Language.Types expected = English.Types.phrasalVerb;
             LanguageDirector director = new LanguageDirector();
 
             LanguageBuilder englishBuilder = new LanguageEnglishBuilder("to look [sb] over");
@@ -141,14 +142,14 @@ namespace TrabslationUnitTest
             director.ConstructUnformattedImport(englishBuilder);
             englishBuilder.ProceedGetType();
 
-            string actual = englishBuilder.GetResult().Type;
+            Language.Types actual = englishBuilder.GetResult().Type;
             Assert.AreEqual(expected, actual);
         }
         
         [TestMethod]
         public void NounTypeUnformattedExtractionSuccessCaseTest1()
         {
-            string expected = English.Types.noun.ToString();
+            Language.Types expected = English.Types.noun;
             LanguageDirector director = new LanguageDirector();
 
             LanguageBuilder englishBuilder = new LanguageEnglishBuilder("a briefcase");
@@ -156,14 +157,14 @@ namespace TrabslationUnitTest
             director.ConstructUnformattedImport(englishBuilder);
             englishBuilder.ProceedGetType();
 
-            string actual = englishBuilder.GetResult().Type;
+            Language.Types actual = englishBuilder.GetResult().Type;
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void VerbTypeUnformattedExtractionSuccessCaseTest1()
         {
-            string expected = English.Types.verb.ToString();
+            Language.Types expected = English.Types.verb;
             LanguageDirector director = new LanguageDirector();
 
             LanguageBuilder englishBuilder = new LanguageEnglishBuilder("to faint");
@@ -171,9 +172,11 @@ namespace TrabslationUnitTest
             director.ConstructUnformattedImport(englishBuilder);
             englishBuilder.ProceedGetType();
 
-            string actual = englishBuilder.GetResult().Type;
+            Language.Types actual = englishBuilder.GetResult().Type;
             Assert.AreEqual(expected, actual);
         }
+
+       
 
 
     }
