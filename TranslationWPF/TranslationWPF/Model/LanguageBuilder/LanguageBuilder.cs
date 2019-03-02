@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslationWPF.Helper;
 
 namespace TranslationWPF.Model
 {
     public abstract class LanguageBuilder
     {
+       
+
         protected string modifiedLine;
         protected Language language;
 
@@ -47,7 +50,7 @@ namespace TranslationWPF.Model
                 return;
             }
             modifiedLine = lines[0].Remove(lines[0].Length - NumberOfCharToRemove(lines[0], '('));
-            language.Example = CleanWhiteSpaces(lines[1].Replace(")",""));
+            language.Example = StringHelper.CleanWhiteSpaces(lines[1].Replace(")", ""));
 
         }
         public void SynonymsUnformattedExtraction()
@@ -68,7 +71,7 @@ namespace TranslationWPF.Model
             else
                 wordLine = modifiedLine;
 
-            language.Value = CleanWhiteSpaces(wordLine);
+            language.Value = StringHelper.CleanWhiteSpaces(wordLine);
             language.Synonysms = GetSynonysms(sSynonyms);
         }
         public void ProceedGetType()
@@ -77,7 +80,7 @@ namespace TranslationWPF.Model
         }
         public void FormattedExtraction()
         {
-            language.FillFromStringRepresenttion(modifiedLine);
+            language = FormattedStringHelper.FillFromStringRepresention(modifiedLine, language);
         }
 
         public abstract Language GetResult();
@@ -120,34 +123,10 @@ namespace TranslationWPF.Model
                 return new List<string>();
 
             string[] words = sSynonysms.Split(',');
-            words = ExtractFirstCharIfWhiteSpace(words);
+            words = StringHelper.ExtractFirstCharIfWhiteSpace(words);
             return words.ToList();
         }
-        /// <summary>
-        /// Clean the white spaces at the beginning and at the end of the string
-        /// </summary>
-        /// <param name="array">The array containing the strings</param>
-        /// <returns></returns>
-        private static string[] ExtractFirstCharIfWhiteSpace(string[] array)
-        {
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = CleanWhiteSpaces(array[i]);
-            }
-            return array;
-        }
-        private static string CleanWhiteSpaces(string s)
-        {
-            if (String.IsNullOrEmpty(s))
-                return s;
 
-            if (Char.IsWhiteSpace(s[0]))
-                s = s.Remove(0, 1);
-            if (Char.IsWhiteSpace(s[s.Length - 1]))
-                s = s.Remove(s.Length - 1, 1);
-
-            return s;
-        }
         /// <summary>
         /// Get the number of character between the last char of the string and the char specified
         /// return 2 if the specified char is not met
@@ -164,5 +143,11 @@ namespace TranslationWPF.Model
 
             return i != -1 && (s.Length) - i > 2 ? (s.Length) - i : 2;
         }
+
+        #region formatted import
+
+       
+
+        #endregion  
     }
 }

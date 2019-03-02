@@ -66,7 +66,9 @@
     <Compile Include="Commands\CommandHandlerWithParameter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="ExtractionHelper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Model\English.cs" />
+    <Compile Include="Helper\FormattedStringHelper.cs" />
     <Compile Include="Model\French.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\LanguageBuilder\LanguageBuilder.cs" />

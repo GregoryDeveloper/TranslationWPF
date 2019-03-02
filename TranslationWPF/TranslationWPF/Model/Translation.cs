@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslationWPF.Helper;
 
 namespace TranslationWPF.Model
 {
@@ -20,9 +21,9 @@ namespace TranslationWPF.Model
         public string GetTranslationStringRepresentation()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(Languages[0].GetStringRepresentation()).
+            sb.Append(FormattedStringHelper.GetStringRepresentation(Languages[0])).
                Append("=").
-               Append(Languages[1].GetStringRepresentation());
+               Append(FormattedStringHelper.GetStringRepresentation(Languages[1]));
 
             return sb.ToString();
         }

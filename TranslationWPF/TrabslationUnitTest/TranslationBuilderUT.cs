@@ -52,6 +52,62 @@ namespace TrabslationUnitTest
                 AreSameLanguages(expected.Languages[1], actual.Languages[1]));
         }
 
+        [TestMethod]
+        public void FormattedExtractionSuccessCaseTest1()
+        {
+            Translation expected = new Translation(
+                new English("to look [sb] over",
+                    "",
+                    "",
+                    Language.Types.phrasalVerb,
+                    new List<string>() {}),
+
+                new French("regarder",
+                "",
+                "",
+                Language.Types.undefined, new List<string>() { "examiner", })
+                );
+
+            string line = "to look [sb] over {C=}{E=}{T=phrasalVerb}{S=}=regarder {C=}{E=}{T=undefined}{S= examiner}";
+
+            TranslationDirector director = new TranslationDirector();
+            TranslationBuilder translationBuilder;
+            translationBuilder = new TranslationFormattedBuilder(line);
+            director.Construct(translationBuilder);
+            Translation actual = translationBuilder.GetResult();
+
+            Assert.IsTrue(AreSameLanguages(expected.Languages[0], actual.Languages[0]) &&
+                AreSameLanguages(expected.Languages[1], actual.Languages[1]));
+        }
+
+        [TestMethod]
+        public void FormattedExtractionSuccessCaseTest2()
+        {
+            Translation expected = new Translation(
+                new English("to carry out",
+                    "",
+                    "",
+                    Language.Types.phrasalVerb,
+                    new List<string>() { }),
+
+                new French("effectuer",
+                "",
+                "you must carry out the instructions carefully",
+                Language.Types.undefined, new List<string>() { "réaliser", "mener", "mener à éxécution", "suivre", })
+                );
+
+            string line = "to carry out {C=}{E=}{T=phrasalVerb}{S=}=effectuer {C=}{E= you must carry out the instructions carefully}{T=undefined}{S= réaliser, mener, mener à éxécution, suivre }";
+
+            TranslationDirector director = new TranslationDirector();
+            TranslationBuilder translationBuilder;
+            translationBuilder = new TranslationFormattedBuilder(line);
+            director.Construct(translationBuilder);
+            Translation actual = translationBuilder.GetResult();
+
+            Assert.IsTrue(AreSameLanguages(expected.Languages[0], actual.Languages[0]) &&
+                AreSameLanguages(expected.Languages[1], actual.Languages[1]));
+        }
+
         private bool AreSameLanguages(Language expected, Language actual)
         {
             if (expected.Value != actual.Value)
