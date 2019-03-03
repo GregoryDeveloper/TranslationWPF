@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +27,8 @@ namespace TranslationWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        ResourceManager rm;
+        CultureInfo ci;
         List<Translation> translations = new List<Translation>();
         public MainWindow()
         {
@@ -58,7 +64,16 @@ namespace TranslationWPF
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new EncodingVM(new French(), new English(),translations);
+            DataContext = new EncodingVM(new French(), new English(),translations,rm,ci);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //string[] cultureNames = { "en-US", "fr-FR", "ru-RU", "sv-SE" };
+
+            ci = Thread.CurrentThread.CurrentCulture;
+
+            rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
         }
     }
 }

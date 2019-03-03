@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Threading;
 using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
@@ -14,6 +15,8 @@ namespace TranslationWPF.ViewModel
     public class EncodingVM : INotifyPropertyChanged
     {
         List<Translation> translations;
+        ResourceManager rm;
+        CultureInfo ci;
 
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,6 +27,20 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Properties
+
+        #region UI properties
+        private string UIword;
+        public string UIWord
+        {
+            get{
+                return UIword = (UIword == null) ? rm.GetString("word",ci) : UIword;
+            }
+        }
+
+        #endregion
+
+        #region Other properties
+
         private Language word;
         public Language Word
         {
@@ -79,12 +96,16 @@ namespace TranslationWPF.ViewModel
         public ObservableCollection<string> TranslatedWordSynonyms { get; set; } = new ObservableCollection<string>();
         #endregion
 
+        #endregion
+
         #region Constructors
-        public EncodingVM(Language word, Language translation, List<Translation> _translations)
+        public EncodingVM(Language word, Language translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci)
         {
             Word = word;
             Translation = translation;
             translations = _translations;
+            this.rm = rm;
+            this.ci = ci;
         }
         #endregion
 

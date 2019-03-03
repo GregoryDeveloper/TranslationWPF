@@ -30,7 +30,7 @@
 
         <StackPanel Margin="0 30 0 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
-                <TextBlock Text="Word:" />
+                <TextBlock Text="{Binding UIWord}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
                 <TextBlock Text="Comment:"  />
