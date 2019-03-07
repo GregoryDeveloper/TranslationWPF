@@ -32,10 +32,58 @@ namespace TranslationWPF.ViewModel
         private string UIword;
         public string UIWord
         {
-            get{
-                return UIword = (UIword == null) ? rm.GetString("word",ci) : UIword;
-            }
+            get { return UIword = (UIword == null) ? rm.GetString("word", ci) +":" : UIword; }
         }
+
+        private string UItranslation;
+        public string UITranslation
+        {
+            get { return UItranslation = (UItranslation == null) ? rm.GetString("translation", ci) + ":" : UItranslation; }
+        }
+
+        private string UIcomment;
+        public string UIComment
+        {
+            get { return UIcomment = (UIcomment == null) ? rm.GetString("comment", ci) + ":" : UIcomment; }
+        }
+
+        private string UIexemple;
+        public string UIExemple
+        {
+            get { return UIexemple = (UIexemple == null) ? rm.GetString("exemple", ci) + ":" : UIexemple; }
+        }
+
+        private string UIsynonysms;
+        public string UISynonysms
+        {
+            get { return UIsynonysms = (UIsynonysms == null) ? rm.GetString("synonysms", ci) + ":" : UIsynonysms; }
+        }
+
+        private string UItype;
+        public string UIType
+        {
+            get { return UItype = (UItype == null) ? rm.GetString("type", ci) + ":" : UItype; }
+        }
+
+        private string UIaddButton;
+        public string UIAddButton
+        {
+            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci)  : UIaddButton; }
+        }
+
+        private string UIadd;
+        public string UIAdd
+        {
+            get { return UIadd = (UIadd == null) ? rm.GetString("add", ci) : UIadd; }
+        }
+
+        private string UIdelete;
+        public string UIDelete
+        {
+            get { return UIdelete = (UIdelete == null) ? rm.GetString("delete", ci) : UIdelete;}
+        }
+
+
 
         #endregion
 
@@ -170,8 +218,7 @@ namespace TranslationWPF.ViewModel
                 default:
                     break;
             }
-            
-            
+
         }
         void AddWordHandler()
         {
