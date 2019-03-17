@@ -141,6 +141,21 @@
   <data name="type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="validationEmptyStringErrorMessage" xml:space="preserve">
+    <value>Le champ ne peut pas être vide ou remplit avec des espaces blancs </value>
+  </data>
+  <data name="validationFormatStringErrorMessage" xml:space="preserve">
+    <value>Le champ doit contenir des caractères uniquement </value>
+  </data>
+  <data name="validationInvalidStringErrorMessage" xml:space="preserve">
+    <value>Caractères in valides ou </value>
+  </data>
+  <data name="validationLengthStringErrorMessage1" xml:space="preserve">
+    <value>Le champ doit contenir au moins </value>
+  </data>
+  <data name="validationLengthStringErrorMessage2" xml:space="preserve">
+    <value> et moin de </value>
+  </data>
   <data name="word" xml:space="preserve">
     <value>Mot</value>
   </data>

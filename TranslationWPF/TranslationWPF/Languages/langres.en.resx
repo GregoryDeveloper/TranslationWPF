@@ -141,6 +141,24 @@
   <data name="type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="validationEmptyStringErrorMessage" xml:space="preserve">
+    <value>The field cannot be empty or filled with white space</value>
+  </data>
+  <data name="validationExistingStringErrorMessage" xml:space="preserve">
+    <value>The word already exists in the list</value>
+  </data>
+  <data name="validationFormatStringErrorMessage" xml:space="preserve">
+    <value>The field must only contain characters</value>
+  </data>
+  <data name="validationInvalidStringErrorMessage" xml:space="preserve">
+    <value>Illegal characters or </value>
+  </data>
+  <data name="validationLengthStringErrorMessage1" xml:space="preserve">
+    <value>The field must contains at least </value>
+  </data>
+  <data name="validationLengthStringErrorMessage2" xml:space="preserve">
+    <value> and less than </value>
+  </data>
   <data name="word" xml:space="preserve">
     <value>Word</value>
   </data>

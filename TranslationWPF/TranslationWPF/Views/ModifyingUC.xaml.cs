@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TranslationWPF.ViewModel;
 
 namespace TranslationWPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour EncondingUC.xaml
+    /// Logique d'interaction pour ModifyingUC.xaml
     /// </summary>
-    public partial class EncondingUC : UserControl
+    public partial class ModifyingUC : UserControl
     {
-        public EncondingUC()
+        public ModifyingUC()
         {
             InitializeComponent();
         }
-
     }
 }

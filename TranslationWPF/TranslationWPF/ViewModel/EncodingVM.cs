@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,21 +9,49 @@ using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using TranslationWPF.DataValidation;
+using TranslationWPF.Helper;
 using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
 {
-    public class EncodingVM : INotifyPropertyChanged
+    public class EncodingVM : INotifyPropertyChanged, INotifyDataErrorInfo
     {
         List<Translation> translations;
         ResourceManager rm;
         CultureInfo ci;
-
+        // TODO unable the user to add a synonyms that is already in the list and pop up a notification message
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region INotifyDataErrorInfo
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if (String.IsNullOrEmpty(propertyName) || (!HasErrors))
+                return null;
+            return new List<string>() { "Invalid credentials" };
+        }
+        public bool HasErrors { get; set; } = false;
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public bool CheckCredentials()
+        {
+            
+            HasErrors = !new ValueValidation().IsValid(Word.Value, Translation.Value);
+            if (HasErrors)
+            {
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs("Word"));
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs("Translation"));
+            }
+            else
+                return true;
+            return false;
         }
         #endregion
 
@@ -32,7 +61,7 @@ namespace TranslationWPF.ViewModel
         private string UIword;
         public string UIWord
         {
-            get { return UIword = (UIword == null) ? rm.GetString("word", ci) +":" : UIword; }
+            get { return UIword = (UIword == null) ? rm.GetString("word", ci) + ":" : UIword; }
         }
 
         private string UItranslation;
@@ -68,7 +97,7 @@ namespace TranslationWPF.ViewModel
         private string UIaddButton;
         public string UIAddButton
         {
-            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci)  : UIaddButton; }
+            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton; }
         }
 
         private string UIadd;
@@ -80,7 +109,7 @@ namespace TranslationWPF.ViewModel
         private string UIdelete;
         public string UIDelete
         {
-            get { return UIdelete = (UIdelete == null) ? rm.GetString("delete", ci) : UIdelete;}
+            get { return UIdelete = (UIdelete == null) ? rm.GetString("delete", ci) : UIdelete; }
         }
 
 
@@ -93,13 +122,21 @@ namespace TranslationWPF.ViewModel
         public Language Word
         {
             get { return word; }
-            set { word = value; OnPropertyChanged("Word"); }
+            set
+            {
+                word = value;
+                OnPropertyChanged("Word");
+                //CheckCredentials();
+            }
         }
         private Language translation;
         public Language Translation
         {
             get { return translation; }
-            set { translation = value; OnPropertyChanged("Translation"); }
+            set { translation = value;
+                OnPropertyChanged("Translation");
+                //CheckCredentials();
+            }
         }
 
         private string wordAddingSynonym = "";
@@ -144,13 +181,15 @@ namespace TranslationWPF.ViewModel
         public ObservableCollection<string> TranslatedWordSynonyms { get; set; } = new ObservableCollection<string>();
         #endregion
 
+        
+
         #endregion
 
         #region Constructors
-        public EncodingVM(Language word, Language translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci)
+        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci)
         {
-            Word = word;
-            Translation = translation;
+            word = _word;
+            translation = _translation;
             translations = _translations;
             this.rm = rm;
             this.ci = ci;
@@ -183,6 +222,8 @@ namespace TranslationWPF.ViewModel
             get { return _addWordCommand ?? (_addWordCommand = new CommandHandler(() => AddWordHandler(), true)); }
 
         }
+
+
 
         #endregion
 
@@ -220,8 +261,12 @@ namespace TranslationWPF.ViewModel
             }
 
         }
+
         void AddWordHandler()
         {
+            if (!CheckCredentials())
+                return;
+
             Word.Type = wordSelectedType;
             Word.Synonysms = OriginalWordSynonyms.ToList();
 
@@ -241,6 +286,10 @@ namespace TranslationWPF.ViewModel
             TranslatedWordSynonyms.Clear();
 
         }
+
+
         #endregion
+
+
     }
 }

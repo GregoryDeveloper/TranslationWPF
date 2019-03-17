@@ -49,7 +49,6 @@ namespace TranslationWPF.Helper
                         language.Synonysms = StringHelper.ExtractFirstCharIfWhiteSpace(synonysms.ToArray<string>()).ToList();
                         break;
                     case typePrefix:
-                        // TODO convert type to the enum type
                         language.Type = ConvertToTypes(arr[1]);
                         break;
                     default:

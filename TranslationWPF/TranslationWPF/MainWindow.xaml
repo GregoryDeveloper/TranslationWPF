@@ -7,11 +7,15 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewmodels="clr-namespace:TranslationWPF.ViewModel"
         xmlns:views="clr-namespace:TranslationWPF.Views"
-        mc:Ignorable="d" Height="700" Width="1000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Foreground="White" Loaded="Window_Loaded">
+        mc:Ignorable="d" Height="850" Width="1000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Foreground="White" Loaded="Window_Loaded">
     <Window.Resources>
         <DataTemplate x:Name="encodingViewTemplate" DataType="{x:Type viewmodels:EncodingVM}">
             <views:EncondingUC DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="modifingViewTemplate" DataType="{x:Type viewmodels:ModifyWordVM}">
+            <views:ModifyingUC DataContext="{Binding}"/>
+        </DataTemplate>
+
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
@@ -72,7 +76,7 @@
                         <Button x:Name="ButtonLogout" Content="Logout" Click="ButtonLogout_Click" />
                     </StackPanel>
                 </materialDesign:PopupBox>
-                
+
             </StackPanel>
         </Grid>
         <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FF1F3D64">
@@ -98,7 +102,7 @@
                             <TextBlock Text="Insert" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" Width="150">
+                    <ListViewItem Height="60" Width="150" PreviewMouseDown="ListViewItem_PreviewMouseDown">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" VerticalAlignment="Center"  Margin="10"/>
                             <TextBlock Text="Modify" VerticalAlignment="Center" Margin="20 10"/>
@@ -114,7 +118,11 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="GridUC" Margin="60 60 0 0" Width="940">
-            <ContentControl Content="{Binding}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="297*"/>
+                <RowDefinition Height="493*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Content="{Binding}" Grid.RowSpan="2"/>
         </Grid>
 
 

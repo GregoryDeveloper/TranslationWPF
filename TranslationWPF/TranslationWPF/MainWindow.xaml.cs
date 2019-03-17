@@ -35,6 +35,13 @@ namespace TranslationWPF
             InitializeComponent();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ci = Thread.CurrentThread.CurrentCulture;
+
+            rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
+        }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -52,7 +59,6 @@ namespace TranslationWPF
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
         }
 
-
         private void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             ImportView view = new ImportView();
@@ -61,19 +67,13 @@ namespace TranslationWPF
             this.Close();
         }
 
-
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             DataContext = new EncodingVM(new French(), new English(),translations,rm,ci);
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //string[] cultureNames = { "en-US", "fr-FR", "ru-RU", "sv-SE" };
-
-            ci = Thread.CurrentThread.CurrentCulture;
-
-            rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
+            DataContext = new ModifyWordVM(translations);
         }
     }
 }

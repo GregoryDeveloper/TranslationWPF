@@ -9,6 +9,7 @@ using System.IO;
 using TranslationWPF.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TranslationWPF.Helper;
 
 namespace TranslationWPF.ViewModel
 {
@@ -38,7 +39,7 @@ namespace TranslationWPF.ViewModel
         #endregion
         public ImportVM(List<Translation> translations)
         {
-            Translations = GetTranlationsVM(translations);
+            Translations = ConvertionHelper.ConvertTo(translations);
         }
         #region Commands
         private CommandHandler _importCommand;
@@ -71,7 +72,7 @@ namespace TranslationWPF.ViewModel
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Unformatted);
                 ClearTranslations();
-                Translations = GetTranlationsVM(translations);
+                Translations = ConvertionHelper.ConvertTo(translations);
             }
 
         }
@@ -89,29 +90,11 @@ namespace TranslationWPF.ViewModel
             {
                 translations = GetWordsFromImport(ofd.FileName, Import.Formatted);
                 ClearTranslations();
-                Translations = GetTranlationsVM(translations);
+                Translations = ConvertionHelper.ConvertTo(translations);
             }
         }
 
-        /// <summary>
-        ///  Get the view model list representation for the translations given as input
-        /// </summary>
-        /// <param name="translations">The list to convert</param>
-        private ObservableCollection<TranslationVM> GetTranlationsVM(List<Translation> translations)
-        {
-            ObservableCollection<TranslationVM> oTranslations = new ObservableCollection<TranslationVM>();
-            foreach (Translation t in translations)
-            {
-                oTranslations.Add(new TranslationVM()
-                {
-                    Translation = t,
-                    Language1 = t.Languages[0],
-                    Language2 = t.Languages[1],
-                });
-            }
-            return oTranslations;
-        }
-
+       
         private List<Translation> GetWordsFromImport(string path, Import import)
         {
             List<Translation> translations = new List<Translation>();

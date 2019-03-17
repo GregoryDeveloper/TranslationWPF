@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TranslationWPF.Helper;
+using TranslationWPF.ViewModel;
 
 namespace TranslationWPF.Model
 {
