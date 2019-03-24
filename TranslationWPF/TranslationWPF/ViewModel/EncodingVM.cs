@@ -43,7 +43,7 @@ namespace TranslationWPF.ViewModel
         public bool CheckCredentials()
         {
             
-            HasErrors = !new ValueValidation().IsValid(Word.Value, Translation.Value);
+            HasErrors = !new ValueValidation().IsValid(Translation.Language1.Value, Translation.Language2.Value);
             if (HasErrors)
             {
                 ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs("Word"));
@@ -118,25 +118,11 @@ namespace TranslationWPF.ViewModel
 
         #region Other properties
 
-        private Language word;
-        public Language Word
-        {
-            get { return word; }
-            set
-            {
-                word = value;
-                OnPropertyChanged("Word");
-                //CheckCredentials();
-            }
-        }
-        private Language translation;
-        public Language Translation
+        private TranslationVM translation;
+        public TranslationVM Translation
         {
             get { return translation; }
-            set { translation = value;
-                OnPropertyChanged("Translation");
-                //CheckCredentials();
-            }
+            set { translation = value; OnPropertyChanged("Translation"); }
         }
 
         private string wordAddingSynonym = "";
@@ -153,43 +139,16 @@ namespace TranslationWPF.ViewModel
             set { translationAddingSynonym = value; OnPropertyChanged("TranslationAddingSynonym"); }
         }
 
-        public Language.Types[] WordTypes
-        {
-            get { return Word.GetTypesAvailables(); }
-        }
-        public Language.Types[] TranslationTypes
-        {
-            get { return Translation.GetTypesAvailables(); }
-        }
-
-        private Language.Types wordSelectedType;
-        public Language.Types WordSelectedType
-        {
-            get { return wordSelectedType; }
-            set { wordSelectedType = value; OnPropertyChanged("WordSelectedType"); }
-        }
-
-        private Language.Types translationSelectedType;
-        public Language.Types TranslationSelectedType
-        {
-            get { return translationSelectedType; }
-            set { translationSelectedType = value; OnPropertyChanged("TranslationSelectedType"); }
-        }
-
-
-        public ObservableCollection<string> OriginalWordSynonyms { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<string> TranslatedWordSynonyms { get; set; } = new ObservableCollection<string>();
         #endregion
-
-        
 
         #endregion
 
         #region Constructors
         public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci)
         {
-            word = _word;
-            translation = _translation;
+
+            Translation t = new Translation(_word, _translation);
+            Translation = new TranslationVM(t);
             translations = _translations;
             this.rm = rm;
             this.ci = ci;
@@ -228,15 +187,20 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Methods
+        public void SetItem(TranslationVM translation)
+        {
+            Translation = translation;
+        }
+
         void RemoveWordHandler(string item)
         {
-            string itemToRemove = OriginalWordSynonyms.First(w => w == item);
-            OriginalWordSynonyms.Remove(itemToRemove);
+            string itemToRemove = Translation.Language1Synonyms.First(w => w == item);
+            Translation.Language1Synonyms.Remove(itemToRemove);
         }
         void RemoveTranslationHandler(string item)
         {
-            string itemToRemove = TranslatedWordSynonyms.First(w => w == item);
-            TranslatedWordSynonyms.Remove(itemToRemove);
+            string itemToRemove = Translation.Language2Synonyms.First(w => w == item);
+            Translation.Language2Synonyms.Remove(itemToRemove);
         }
         void AddHandler(string item)
         {
@@ -245,14 +209,14 @@ namespace TranslationWPF.ViewModel
                 case "1":
                     if (!string.IsNullOrEmpty(WordAddingSynonym))
                     {
-                        OriginalWordSynonyms.Add(WordAddingSynonym);
+                        Translation.Language1Synonyms.Add(WordAddingSynonym);
                         WordAddingSynonym = "";
                     }
                     break;
                 case "2":
                     if (!string.IsNullOrEmpty(TranslationAddingSynonym))
                     {
-                        TranslatedWordSynonyms.Add(TranslationAddingSynonym);
+                        Translation.Language2Synonyms.Add(TranslationAddingSynonym);
                         TranslationAddingSynonym = "";
                     }
                     break;
@@ -267,26 +231,22 @@ namespace TranslationWPF.ViewModel
             if (!CheckCredentials())
                 return;
 
-            Word.Type = wordSelectedType;
-            Word.Synonysms = OriginalWordSynonyms.ToList();
 
-            Translation.Type = TranslationSelectedType;
-            Translation.Synonysms = TranslatedWordSynonyms.ToList();
+            Translation.Save();
+            Translation translation = Translation.Translation;
 
-            Translation translation = new Translation(Word, Translation);
 
             translations.Add(translation);
             ResetUI();
         }
         void ResetUI()
         {
-            Word = Word.GetNewInstance();
-            Translation = Translation.GetNewInstance();
-            OriginalWordSynonyms.Clear();
-            TranslatedWordSynonyms.Clear();
+            Translation.Language1 = Translation.Language1.GetNewInstance();
+            Translation.Language2 = Translation.Language2.GetNewInstance();
+            Translation.Language1Synonyms.Clear();
+            Translation.Language2Synonyms.Clear();
 
         }
-
 
         #endregion
 

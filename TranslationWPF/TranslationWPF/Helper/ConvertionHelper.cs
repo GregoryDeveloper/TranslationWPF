@@ -20,15 +20,17 @@ namespace TranslationWPF.Helper
             ObservableCollection<TranslationVM> oTranslations = new ObservableCollection<TranslationVM>();
             foreach (Translation t in translations)
             {
-                oTranslations.Add(new TranslationVM()
-                {
-                    Translation = t,
-                    Language1 = t.Languages[0],
-                    Language2 = t.Languages[1],
-                });
+                oTranslations.Add(new TranslationVM(t));
             }
             return oTranslations;
         }
+
+        //public static Translation ConvertTo(TranslationVM translation)
+        //{
+        //    Translation t = new Translation(translation.Language1, translation.Language2);
+
+        //    return t;
+        //}
 
     }
 }

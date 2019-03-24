@@ -27,11 +27,27 @@ namespace TranslationWPF.ViewModel
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations"); }
         }
-
+        public EncodingVM EncodingVM { get; set; }
         #endregion
-        public ModifyWordVM(List<Translation> translations)
+        public ModifyWordVM(List<Translation> translations,EncodingVM encodingVM)
         {
-            this.translations = ConvertionHelper.ConvertTo(translations);
+            EncodingVM = encodingVM;
+            Translations = ConvertionHelper.ConvertTo(translations);
         }
+
+        #region Command
+        private CommandHandlerWithParameter _selectionCommand;
+        public CommandHandlerWithParameter SelectionCommand
+        {
+            get { return _selectionCommand ?? (_selectionCommand = new CommandHandlerWithParameter((item) => SelectionHandler((TranslationVM)item), true)); }
+
+        }
+        #endregion
+
+        private void SelectionHandler(TranslationVM translation)
+        {
+            EncodingVM.SetItem(translation);
+        }
+
     }
 }

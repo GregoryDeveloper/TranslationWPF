@@ -66,7 +66,7 @@
                          FontSize="16"                         
                          Style="{StaticResource textBoxInError}">
                     <TextBox.Text>
-                        <Binding Path="Word.Value" UpdateSourceTrigger="PropertyChanged" ValidatesOnNotifyDataErrors="True">
+                        <Binding Path="Translation.Language1.Value" UpdateSourceTrigger="PropertyChanged" ValidatesOnNotifyDataErrors="True">
                             <Binding.ValidationRules>
                                 <validation:ValueValidation/>
                             </Binding.ValidationRules>
@@ -80,7 +80,7 @@
                          Margin="5" 
                          Padding="2" 
                          FontSize="16" 
-                         Text="{Binding Word.Comment}" 
+                         Text="{Binding Translation.Language1.Comment}" 
                          TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
@@ -89,12 +89,14 @@
                          Margin="5" 
                          Padding="2" 
                          FontSize="16" 
-                         Text="{Binding Word.Example}" 
+                         Text="{Binding Translation.Language1.Example}" 
                          TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35" Margin="10">
-                <ComboBox Width="150" Margin="5" Height="35" Foreground="Black" ItemsSource="{Binding WordTypes}" SelectedItem="{Binding WordSelectedType}" FontSize="10">
+                <ComboBox Width="150" Margin="5" Height="35" Foreground="Black" 
+                          ItemsSource="{Binding Translation.WordTypes}" 
+                          SelectedItem="{Binding Translation.WordSelectedType}" FontSize="10">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -126,7 +128,7 @@
                          />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="140" Margin="10">
-                <ListBox x:Name="WordLB" Height="140" ItemsSource="{Binding OriginalWordSynonyms}">
+                <ListBox x:Name="WordLB" Height="140" ItemsSource="{Binding Translation.Language1Synonyms}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -170,7 +172,7 @@
                          FontSize="16"                         
                          Style="{StaticResource textBoxInError}">
                     <TextBox.Text>
-                        <Binding Path="Translation.Value" UpdateSourceTrigger="PropertyChanged" ValidatesOnNotifyDataErrors="True">
+                        <Binding Path="Translation.Language2.Value" UpdateSourceTrigger="PropertyChanged" ValidatesOnNotifyDataErrors="True">
                             <Binding.ValidationRules>
                                 <validation:ValueValidation/>
                             </Binding.ValidationRules>
@@ -183,7 +185,7 @@
                          Margin="5" 
                          Padding="2" 
                          FontSize="16" 
-                         Text="{Binding Translation.Comment}" 
+                         Text="{Binding Translation.Language2.Comment}" 
                          TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
@@ -192,7 +194,7 @@
                          Margin="5" 
                          Padding="2" 
                          FontSize="16" 
-                         Text="{Binding Translation.Example}" 
+                         Text="{Binding Translation.Language2.Example}" 
                          TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto"/>
             </StackPanel>
@@ -202,8 +204,8 @@
                           Margin="5" 
                           Height="35" 
                           Foreground="Black" 
-                          ItemsSource="{Binding TranslationTypes}" 
-                          SelectedItem="{Binding TranslationSelectedType}" 
+                          ItemsSource="{Binding Translation.TranslationTypes}" 
+                          SelectedItem="{Binding Translation.TranslationSelectedType}" 
                           FontSize="10">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -239,7 +241,7 @@
                          />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="140" Margin="10">
-                <ListBox x:Name="TranslationLB" Height="140" ItemsSource="{Binding TranslatedWordSynonyms}">
+                <ListBox x:Name="TranslationLB" Height="140" ItemsSource="{Binding Translation.Language2Synonyms}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

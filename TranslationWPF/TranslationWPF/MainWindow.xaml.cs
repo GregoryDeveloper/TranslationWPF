@@ -40,6 +40,24 @@ namespace TranslationWPF
             ci = Thread.CurrentThread.CurrentCulture;
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
+
+            translations.Add(new Translation(
+                new French() { Value = "essayer" },
+                new English() { Value = "to try" }));         
+               
+            translations.Add(new Translation(
+                    new French()
+                    {
+                        Value = "manger",
+                        Synonysms = { "dévorer", "déguster" }
+                    },
+                    new English()
+                    {
+                        Value = "to eat"
+                    }));
+            translations.Add(new Translation(
+                    new French() { Value = "dormir" },
+                    new English() { Value = "to sleep" }));
         }
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
@@ -73,7 +91,7 @@ namespace TranslationWPF
         }
         private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new ModifyWordVM(translations);
+            DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci));
         }
     }
 }
