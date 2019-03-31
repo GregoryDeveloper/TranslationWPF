@@ -31,7 +31,7 @@
                 <AdornedElementPlaceholder/>
             </DockPanel>
         </ControlTemplate>
- 
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -261,6 +261,7 @@
             <Button Content="{Binding UIAddButton}"
                     Margin="10" 
                     Command="{Binding AddWordCommand}" 
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     />
         </StackPanel>
 

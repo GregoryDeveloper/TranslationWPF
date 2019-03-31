@@ -20,7 +20,7 @@ namespace TranslationWPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion  
-        private static int count { get; set; } = 0;
+
         #region Properies
 
         public int Id { get; }
@@ -110,10 +110,10 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
+        private TranslationVM() { }
         public TranslationVM(Translation translation)
         {
-            Id = count;
-            count++;
+            Id = translation.Id;
 
             Language1 = translation.Languages[0];
             Language2 = translation.Languages[1];

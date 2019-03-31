@@ -11,12 +11,15 @@ namespace TranslationWPF.Model
 {
     public class Translation
     {
+        private static int count { get; set; } = 0;
+        public int Id { get; }
         public string Line { get; set; }
         public List<Language> Languages { get; set; } = new List<Language>();
-
         public Translation(params Language[] languages)
         {
             Array.ForEach(languages, item => Languages.Add(item));
+            Id = count;
+            count++;
         }
 
         public string GetTranslationStringRepresentation()
@@ -28,8 +31,6 @@ namespace TranslationWPF.Model
 
             return sb.ToString();
         }
-
-
 
     }
 }

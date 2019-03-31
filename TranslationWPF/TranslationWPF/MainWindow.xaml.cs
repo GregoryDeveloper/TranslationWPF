@@ -87,11 +87,11 @@ namespace TranslationWPF
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new EncodingVM(new French(), new English(),translations,rm,ci);
+            DataContext = new EncodingVM(new French(), new English(),translations,rm,ci,true);
         }
         private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci));
+            DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci,false));
         }
     }
 }

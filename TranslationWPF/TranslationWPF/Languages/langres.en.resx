@@ -132,6 +132,9 @@
   <data name="exemple" xml:space="preserve">
     <value>Exemple</value>
   </data>
+  <data name="modifyWord" xml:space="preserve">
+    <value>Modify word</value>
+  </data>
   <data name="synonysms" xml:space="preserve">
     <value>Synonysms</value>
   </data>

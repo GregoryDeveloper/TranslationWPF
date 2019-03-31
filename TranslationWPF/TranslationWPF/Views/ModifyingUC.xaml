@@ -29,10 +29,12 @@
         <DockPanel LastChildFill="True">
             <DataGrid DockPanel.Dock="Top" 
                       ItemsSource="{Binding Translations}" 
+                      SelectedItem="{Binding SelectedItem}"
                       AutoGenerateColumns="False" 
                       RowHeight="40" 
                       Height="120" 
                       Margin="100 10"
+                      CanUserAddRows="True"
                       >
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="French" Width="2*" IsReadOnly="True" >
@@ -64,7 +66,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            <Button DockPanel.Dock="Left" Width="40" Height="60" VerticalAlignment="Top" Margin="0 200">
+            <Button DockPanel.Dock="Left" Width="40" Height="60" VerticalAlignment="Top" Margin="0 200" Command="{Binding PreviousElementCommand}">
 
                 <Button.Content>
                     <TextBlock Width="15" Height="30" HorizontalAlignment="Center">
@@ -82,7 +84,7 @@
                     </TextBlock>
                 </Button.Content>-->
             </Button>
-            <Button DockPanel.Dock="Right" Width="40" Height="60" VerticalAlignment="Top" Margin="0 200" >
+            <Button DockPanel.Dock="Right" Width="40" Height="60" VerticalAlignment="Top" Margin="0 200" Command="{Binding NextElementCommand}">
                 <Button.Content>
                     <TextBlock Width="15" Height="30" HorizontalAlignment="Center">
                         <TextBlock.Background>

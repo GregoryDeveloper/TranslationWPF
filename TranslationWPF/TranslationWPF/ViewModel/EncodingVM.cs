@@ -93,12 +93,18 @@ namespace TranslationWPF.ViewModel
         {
             get { return UItype = (UItype == null) ? rm.GetString("type", ci) + ":" : UItype; }
         }
-
+        
         private string UIaddButton;
         public string UIAddButton
         {
-            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton; }
+            get
+            {
+                //string display = UIAddButtonAction == "add" ?  : rm.GetString("modifyWord", ci);
+                return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton;
+            }
         }
+
+        public bool IsVisible { get; set; }
 
         private string UIadd;
         public string UIAdd
@@ -111,8 +117,6 @@ namespace TranslationWPF.ViewModel
         {
             get { return UIdelete = (UIdelete == null) ? rm.GetString("delete", ci) : UIdelete; }
         }
-
-
 
         #endregion
 
@@ -139,12 +143,14 @@ namespace TranslationWPF.ViewModel
             set { translationAddingSynonym = value; OnPropertyChanged("TranslationAddingSynonym"); }
         }
 
+        private string _UIAddButtonAction;
+
         #endregion
 
         #endregion
 
         #region Constructors
-        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci)
+        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci,bool displayAddButton)
         {
 
             Translation t = new Translation(_word, _translation);
@@ -152,6 +158,7 @@ namespace TranslationWPF.ViewModel
             translations = _translations;
             this.rm = rm;
             this.ci = ci;
+            IsVisible = displayAddButton;
         }
         #endregion
 
@@ -175,10 +182,10 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        private CommandHandler _addWordCommand;
-        public CommandHandler AddWordCommand
+        private CommandHandlerWithParameter _addWordCommand;
+        public CommandHandlerWithParameter AddWordCommand
         {
-            get { return _addWordCommand ?? (_addWordCommand = new CommandHandler(() => AddWordHandler(), true)); }
+            get { return _addWordCommand ?? (_addWordCommand = new CommandHandlerWithParameter((item) => AddWordHandler((string)item), true)); }
 
         }
 
@@ -226,19 +233,23 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        void AddWordHandler()
+        void AddWordHandler(string item)
         {
             if (!CheckCredentials())
                 return;
 
+                AddItemToList();
+        }
 
+        void AddItemToList()
+        {
             Translation.Save();
             Translation translation = Translation.Translation;
-
 
             translations.Add(translation);
             ResetUI();
         }
+
         void ResetUI()
         {
             Translation.Language1 = Translation.Language1.GetNewInstance();
