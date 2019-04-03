@@ -1,0 +1,59 @@
+﻿<Window x:Class="TranslationWPF.Views.ResultView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TranslationWPF.Views"
+        mc:Ignorable="d"
+        Title="ResultView" Height="600" Width="1000">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="SaddleBrown"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Row="0" Margin="10" ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mot" Binding="{Binding Translation.Language1.Value}"/>
+                <DataGridTextColumn Header="Traduction" Binding="{Binding Translation.Language2.Value}"/>
+                
+                <DataGridTextColumn Header="Valeur(s) correctes" Binding="{Binding CorrectValues}"/>
+
+                <DataGridTextColumn Header="Valeur" Binding="{Binding Translation.Training.Input}"/>
+                <DataGridTextColumn Header="Nombre d'erreur" Binding="{Binding Translation.Training.MistakesCount}"/>
+                <DataGridTextColumn Header="Trouvé" Binding="{Binding Translation.Training.Found}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="1" Margin="10" VerticalAlignment="Center">
+            <Button Content=">>" Margin="0 5" Command="{Binding AddElementCommand}"/>
+            <Button Content="&lt;&lt;" Margin="0 5" Command="{Binding RemoveElementCommand}"/>
+            <Button Content="Ajouter les &#10;non trouvés" Margin="0 5" FontSize="10" Command="{Binding AddNotFoundElementCommand}"/>
+            <Button Content="Ajouter les &#10;érronés" Margin="0 5" FontSize="10" Command="{Binding AddMistakesElementCommand}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="0" Grid.Column="2" Margin="10" ItemsSource="{Binding Trainings}" SelectedItem="{Binding SelectedItem2}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mot" Binding="{Binding Translation.Language1.Value}"/>
+                <DataGridTextColumn Header="Traduction" Binding="{Binding Translation.Language2.Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="1" Grid.Column="2" Content="Fermer" Width="150" HorizontalAlignment="Right" Margin="15" Click="Button_Click"/>
+
+    </Grid>
+</Window>

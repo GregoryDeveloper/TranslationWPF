@@ -82,7 +82,7 @@ namespace TranslationWPF.ViewModel
         {
             SelectedItem = SelectedItem == null || SelectedItem == Translations.First()
                ? Translations.Last()
-               : Translations.Where(t => t.Id == SelectedItem.Id + 1).First();
+               : Translations.Where(t => t.Id == SelectedItem.Id - 1).First();
 
             EncodingVM.SetItem(SelectedItem);
         }

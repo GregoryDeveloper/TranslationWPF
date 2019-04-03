@@ -108,6 +108,8 @@ namespace TranslationWPF.ViewModel
                 return _synonyms2String;
             }
         }
+
+        public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
 
         private TranslationVM() { }
@@ -138,4 +140,8 @@ namespace TranslationWPF.ViewModel
         }
 
     }
+
+
+
 }
+

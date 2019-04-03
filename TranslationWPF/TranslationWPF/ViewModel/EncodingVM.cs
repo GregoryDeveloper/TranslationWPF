@@ -42,7 +42,7 @@ namespace TranslationWPF.ViewModel
 
         public bool CheckCredentials()
         {
-            
+
             HasErrors = !new ValueValidation().IsValid(Translation.Language1.Value, Translation.Language2.Value);
             if (HasErrors)
             {
@@ -93,15 +93,11 @@ namespace TranslationWPF.ViewModel
         {
             get { return UItype = (UItype == null) ? rm.GetString("type", ci) + ":" : UItype; }
         }
-        
+
         private string UIaddButton;
         public string UIAddButton
         {
-            get
-            {
-                //string display = UIAddButtonAction == "add" ?  : rm.GetString("modifyWord", ci);
-                return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton;
-            }
+            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton; }
         }
 
         public bool IsVisible { get; set; }
@@ -143,14 +139,12 @@ namespace TranslationWPF.ViewModel
             set { translationAddingSynonym = value; OnPropertyChanged("TranslationAddingSynonym"); }
         }
 
-        private string _UIAddButtonAction;
-
         #endregion
 
         #endregion
 
         #region Constructors
-        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci,bool displayAddButton)
+        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci, bool displayAddButton)
         {
 
             Translation t = new Translation(_word, _translation);
@@ -238,7 +232,7 @@ namespace TranslationWPF.ViewModel
             if (!CheckCredentials())
                 return;
 
-                AddItemToList();
+            AddItemToList();
         }
 
         void AddItemToList()

@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandHandlerWithParameter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Converter\BooleanToStringConverter.cs" />
     <Compile Include="DataValidation\SynonysmValidation.cs" />
     <Compile Include="DataValidation\ValueValidation.cs" />
     <Compile Include="ExtractionHelper.cs" />
@@ -108,6 +109,10 @@
     <Compile Include="ViewModel\EncodingVM.cs" />
     <Compile Include="ViewModel\ImportVM.cs" />
     <Compile Include="ViewModel\ModifyWordVM.cs" />
+    <Compile Include="ViewModel\ResultsVM.cs" />
+    <Compile Include="ViewModel\ResultVM.cs" />
+    <Compile Include="ViewModel\TrainingVM.cs" />
+    <Compile Include="ViewModel\TranslationTrainingVM.cs" />
     <Compile Include="ViewModel\TranslationVM.cs" />
     <Compile Include="Views\EncondingUC.xaml.cs">
       <DependentUpon>EncondingUC.xaml</DependentUpon>
@@ -117,6 +122,12 @@
     </Compile>
     <Compile Include="Views\ModifyingUC.xaml.cs">
       <DependentUpon>ModifyingUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultView.xaml.cs">
+      <DependentUpon>ResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrainingUC.xaml.cs">
+      <DependentUpon>TrainingUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +150,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModifyingUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TrainingUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

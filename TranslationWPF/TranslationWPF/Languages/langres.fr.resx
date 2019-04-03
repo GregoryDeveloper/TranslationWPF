@@ -126,14 +126,32 @@
   <data name="comment" xml:space="preserve">
     <value>Commentaire</value>
   </data>
+  <data name="correct" xml:space="preserve">
+    <value>Correct</value>
+  </data>
   <data name="delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
   <data name="exemple" xml:space="preserve">
     <value>Example</value>
   </data>
+  <data name="incorrect" xml:space="preserve">
+    <value>Incorrect</value>
+  </data>
   <data name="modifyWord" xml:space="preserve">
     <value>modifier le mot</value>
+  </data>
+  <data name="nextButtonUI" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="previousButtonUI" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="submitForm" xml:space="preserve">
+    <value>Confirmation de soumission du formulaire</value>
+  </data>
+  <data name="submitFormMessage" xml:space="preserve">
+    <value>C'était le dernier élément de la liste. Voulez-vous soumettre le formulaire ?</value>
   </data>
   <data name="synonysms" xml:space="preserve">
     <value>Synonymes</value>
@@ -143,6 +161,9 @@
   </data>
   <data name="type" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="validateButtonUI" xml:space="preserve">
+    <value>Valider</value>
   </data>
   <data name="validationEmptyStringErrorMessage" xml:space="preserve">
     <value>Le champ ne peut pas être vide ou remplit avec des espaces blancs </value>

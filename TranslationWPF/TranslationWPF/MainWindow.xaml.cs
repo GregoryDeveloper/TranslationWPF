@@ -91,7 +91,19 @@ namespace TranslationWPF
         }
         private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci,false));
+            ListViewItem item = sender as ListViewItem;
+            switch (item.Name)
+            {
+                case "LBModify":
+                    DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci,false));
+                    break;
+                case "LBPratice":
+                    DataContext = new TrainingVM(translations, rm, ci);
+                    break;
+                default:
+                    break;
+            }
         }
+
     }
 }
