@@ -28,6 +28,15 @@ namespace TranslationWPF.ViewModel
         {
 
         }
+
+        public void Refresh()
+        {
+            Input = "";
+            MistakesCount = 0;
+            HasTried = false;
+            foundCount = null;
+        }
+
     }
 
 

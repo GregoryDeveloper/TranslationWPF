@@ -48,7 +48,6 @@ namespace TranslationWPF.Model
         // Guess the type depending on the word value, only available for English
         public abstract new Types GetType();
         public abstract Language GetNewInstance();
-
        
 
     }

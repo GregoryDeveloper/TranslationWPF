@@ -38,6 +38,10 @@
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding ValidateCommand}"                                 
                                     Key="Return"/>
+                        <KeyBinding Command="{Binding PreviousCommand}"                                 
+                                    Key="Left"/>
+                        <KeyBinding Command="{Binding NextCommand}"                                 
+                                    Key="Right"/>
                     </TextBox.InputBindings>
                 </TextBox>
 
@@ -58,7 +62,7 @@
                     Content="{Binding NextButtonUI}" 
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Right"
-                    Margin="20 5" 
+                    Margin="20 20" 
                     Width="100"
                     Command="{Binding NextCommand}"/>
             <Button Grid.ColumnSpan="2" 
@@ -67,9 +71,15 @@
                     Content="{Binding PreviousButtonUI}" 
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Left"
-                    Margin="20 5" 
+                    Margin="20 20" 
                     Width="100"
                     Command="{Binding PreviousCommand}"/>
+            <Grid.InputBindings>
+                <KeyBinding Command="{Binding PreviousCommand}"                                 
+                                    Key="Left"/>
+                <KeyBinding Command="{Binding NextCommand}"                                 
+                                    Key="Right"/>
+            </Grid.InputBindings>
         </Grid>
 
 

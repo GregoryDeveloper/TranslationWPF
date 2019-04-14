@@ -15,12 +15,15 @@ namespace TranslationWPF.ViewModel
         public ResultVM SelectedItem { get; set; }
         public ResultVM SelectedItem2 { get; set; }
 
+        private ObservableCollection<TranslationVM> translations;
+
         public ResultsVM(ObservableCollection<TranslationVM> translations)
         {
             foreach (TranslationVM item in translations)
             {
                 Results.Add(new ResultVM(item));
-            }          
+            }
+            this.translations= translations ;
         }
 
         #region Commands
@@ -48,18 +51,25 @@ namespace TranslationWPF.ViewModel
         {
             get { return _addMistakesElementCommand ?? (_addMistakesElementCommand = new CommandHandler(() => AddMistakesElementHandler(), true)); }
         }
+
+        private CommandHandler _closeCommand;
+        public CommandHandler CloseCommand
+        {
+            get { return _closeCommand ?? (_closeCommand = new CommandHandler(() => CloseHandler(), true)); }
+        }
+        
         #endregion
 
         #region Methods
         void AddElementHandler()
         {
-            if (!Trainings.Any(t => t.Translation.Id == SelectedItem.Translation.Id))
+            if (SelectedItem != null && !Trainings.Any(t => t.Translation.Id == SelectedItem.Translation.Id))
                 Trainings.Add(SelectedItem);
         }
 
         void RemoveElementHandler()
         {
-            if (Trainings.Any(t => t.Translation.Id == SelectedItem2.Translation.Id))
+            if (SelectedItem2 != null && Trainings.Any(t => t.Translation.Id == SelectedItem2.Translation.Id))
                 Trainings.Remove(SelectedItem2);
         }
 
@@ -83,6 +93,19 @@ namespace TranslationWPF.ViewModel
             {
                 if (!data.Any(d => d.Translation.Id == item.Translation.Id))
                     Trainings.Add(item);
+            }
+        }
+
+        void CloseHandler()
+        {
+            translations.Clear();
+            foreach (ResultVM item in Trainings)
+            {
+                TranslationVM translation = Results
+                                .Where(r => r.Translation.Id == item.Translation.Id)
+                                .Select(r => r.Translation)
+                                .First();
+                translations.Add(translation);
             }
         }
         #endregion

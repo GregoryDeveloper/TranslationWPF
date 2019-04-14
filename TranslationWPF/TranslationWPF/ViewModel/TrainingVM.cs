@@ -106,7 +106,14 @@ namespace TranslationWPF.ViewModel
                 {
                     ResultView view = new ResultView();
                     view.DataContext = new ResultsVM(Translations);
-                    view.Show();
+                    view.ShowDialog();
+
+                    foreach (var t in Translations)
+                    {
+                        t.Training.Refresh();
+                    }
+
+                    SelectedItem = Translations.First();
                     //this.Close();
                 }
                
@@ -121,14 +128,16 @@ namespace TranslationWPF.ViewModel
             if (SelectedItem.Training.Input == SelectedItem.Language2.Value)
             {
                 SelectedItem.Training.Found = true;
+                SelectedItem.Training.HasTried = true;
                 NextElementHandler();
             }
             else
             {
                 SelectedItem.Training.Found = false;
                 SelectedItem.Training.MistakesCount++;
+                SelectedItem.Training.HasTried = true;
             }
-            SelectedItem.Training.HasTried = true;
         }
+
     }
 }
