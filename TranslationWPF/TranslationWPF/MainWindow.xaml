@@ -15,7 +15,7 @@
         <DataTemplate x:Name="modifingViewTemplate" DataType="{x:Type viewmodels:ModifyWordVM}">
             <views:ModifyingUC DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate x:Name="trainingViewTemplate" DataType="{x:Type viewmodels:TrainingVM}">
+        <DataTemplate x:Name="trainingViewTemplate" DataType="{x:Type viewmodels:TrainingsVM}">
             <views:TrainingUC DataContext="{Binding}"/>
         </DataTemplate>
 

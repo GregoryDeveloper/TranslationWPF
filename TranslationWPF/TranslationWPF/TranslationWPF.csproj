@@ -111,8 +111,8 @@
     <Compile Include="ViewModel\ModifyWordVM.cs" />
     <Compile Include="ViewModel\ResultsVM.cs" />
     <Compile Include="ViewModel\ResultVM.cs" />
+    <Compile Include="ViewModel\TrainingsVM.cs" />
     <Compile Include="ViewModel\TrainingVM.cs" />
-    <Compile Include="ViewModel\TranslationTrainingVM.cs" />
     <Compile Include="ViewModel\TranslationVM.cs" />
     <Compile Include="Views\EncondingUC.xaml.cs">
       <DependentUpon>EncondingUC.xaml</DependentUpon>

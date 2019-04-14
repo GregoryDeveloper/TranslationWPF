@@ -29,7 +29,7 @@
             <TextBlock Text="{Binding SelectedItem.Language1.Value}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 40"/>
             <StackPanel Grid.Column="1" Orientation="Vertical">
 
-                <TextBox Text="{Binding SelectedItem.Training.Input,UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox Text="{Binding SelectedItem.Input,UpdateSourceTrigger=PropertyChanged}" 
                      FontSize="30" 
                      HorizontalAlignment="Center" 
                      VerticalAlignment="Top" 
@@ -45,7 +45,7 @@
                     </TextBox.InputBindings>
                 </TextBox>
 
-                <TextBlock Text="{Binding SelectedItem.Training.Found, Converter={StaticResource BoolToStringConverter}}"/>
+                <TextBlock Text="{Binding SelectedItem.Found, Converter={StaticResource BoolToStringConverter}}"/>
             </StackPanel>
             <Button Grid.ColumnSpan="2" 
                     Grid.Column="0" 

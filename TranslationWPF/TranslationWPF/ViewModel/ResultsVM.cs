@@ -4,26 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
 {
     public class ResultsVM
     {
         public ObservableCollection<ResultVM> Results { get; set; } = new ObservableCollection<ResultVM>();
-        public ObservableCollection<ResultVM> Trainings { get; set; } = new ObservableCollection<ResultVM>();
+        public ObservableCollection<TrainingVM> Trainings { get; set; } = new ObservableCollection<TrainingVM>();
 
         public ResultVM SelectedItem { get; set; }
         public ResultVM SelectedItem2 { get; set; }
 
-        private ObservableCollection<TranslationVM> translations;
-
-        public ResultsVM(ObservableCollection<TranslationVM> translations)
+        public ResultsVM(ObservableCollection<TrainingVM> results)
         {
-            foreach (TranslationVM item in translations)
+            foreach (TrainingVM item in results)
             {
                 Results.Add(new ResultVM(item));
-            }
-            this.translations= translations ;
+            }            
         }
 
         #region Commands
@@ -63,50 +61,42 @@ namespace TranslationWPF.ViewModel
         #region Methods
         void AddElementHandler()
         {
-            if (SelectedItem != null && !Trainings.Any(t => t.Translation.Id == SelectedItem.Translation.Id))
-                Trainings.Add(SelectedItem);
+            if (SelectedItem != null && !Trainings.Any(t => t.Id == SelectedItem.Training.Id))
+                Trainings.Add(SelectedItem.Training);
         }
 
         void RemoveElementHandler()
         {
-            if (SelectedItem2 != null && Trainings.Any(t => t.Translation.Id == SelectedItem2.Translation.Id))
-                Trainings.Remove(SelectedItem2);
+            if (SelectedItem2 != null && Trainings.Any(t => t.Id == SelectedItem2.Training.Id))
+                Trainings.Remove(SelectedItem2.Training);
         }
 
         void AddNotFoundElementHandler()
         {
-            var result = Results.Where(r => r.Translation.Training.Found != true);
+            var result = Results.Where(r => r.Training.Found != true);
             List<ResultVM> notFoundList = new List<ResultVM>(result);
             AddIfNotExist(notFoundList, Trainings);
         }
 
         void AddMistakesElementHandler()
         {
-            var result = Results.Where(r => r.Translation.Training.HasTried == false || r.Translation.Training.MistakesCount > 0);
+            var result = Results.Where(r => r.Training.HasTried == false || r.Training.MistakesCount > 0);
             List<ResultVM> notFoundList = new List<ResultVM>(result);
             AddIfNotExist(notFoundList, Trainings);
         }
 
-        void AddIfNotExist(List<ResultVM> elements, ObservableCollection<ResultVM> data)
+        void AddIfNotExist(List<ResultVM> elements, ObservableCollection<TrainingVM> data)
         {
             foreach (ResultVM item in elements)
             {
-                if (!data.Any(d => d.Translation.Id == item.Translation.Id))
-                    Trainings.Add(item);
+                if (!data.Any(d => d.Id == item.Training.Id))
+                    Trainings.Add(item.Training);
             }
         }
 
         void CloseHandler()
         {
-            translations.Clear();
-            foreach (ResultVM item in Trainings)
-            {
-                TranslationVM translation = Results
-                                .Where(r => r.Translation.Id == item.Translation.Id)
-                                .Select(r => r.Translation)
-                                .First();
-                translations.Add(translation);
-            }
+
         }
         #endregion
 

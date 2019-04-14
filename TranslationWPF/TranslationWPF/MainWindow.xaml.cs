@@ -98,7 +98,7 @@ namespace TranslationWPF
                     DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci,false));
                     break;
                 case "LBPratice":
-                    DataContext = new TrainingVM(translations, rm, ci);
+                    DataContext = new TrainingsVM(translations, rm, ci);
                     break;
                 default:
                     break;

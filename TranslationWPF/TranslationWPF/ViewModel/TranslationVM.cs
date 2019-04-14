@@ -109,7 +109,7 @@ namespace TranslationWPF.ViewModel
             }
         }
 
-        public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
+        //public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
 
         private TranslationVM() { }

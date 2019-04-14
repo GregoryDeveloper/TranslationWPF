@@ -31,14 +31,14 @@
 
         <DataGrid Grid.Row="0" Margin="10" ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mot" Binding="{Binding Translation.Language1.Value}"/>
-                <DataGridTextColumn Header="Traduction" Binding="{Binding Translation.Language2.Value}"/>
+                <DataGridTextColumn Header="Mot" Binding="{Binding Training.Language1.Value}"/>
+                <DataGridTextColumn Header="Traduction" Binding="{Binding Training.Language2.Value}"/>
                 
                 <DataGridTextColumn Header="Valeur(s) correctes" Binding="{Binding CorrectValues}"/>
 
-                <DataGridTextColumn Header="Valeur" Binding="{Binding Translation.Training.Input}"/>
-                <DataGridTextColumn Header="Nombre d'erreur" Binding="{Binding Translation.Training.MistakesCount}"/>
-                <DataGridTextColumn Header="Trouvé" Binding="{Binding Translation.Training.Found}"/>
+                <DataGridTextColumn Header="Valeur" Binding="{Binding Training.Input}"/>
+                <DataGridTextColumn Header="Nombre d'erreur" Binding="{Binding Training.MistakesCount}"/>
+                <DataGridTextColumn Header="Trouvé" Binding="{Binding Training.Found}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Column="1" Margin="10" VerticalAlignment="Center">
@@ -49,8 +49,8 @@
         </StackPanel>
         <DataGrid Grid.Row="0" Grid.Column="2" Margin="10" ItemsSource="{Binding Trainings}" SelectedItem="{Binding SelectedItem2}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mot" Binding="{Binding Translation.Language1.Value}"/>
-                <DataGridTextColumn Header="Traduction" Binding="{Binding Translation.Language2.Value}"/>
+                <DataGridTextColumn Header="Mot" Binding="{Binding Language1.Value}"/>
+                <DataGridTextColumn Header="Traduction" Binding="{Binding Language2.Value}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="1" Grid.Column="2" Content="Fermer" Width="150" HorizontalAlignment="Right" Margin="15" Click="Button_Click" Command="{Binding CloseCommand}"/>

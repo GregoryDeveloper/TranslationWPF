@@ -4,30 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
 {
     public class ResultVM
     {
-        public TranslationVM Translation { get; set; }
+        public TrainingVM Training { get; set; }
         public string CorrectValues { get; set; } = "";
 
-        public ResultVM(TranslationVM translation)
+        public ResultVM(TrainingVM training)
         {
-            Translation = translation;
-            CorrectValues = GetRightValues(Translation);
+            Training = training;
+            CorrectValues = Training.GetRightValues();
         }
 
-        private string GetRightValues(TranslationVM translation)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(translation.Language1.Value);
-            translation.Language1.Synonysms.ForEach(item =>
-            {
-                sb.Append("/")
-                    .Append(item);
-            });
-           return sb.ToString();
-        }
+       
     }
 }
