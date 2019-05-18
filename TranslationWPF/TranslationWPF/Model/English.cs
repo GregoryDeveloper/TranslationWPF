@@ -8,11 +8,12 @@ namespace TranslationWPF.Model
 {
     public class English: Language
     {
+
         private string[] adjectivesEnding = { "able","ible","al","an","ar","ent","ful","ic","ical","ine","ile","ive","less","ous","some" };
 
-        public English() : base() { }
+        public English() : base() { ObjType = Constant.english; }
         public English(string value, string comment, string example, Types type, List<string> synonysms)
-            :base( value,  comment,  example, type, synonysms) { }
+            :base( value,  comment,  example, type, synonysms) { ObjType = Constant.english; }
 
         public override Types GetType()
         {
@@ -99,6 +100,11 @@ namespace TranslationWPF.Model
         public override Language GetNewInstance()
         {
             return new English();
+        }
+
+        public override Languages GetLanguage()
+        {
+            return Languages.English;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace TranslationWPF.ViewModel
         {
             foreach (Translation item in translations)
             {
-                Trainings.Add(new TrainingVM(item));
+                Trainings.Add(new TrainingVM(item,Language.Languages.English));
             }
             //Trainings = ConvertionHelper.ConvertTo(translations);
             SelectedItem = Trainings[0];
@@ -117,9 +117,8 @@ namespace TranslationWPF.ViewModel
                     {
                         t.Refresh();
                     }
-
-                    SelectedItem = Trainings.First();
-                    //this.Close();
+                    if (Trainings.Count> 0)
+                        SelectedItem = Trainings.First();
                 }
                
             }

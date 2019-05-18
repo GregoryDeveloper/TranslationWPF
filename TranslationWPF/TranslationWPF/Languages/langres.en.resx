@@ -132,8 +132,17 @@
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="example" xml:space="preserve">
+    <value>example</value>
+  </data>
   <data name="exemple" xml:space="preserve">
     <value>Exemple</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>French</value>
   </data>
   <data name="incorrect" xml:space="preserve">
     <value>Incorrect</value>
@@ -148,10 +157,13 @@
     <value>Previous</value>
   </data>
   <data name="submitForm" xml:space="preserve">
-    <value>Submit fomr confirmation</value>
+    <value>Submit form confirmation</value>
   </data>
   <data name="submitFormMessage" xml:space="preserve">
     <value>There is no more element in the list. Do you want to submit the form?</value>
+  </data>
+  <data name="synonym" xml:space="preserve">
+    <value>synonym</value>
   </data>
   <data name="synonysms" xml:space="preserve">
     <value>Synonysms</value>

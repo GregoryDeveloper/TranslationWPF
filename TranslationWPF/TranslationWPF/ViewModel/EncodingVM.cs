@@ -144,11 +144,11 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Constructors
-        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci, bool displayAddButton)
+        public EncodingVM(Language _word, Language _translation, List<Translation> _translations, ResourceManager rm, CultureInfo ci, bool displayAddButton, List<Language.Languages> languages)
         {
 
             Translation t = new Translation(_word, _translation);
-            Translation = new TranslationVM(t);
+            Translation = new TranslationVM(t,languages);
             translations = _translations;
             this.rm = rm;
             this.ci = ci;

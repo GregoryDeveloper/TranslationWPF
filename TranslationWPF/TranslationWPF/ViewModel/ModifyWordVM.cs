@@ -20,7 +20,15 @@ namespace TranslationWPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
         #region Properties
+        #region UI
+
+        public string UILanguage1 { get; }
+        public string UILanguage2 { get; }
+
+        #endregion  
+
         private ObservableCollection<TranslationVM> translations;
         public ObservableCollection<TranslationVM> Translations
         {
@@ -35,10 +43,14 @@ namespace TranslationWPF.ViewModel
         }
         public EncodingVM EncodingVM { get; set; }
         #endregion
-        public ModifyWordVM(List<Translation> translations,EncodingVM encodingVM)
+
+        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<Language.Languages> languages)
         {
             EncodingVM = encodingVM;
-            Translations = ConvertionHelper.ConvertTo(translations);
+            Translations = ConvertionHelper.ConvertTo(translations,languages);
+            UILanguage1 = languages[0].ToDescription();
+            UILanguage2 = languages[1].ToDescription();
+
         }
 
         #region Command

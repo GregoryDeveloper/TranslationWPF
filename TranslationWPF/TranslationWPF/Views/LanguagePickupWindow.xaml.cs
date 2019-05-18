@@ -11,25 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TranslationWPF.ViewModel;
 
 namespace TranslationWPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ImportView.xaml
+    /// Logique d'interaction pour LanguagePickupWindow.xaml
     /// </summary>
-    public partial class ImportView : Window
+    public partial class LanguagePickupWindow : Window
     {
-        public event EventHandler<CustomEventArgs> RaiseCustomEvent;
-        public ImportView()
+        public LanguagePickupWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            RaiseCustomEvent(this, new CustomEventArgs(((ImportVM)DataContext).TranslationModel));
+            this.Close();
         }
     }
 }

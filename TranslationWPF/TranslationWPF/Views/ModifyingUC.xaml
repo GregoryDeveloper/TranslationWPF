@@ -24,8 +24,8 @@
 
     </UserControl.Resources>
     <Grid Background="White">
-
-        <DockPanel LastChildFill="True">
+        <DockPanel x:Name="DP" LastChildFill="True">
+        <TextBlock Text="{Binding UILanguage1}"></TextBlock>
             <DataGrid DockPanel.Dock="Top" 
                       ItemsSource="{Binding Translations}" 
                       SelectedItem="{Binding SelectedItem}"
@@ -36,21 +36,32 @@
                       CanUserAddRows="True"
                       >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="French" Width="2*" IsReadOnly="True" >
+                    <DataGridTemplateColumn Width="2*" IsReadOnly="True" >
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{Binding DataContext.UILanguage1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Language1.Value}" FontSize="12" />
+                                <TextBlock  Text="{Binding Language1.Value}" FontSize="11" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="French" Width="2*" IsReadOnly="True">
+                    <DataGridTemplateColumn Width="2*" IsReadOnly="True">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{Binding DataContext.UILanguage2, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                       FontSize="10"/>
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Language2.Value}"  FontSize="12"/>
+                                <TextBlock Text="{Binding Language2.Value}"  FontSize="11"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Delete" Width="*" IsReadOnly="True">
+                    <DataGridTemplateColumn  Width="*" IsReadOnly="True">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Delete" FontSize="11"/>
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="X" Height="20" FontSize="10"/>

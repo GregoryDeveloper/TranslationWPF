@@ -10,6 +10,10 @@ using TranslationWPF.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TranslationWPF.Helper;
+using Newtonsoft.Json;
+using System.Resources;
+using System.Globalization;
+using TranslationWPF.Languages;
 
 namespace TranslationWPF.ViewModel
 {
@@ -29,17 +33,63 @@ namespace TranslationWPF.ViewModel
         }
 
         #region Properties
-        private ObservableCollection<TranslationVM> translations;
+
+        #region UI Properties
+        // return UIword = (UIword == null) ? rm.GetString("word", ci) + ":" : UIword; 
+        private string language1;
+        public string Language1 { get { return language1 = language1 ?? rm.GetString(languagesOrder[0].ToDescription(), ci); } }
+
+        private string languageComment1;
+        public string LanguageComment1 { get { return languageComment1 = languageComment1 ?? rm.GetString(StringConstant.comment, ci);  } }
+
+        private string languageExemple1;
+        public string LanguageExemple1 { get { return languageExemple1 = languageExemple1 ?? rm.GetString(StringConstant.exemple, ci); } }
+
+        private string languageSynonym1;
+        public string LanguageSynonym1 { get { return languageSynonym1 = languageSynonym1 ?? rm.GetString(StringConstant.synonysms, ci); } }
+
+        private string languageType1;
+        public string LanguageType1 { get { return languageType1 = languageType1 ?? rm.GetString(StringConstant.type, ci); } }
+
+        private string language2;
+        public string Language2 { get { return language2 = language2 ?? rm.GetString(languagesOrder[1].ToDescription(), ci); } }
+
+        private string languageComment2;
+        public string LanguageComment2 { get { return languageComment2 = languageComment2 ?? rm.GetString(StringConstant.comment, ci); } }
+
+        private string languageExemple2;
+        public string LanguageExemple2 { get { return languageExemple2 = languageExemple2 ?? rm.GetString(StringConstant.exemple, ci); } }
+
+        private string languageSynonym2;
+        public string LanguageSynonym2 { get { return languageSynonym2 = languageSynonym2 ?? rm.GetString(StringConstant.synonysms, ci); } }
+
+        private string languageType2;
+        public string LanguageType2 { get { return languageType2 = languageType2 ?? rm.GetString(StringConstant.type, ci); } }
+
+
+        #endregion
         public ObservableCollection<TranslationVM> Translations
         {
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations");}
         }
-        
+        public List<Translation> TranslationModel { get; set; }
+
+
+
         #endregion
-        public ImportVM(List<Translation> translations)
+        ResourceManager rm;
+        CultureInfo ci;
+        private ObservableCollection<TranslationVM> translations;
+        private List<Language.Languages> languagesOrder;
+
+        public ImportVM(List<Translation> translations, List<Language.Languages> languages,ResourceManager rm, CultureInfo ci)
         {
-            Translations = ConvertionHelper.ConvertTo(translations);
+            this.rm = rm;
+            this.ci = ci;
+            languagesOrder = languages;
+            Translations = ConvertionHelper.ConvertTo(translations,languages);
+            TranslationModel = translations;
         }
         #region Commands
         private CommandHandler _importCommand;
@@ -67,12 +117,11 @@ namespace TranslationWPF.ViewModel
         private void ExecuteImport()
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            List<Translation> translations;
             if (ofd.ShowDialog() == true)
             {
-                translations = GetWordsFromImport(ofd.FileName, Import.Unformatted);
+                TranslationModel = GetWordsFromImport(ofd.FileName, Import.Unformatted);
                 ClearTranslations();
-                Translations = ConvertionHelper.ConvertTo(translations);
+                Translations = ConvertionHelper.ConvertTo(TranslationModel,languagesOrder);
             }
 
         }
@@ -88,10 +137,12 @@ namespace TranslationWPF.ViewModel
             List<Translation> translations;
             if (ofd.ShowDialog() == true)
             {
-                translations = GetWordsFromImport(ofd.FileName, Import.Formatted);
-                ClearTranslations();
-                Translations = ConvertionHelper.ConvertTo(translations);
+                string content = File.ReadAllText(ofd.FileName);
+                translations = JsonConvert.DeserializeObject<List<Translation>>(content);
+                Translations = ConvertionHelper.ConvertTo(translations, languagesOrder);
             }
+
+
         }
 
        
@@ -144,18 +195,17 @@ namespace TranslationWPF.ViewModel
             try
             {
                 SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                sfd.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
                 sfd.FilterIndex = 1;
 
                 if (sfd.ShowDialog() == true)
                 {
-                    using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                    List<Translation> translations = new List<Translation>();
+                    foreach (TranslationVM item in Translations)
                     {
-                        foreach (TranslationVM t in Translations)
-                        {
-                            sw.WriteLine(t.Translation.GetTranslationStringRepresentation());
-                        }
+                        translations.Add(item.Translation);
                     }
+                    File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translations));
                 }
 
             }

@@ -6,7 +6,7 @@
         
         xmlns:local="clr-namespace:TranslationWPF.Views"
         mc:Ignorable="d"
-        Title="ImportView" Height="450" Width="800">
+        Title="ImportView" Height="450" Width="800" Closing="Window_Closing" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -21,17 +21,17 @@
 
         <DataGrid Grid.Row="1" Margin="10" ItemsSource="{Binding Translations}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Anglais" Binding="{Binding Language1.Value}"/>
-                <DataGridTextColumn Header="Commentaire" Binding="{Binding Language1.Comment}"/>
-                <DataGridTextColumn Header="Exemple" Binding="{Binding Language1.Example}"/>
-                <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms1String}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Language1.Type}"/>
+                <DataGridTextColumn Header="{Binding Language1}" Binding="{Binding Language1.Value}"/>
+                <DataGridTextColumn Header="{Binding LanguageComment1}" Binding="{Binding Language1.Comment}"/>
+                <DataGridTextColumn Header="{Binding LanguageExemple1}" Binding="{Binding Language1.Example}"/>
+                <DataGridTextColumn Header="{Binding LanguageSynonym1}" Binding="{Binding Synonyms1String}"/>
+                <DataGridTextColumn Header="{Binding LanguageType1}" Binding="{Binding Language1.Type}"/>
 
-                <DataGridTextColumn Header="Français" Binding="{Binding Language2.Value}"/>
-                <DataGridTextColumn Header="Comentaire" Binding="{Binding Language2.Comment}"/>
-                <DataGridTextColumn Header="Exemple" Binding="{Binding Language2.Example}"/>
-                <DataGridTextColumn Header="Synonsyms" Binding="{Binding Synonyms2String}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Language2.Type}"/>
+                <DataGridTextColumn Header="{Binding Language2}" Binding="{Binding Language2.Value}"/>
+                <DataGridTextColumn Header="{Binding LanguageComment2}" Binding="{Binding Language2.Comment}"/>
+                <DataGridTextColumn Header="{Binding LanguageExemple2}" Binding="{Binding Language2.Example}"/>
+                <DataGridTextColumn Header="{Binding LanguageSynonym2}" Binding="{Binding Synonyms2String}"/>
+                <DataGridTextColumn Header="{Binding LanguageType2}" Binding="{Binding Language2.Type}"/>
 
 
                 <DataGridTextColumn Header="Ligne" Binding="{Binding Translation.Line}"/>

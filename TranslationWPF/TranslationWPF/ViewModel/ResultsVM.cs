@@ -14,7 +14,7 @@ namespace TranslationWPF.ViewModel
         public ObservableCollection<TrainingVM> Trainings { get; set; } = new ObservableCollection<TrainingVM>();
 
         public ResultVM SelectedItem { get; set; }
-        public ResultVM SelectedItem2 { get; set; }
+        public TrainingVM SelectedItem2 { get; set; }
 
         public ResultsVM(ObservableCollection<TrainingVM> results)
         {
@@ -67,8 +67,8 @@ namespace TranslationWPF.ViewModel
 
         void RemoveElementHandler()
         {
-            if (SelectedItem2 != null && Trainings.Any(t => t.Id == SelectedItem2.Training.Id))
-                Trainings.Remove(SelectedItem2.Training);
+            if (SelectedItem2 != null && Trainings.Any(t => t.Id == SelectedItem2.Id))
+                Trainings.Remove(SelectedItem2);
         }
 
         void AddNotFoundElementHandler()

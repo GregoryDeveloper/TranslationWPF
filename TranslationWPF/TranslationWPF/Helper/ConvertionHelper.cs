@@ -15,22 +15,16 @@ namespace TranslationWPF.Helper
         ///  Get the view model list representation for the translations given as input
         /// </summary>
         /// <param name="translations">The list to convert</param>
-        public static ObservableCollection<TranslationVM> ConvertTo(List<Translation> translations)
+        public static ObservableCollection<TranslationVM> ConvertTo(List<Translation> translations, List<Language.Languages> languages)
         {
             ObservableCollection<TranslationVM> oTranslations = new ObservableCollection<TranslationVM>();
             foreach (Translation t in translations)
             {
-                oTranslations.Add(new TranslationVM(t));
+                oTranslations.Add(new TranslationVM(t,languages));
             }
             return oTranslations;
         }
 
-        //public static Translation ConvertTo(TranslationVM translation)
-        //{
-        //    Translation t = new Translation(translation.Language1, translation.Language2);
-
-        //    return t;
-        //}
 
     }
 }

@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslationWPF.Converter;
+using System.ComponentModel;
 
 namespace TranslationWPF.Model
 {
+    [JsonConverter(typeof(BaseConverter))]
     public abstract class Language
     {
        
-
         #region Properties
         public enum Types
         {
@@ -20,6 +23,17 @@ namespace TranslationWPF.Model
             adverb,
             undefined
         }
+        public enum Languages
+        {
+            [Description("English")]
+            English =1,
+            [Description("French")]
+            French = 2
+        }
+
+        // used for serialization
+        public int ObjType { get; set; }
+        public int Id { get; set; }
 
         //public string Line { get; set; } = "";
         public string Value { get; set; } = "";
@@ -48,6 +62,7 @@ namespace TranslationWPF.Model
         // Guess the type depending on the word value, only available for English
         public abstract new Types GetType();
         public abstract Language GetNewInstance();
+        public abstract Languages GetLanguage();
        
 
     }

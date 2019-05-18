@@ -59,6 +59,9 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
@@ -86,13 +89,19 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandHandlerWithParameter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Languages\StringConstant.cs" />
+    <Compile Include="Converter\BaseConverter.cs" />
+    <Compile Include="Converter\BaseSpecifiedConcreteClassConverter .cs" />
     <Compile Include="Converter\BooleanToStringConverter.cs" />
+    <Compile Include="CustomEventArgs.cs" />
     <Compile Include="DataValidation\SynonysmValidation.cs" />
     <Compile Include="DataValidation\ValueValidation.cs" />
     <Compile Include="ExtractionHelper.cs" />
     <Compile Include="Helper\ConvertionHelper.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Helper\ValidationHelper.cs" />
+    <Compile Include="Model\Constant.cs" />
     <Compile Include="Model\English.cs" />
     <Compile Include="Helper\FormattedStringHelper.cs" />
     <Compile Include="Model\French.cs" />
@@ -109,6 +118,7 @@
     <Compile Include="ViewModel\EncodingVM.cs" />
     <Compile Include="ViewModel\ImportVM.cs" />
     <Compile Include="ViewModel\ModifyWordVM.cs" />
+    <Compile Include="ViewModel\PickupVM.cs" />
     <Compile Include="ViewModel\ResultsVM.cs" />
     <Compile Include="ViewModel\ResultVM.cs" />
     <Compile Include="ViewModel\TrainingsVM.cs" />
@@ -119,6 +129,9 @@
     </Compile>
     <Compile Include="Views\ImportView.xaml.cs">
       <DependentUpon>ImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LanguagePickupWindow.xaml.cs">
+      <DependentUpon>LanguagePickupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModifyingUC.xaml.cs">
       <DependentUpon>ModifyingUC.xaml</DependentUpon>
@@ -146,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LanguagePickupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

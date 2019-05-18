@@ -11,19 +11,36 @@ namespace TranslationWPF.ViewModel
 {
     public class TrainingVM : INotifyPropertyChanged
     {
-        private Translation translation { get; set; }
+        private Translation Translation { get; set; }
+        private Language.Languages languageTrained;
 
         public int Id
         {
-            get {return translation.Id; }
+            get {return Translation.Id; }
         }
         public Language Language1
         {
-            get { return translation.Languages[0]; }
+            get
+            {
+                foreach (var item in Translation.Languages)
+                {
+                    if (item.GetLanguage() == languageTrained)
+                        return item;
+                }
+                return Translation.Languages[0];
+            }
         }
         public Language Language2
         {
-            get{ return translation.Languages[1]; }
+            get
+            {
+                foreach (var item in Translation.Languages)
+                {
+                    if (item.GetLanguage() != languageTrained)
+                        return item;
+                }
+                return Translation.Languages[0];
+            }
         }
 
         public string Input { get; set; } = "";
@@ -45,9 +62,10 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        public TrainingVM(Translation translation)
+        public TrainingVM(Translation translation, Language.Languages languageTrained)
         {
-            this.translation = translation;
+            this.Translation = translation;
+            this.languageTrained = languageTrained;
         }
 
         public void Refresh()

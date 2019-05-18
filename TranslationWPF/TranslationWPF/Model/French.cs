@@ -8,9 +8,10 @@ namespace TranslationWPF.Model
 {
     public class French : Language
     {
-        public French() : base() { }
+
+        public French() : base() { ObjType = Constant.french; }
         public French(string value, string comment, string example, Types type, List<string> synonysms)
-            : base(value, comment, example, type, synonysms) { }
+            : base(value, comment, example, type, synonysms) { ObjType = Constant.french; }
 
         public override Types GetType()
         {
@@ -26,6 +27,11 @@ namespace TranslationWPF.Model
         public override Language GetNewInstance()
         {
             return new French();
+        }
+
+        public override Languages GetLanguage()
+        {
+            return Languages.French;
         }
     }
 }
