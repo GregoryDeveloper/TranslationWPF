@@ -28,7 +28,7 @@ namespace TranslationWPF.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+
             RaiseCustomEvent(this, new CustomEventArgs(((ImportVM)DataContext).TranslationModel));
         }
     }

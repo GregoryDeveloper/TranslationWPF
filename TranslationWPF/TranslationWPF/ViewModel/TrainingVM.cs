@@ -11,6 +11,8 @@ namespace TranslationWPF.ViewModel
 {
     public class TrainingVM : INotifyPropertyChanged
     {
+        #region Properties
+
         private Translation Translation { get; set; }
         private Language.Languages languageTrained;
 
@@ -52,6 +54,8 @@ namespace TranslationWPF.ViewModel
             get { return found; }
             set { found = value; OnPropertyChanged("Found"); }
         }
+
+        #endregion
 
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;

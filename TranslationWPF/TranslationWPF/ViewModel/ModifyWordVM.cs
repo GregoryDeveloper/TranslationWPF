@@ -44,12 +44,12 @@ namespace TranslationWPF.ViewModel
         public EncodingVM EncodingVM { get; set; }
         #endregion
 
-        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<string> languages)
+        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<Language.Languages> languages)
         {
             EncodingVM = encodingVM;
             Translations = ConvertionHelper.ConvertTo(translations,languages);
-            UILanguage1 = languages[0];
-            UILanguage2 = languages[1];
+            UILanguage1 = languages[0].ToDescription();
+            UILanguage2 = languages[1].ToDescription();
 
         }
 

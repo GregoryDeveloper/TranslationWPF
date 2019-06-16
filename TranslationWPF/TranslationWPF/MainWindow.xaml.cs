@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-
+using System.Security.Principal;
 using System.Threading;
 
 using System.Windows;
@@ -33,6 +33,7 @@ namespace TranslationWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            UserNameTB.Text = Environment.UserName;
             ci = Thread.CurrentThread.CurrentCulture;
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
@@ -54,7 +55,7 @@ namespace TranslationWPF
             translations.Add(new Translation(
                     new French() { Value = "dormir" },
                     new English() { Value = "to sleep" }));
-            //EncodingPickUpLanguages();
+            WelcomePage();
 
         }
 
@@ -75,21 +76,6 @@ namespace TranslationWPF
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
         }
 
-        private void ButtonImport_Click(object sender, RoutedEventArgs e)
-        {
-            List<Language.Languages> languages = new List<Language.Languages>()
-            {
-                TranslationWPF.Model.Language.Languages.French,
-                TranslationWPF.Model.Language.Languages.English
-            };
-            ImportView view = new ImportView();
-            ImportVM importView = new ImportVM(translations, languages,rm,ci);
-            view.DataContext = importView;
-            view.RaiseCustomEvent += new EventHandler<CustomEventArgs>(view_RaiseCustomEvent);
-            view.Show();
-            //this.Close();
-        }
-
         void view_RaiseCustomEvent(object sender, CustomEventArgs e)
         {
             translations = e.Translations;
@@ -97,9 +83,22 @@ namespace TranslationWPF
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            List<string> languages = EncodingPickUpLanguages();
-            DataContext = new EncodingVM(new French(), new English(),translations,rm,ci,true, languages);
+            try
+            {
+                List<Language.Languages> languages = PickUpLanguages();
+                DataContext = new EncodingVM(new French(), new English(),translations,rm,ci,true, languages);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
+        private void LBWelcome_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            WelcomePage();
+        }
+        
         private void ListViewItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
@@ -108,7 +107,7 @@ namespace TranslationWPF
                 case "LBModify":
                     try
                     {
-                        List<string> languages = PickUpLanguages();
+                        List<Language.Languages> languages = PickUpLanguages();
                         DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci, false, languages), languages);
                     }
                     catch (Exception ex)
@@ -125,31 +124,32 @@ namespace TranslationWPF
             }
         }
 
-        private List<string> PickUpLanguages()
+        private List<Language.Languages> PickUpLanguages()
         {
             LanguagePickupWindow window = new LanguagePickupWindow();
 
             PickupVM pickup = new PickupVM(translations[0]);
             window.DataContext = pickup;
             window.ShowDialog();
-            List<string> languages = new List<string>();
-            languages.Add(pickup.SelectedItem1.ToDescription());
-            languages.Add(pickup.SelectedItem2.ToDescription());
-            return languages;
-        }
-
-        private List<string> EncodingPickUpLanguages()
-        {
-            EncodingLanguagePickUpWindow window = new EncodingLanguagePickUpWindow();
-
-            EncodingLanguagePickUpVM pickup = new EncodingLanguagePickUpVM(translations[0]);
-            window.DataContext = pickup;
-            window.ShowDialog();
-            List<string> languages = new List<string>();
+            List<Language.Languages> languages = new List<Language.Languages>();
             languages.Add(pickup.SelectedItem1);
             languages.Add(pickup.SelectedItem2);
             return languages;
         }
+
+        private void WelcomePage()
+        {
+            try
+            {
+                // link to the corresponding using done in MainWindow.xaml in window.resources
+                DataContext = new WelcomeVM(translations,rm, ci);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
     }
 }

@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TranslationWPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour EncodingLanguagePickUp.xaml
+    /// Logique d'interaction pour WelcomeUC.xaml
     /// </summary>
-    public partial class EncodingLanguagePickUpWindow : Window
+    public partial class WelcomeUC : UserControl
     {
-        public EncodingLanguagePickUpWindow()
+        public WelcomeUC()
         {
             InitializeComponent();
         }

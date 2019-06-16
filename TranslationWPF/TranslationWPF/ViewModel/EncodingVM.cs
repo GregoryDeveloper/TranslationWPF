@@ -58,6 +58,11 @@ namespace TranslationWPF.ViewModel
         #region Properties
 
         #region UI properties
+
+        public string UILanguage1 { get; }
+        public string UILanguage2 { get; }
+ 
+
         private string UIword;
         public string UIWord
         {
@@ -150,7 +155,7 @@ namespace TranslationWPF.ViewModel
                             ResourceManager rm, 
                             CultureInfo ci, 
                             bool displayAddButton, 
-                            List<string> languages)
+                            List<Language.Languages> languages)
         {
 
             Translation t = new Translation(_word, _translation);
@@ -159,6 +164,8 @@ namespace TranslationWPF.ViewModel
             this.rm = rm;
             this.ci = ci;
             IsVisible = displayAddButton;
+            UILanguage1 = languages[0].ToDescription();
+            UILanguage2 = languages[1].ToDescription();
         }
         #endregion
 

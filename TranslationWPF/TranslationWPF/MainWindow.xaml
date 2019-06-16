@@ -9,6 +9,9 @@
         xmlns:views="clr-namespace:TranslationWPF.Views"
         mc:Ignorable="d" Height="850" Width="1000" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Foreground="White" Loaded="Window_Loaded">
     <Window.Resources>
+        <DataTemplate x:Name="welcomeViewTemplate" DataType="{x:Type viewmodels:WelcomeVM}">
+            <views:WelcomeUC DataContext="{Binding}"/>
+        </DataTemplate>
         <DataTemplate x:Name="encodingViewTemplate" DataType="{x:Type viewmodels:EncodingVM}">
             <views:EncondingUC DataContext="{Binding}"/>
         </DataTemplate>
@@ -64,7 +67,7 @@
         <Grid Height="60" VerticalAlignment="Top" Background="#FF1368BD">
             <TextBlock Text="Design com WPF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" >
-                <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock x:Name="UserNameTB" VerticalAlignment="Center" FontSize="18"/>
                 <materialDesign:PopupBox HorizontalAlignment="Right" 
                                      Margin="10" 
                                      PlacementMode="BottomAndAlignRightEdges"
@@ -73,7 +76,6 @@
                     <StackPanel Width="150">
                         <Button Content="Account"/>
                         <Button Content="Settings"/>
-                        <Button x:Name="ButtonImport" Content="Import" Click="ButtonImport_Click"/>
                         <Button Content="Help"/>
                         <Separator/>
                         <Button x:Name="ButtonLogout" Content="Logout" Click="ButtonLogout_Click" />
@@ -93,7 +95,7 @@
                     </Button>
                 </Grid>
                 <ListView Foreground="#FF1368BD" >
-                    <ListViewItem Height="60" Width="150">
+                    <ListViewItem x:Name="LBWelcome" Height="60" Width="150" PreviewMouseDown="LBWelcome_PreviewMouseDown">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Width="25" Height="25" VerticalAlignment="Center" Margin="10"/>
                             <TextBlock Text="Home" VerticalAlignment="Center" Margin="20 10" />

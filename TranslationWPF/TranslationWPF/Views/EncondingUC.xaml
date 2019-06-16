@@ -41,7 +41,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2">
-            <TextBlock Text="French"  HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding UILanguage1}"  HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Margin="0 30 0 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">
@@ -147,7 +147,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.ColumnSpan="2">
-            <TextBlock Text="English"  HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding UILanguage2}"  HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Margin="0 30 0 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" Height="35">

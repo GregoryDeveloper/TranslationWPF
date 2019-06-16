@@ -198,4 +198,13 @@
   <data name="word" xml:space="preserve">
     <value>Word</value>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="import" xml:space="preserve">
+    <value>Import/Export</value>
+  </data>
+  <data name="leave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
 </root>

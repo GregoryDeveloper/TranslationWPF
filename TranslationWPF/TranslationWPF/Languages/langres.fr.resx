@@ -195,4 +195,13 @@
   <data name="word" xml:space="preserve">
     <value>Mot</value>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>Bienvenue</value>
+  </data>
+  <data name="import" xml:space="preserve">
+    <value>Importer/Exporter</value>
+  </data>
+  <data name="leave" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
 </root>
