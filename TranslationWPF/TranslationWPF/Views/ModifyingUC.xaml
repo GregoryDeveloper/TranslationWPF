@@ -25,7 +25,6 @@
     </UserControl.Resources>
     <Grid Background="White">
         <DockPanel x:Name="DP" LastChildFill="True">
-        <TextBlock Text="{Binding UILanguage1}"></TextBlock>
             <DataGrid DockPanel.Dock="Top" 
                       ItemsSource="{Binding Translations}" 
                       SelectedItem="{Binding SelectedItem}"

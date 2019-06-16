@@ -7,6 +7,7 @@ using TranslationWPF.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TranslationWPF.Helper;
 
 namespace TranslationWPF.ViewModel
 {
@@ -113,6 +114,20 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         private TranslationVM() { }
+        public TranslationVM(Translation translation, List<string> languages)
+        {
+            Id = translation.Id;
+
+            AssignLanguages(translation, languages);
+
+            Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
+
+            Translation.Languages.Add(Language1);
+            Translation.Languages.Add(Language2);
+
+        }
+
         public TranslationVM(Translation translation, List<Language.Languages> languages)
         {
             Id = translation.Id;
@@ -138,6 +153,22 @@ namespace TranslationWPF.ViewModel
 
         }
 
+        //TODO refactoring
+        private void AssignLanguages(Translation translation, List<string> languages)
+        {
+            if (languages[0] == translation.Languages[0].GetLanguage().ToDescription())
+            {
+                Language1 = translation.Languages[0];
+                Language2 = translation.Languages[1];
+            }
+            else
+            {
+                Language1 = translation.Languages[1];
+                Language2 = translation.Languages[0];
+            }
+        }
+
+        //TODO refactoring
         private void AssignLanguages(Translation translation, List<Language.Languages> languages)
         {
             if (languages[0] == translation.Languages[0].GetLanguage())
@@ -151,6 +182,8 @@ namespace TranslationWPF.ViewModel
                 Language2 = translation.Languages[0];
             }
         }
+
+       
 
     }
 
