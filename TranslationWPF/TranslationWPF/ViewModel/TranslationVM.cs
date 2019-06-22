@@ -110,6 +110,14 @@ namespace TranslationWPF.ViewModel
             }
         }
 
+        private string line;
+        public string Line
+        {
+            get { return line; }
+            set { line = value; OnPropertyChanged("Line"); }
+        }
+
+
         //public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
 
@@ -126,6 +134,8 @@ namespace TranslationWPF.ViewModel
             Translation.Languages.Add(Language1);
             Translation.Languages.Add(Language2);
 
+            Line = translation.Line;
+
         }
 
         public TranslationVM(Translation translation, List<Language.Languages> languages)
@@ -139,6 +149,8 @@ namespace TranslationWPF.ViewModel
 
             Translation.Languages.Add(Language1);
             Translation.Languages.Add(Language2);
+
+            Line = translation.Line;
 
         }
 

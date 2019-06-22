@@ -64,6 +64,7 @@ namespace TranslationWPF.ViewModel
                     TranslationWPF.Model.Language.Languages.French,
                     TranslationWPF.Model.Language.Languages.English
                 };
+            Translations.Clear();
             ImportView view = new ImportView();
             ImportVM importView = new ImportVM(Translations, languages, rm, ci);
             view.DataContext = importView;
@@ -86,7 +87,7 @@ namespace TranslationWPF.ViewModel
                 {
                     Translations.Add(translation);
                 }
-            }
+        }
         #endregion
     }
 }

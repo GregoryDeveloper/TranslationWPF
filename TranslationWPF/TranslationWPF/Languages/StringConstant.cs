@@ -43,19 +43,11 @@ namespace TranslationWPF.Languages
         public const string addToList = "addToList";
         public const string add = "add";
 
+        public const string submitFormMessage = "submitFormMessage";
+        public const string submitForm = "submitForm";
 
 
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 

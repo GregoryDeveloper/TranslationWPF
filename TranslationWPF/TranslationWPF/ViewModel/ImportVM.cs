@@ -153,10 +153,8 @@ namespace TranslationWPF.ViewModel
                 {
                     while (sr.Peek() >= 0)
                     {
-                        Translation translation = new Translation();
 
                         String line = sr.ReadLine();
-                        translation.Line = line;
 
                         TranslationDirector director = new TranslationDirector();
                         TranslationBuilder translationBuilder;

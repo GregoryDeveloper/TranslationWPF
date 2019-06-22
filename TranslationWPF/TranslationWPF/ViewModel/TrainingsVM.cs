@@ -94,6 +94,9 @@ namespace TranslationWPF.ViewModel
 
         private void PreviousElementHandler()
         {
+            if (Trainings.Count == 0)
+                return;
+
             if (SelectedItem == Trainings.First() )
                 return;
 
@@ -103,10 +106,13 @@ namespace TranslationWPF.ViewModel
 
         private void NextElementHandler()
         {
+            if (Trainings.Count == 0)
+                return;
+
             if (SelectedItem == Trainings.Last())
             {
                 MessageBoxResult result;
-                result = MessageBox.Show(rm.GetString("submitFormMessage"), rm.GetString("submitForm"), MessageBoxButton.YesNoCancel);
+                result = MessageBox.Show(rm.GetString(StringConstant.submitFormMessage), rm.GetString(StringConstant.submitForm), MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
                     ResultView view = new ResultView();

@@ -77,12 +77,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-
-                <!--<DataGridTextColumn Header="{Binding LanguageComment1}" Binding="{Binding Language1.Comment}"/>-->
-                <!--<DataGridTextColumn Header="{Binding LanguageExemple1}" Binding="{Binding Language1.Example}"/>-->
-                <!--<DataGridTextColumn Header="{Binding LanguageSynonym1}" Binding="{Binding Synonyms1String}"/>-->
-                <!--<DataGridTextColumn Header="{Binding LanguageType1}" Binding="{Binding Language1.Type}"/>-->
-
                 <DataGridTemplateColumn IsReadOnly="True" >
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="{Binding DataContext.Language2, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
@@ -139,12 +133,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!--<DataGridTextColumn Header="{Binding Language2}" Binding="{Binding Language2.Value}"/>
-                <DataGridTextColumn Header="{Binding LanguageComment2}" Binding="{Binding Language2.Comment}"/>
-                <DataGridTextColumn Header="{Binding LanguageExemple2}" Binding="{Binding Language2.Example}"/>
-                <DataGridTextColumn Header="{Binding LanguageSynonym2}" Binding="{Binding Synonyms2String}"/>
-                <DataGridTextColumn Header="{Binding LanguageType2}" Binding="{Binding Language2.Type}"/>-->
-
                 <DataGridTemplateColumn IsReadOnly="True" >
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="{Binding DataContext.Line, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
@@ -152,7 +140,7 @@
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock  Text="{Binding Translation.Line}" FontSize="11" />
+                            <TextBlock  Text="{Binding Line}" FontSize="11" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
