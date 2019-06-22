@@ -63,7 +63,10 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="X" Height="20" FontSize="10" />
+                                <Button Content="X" Height="20" FontSize="10" 
+                                        Command="{Binding RelativeSource=
+                                                            {RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}, 
+                                                          Path=DataContext.DeleteCommand}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -76,7 +79,6 @@
                 </i:Interaction.Triggers>
             </DataGrid>
             <Button DockPanel.Dock="Left" Width="40" Height="60" VerticalAlignment="Top" Margin="0 200" Command="{Binding PreviousElementCommand}">
-
                 <Button.Content>
                     <TextBlock Width="15" Height="30" HorizontalAlignment="Center">
                         <TextBlock.Background>

@@ -85,6 +85,19 @@ namespace TranslationWPF.ViewModel
             get { return _previousElementCommand ?? (_previousElementCommand = new CommandHandler(() => PreviousElementHandler(), true)); }
 
         }
+
+        private CommandHandler _deleteCommand;
+        public CommandHandler DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new CommandHandler(() => _deleteCommandHandler(), true)); }
+
+        }
+
+        private void _deleteCommandHandler()
+        {
+            Translations.Remove(SelectedItem);
+        }
+
         #endregion
 
         private void SelectionHandler(TranslationVM translation)
