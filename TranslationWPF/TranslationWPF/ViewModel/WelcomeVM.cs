@@ -6,6 +6,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Views;
 
@@ -17,13 +18,13 @@ namespace TranslationWPF.ViewModel
 
         #region UI Properties
         private string title;
-        public string Title { get { return title = title ?? rm.GetString("title", ci); } }
+        public string Title { get { return title = title ?? rm.GetString(StringConstant.title, ci); } }
 
         private string importbtn;
-        public string Importbtn { get { return importbtn = importbtn ?? rm.GetString("import", ci); } }
+        public string Importbtn { get { return importbtn = importbtn ?? rm.GetString(StringConstant.import, ci); } }
         
         private string leavebtn;
-        public string Leavebtn { get { return leavebtn = leavebtn ?? rm.GetString("leave", ci); } }
+        public string Leavebtn { get { return leavebtn = leavebtn ?? rm.GetString(StringConstant.leave, ci); } }
         #endregion
 
         #region Properties

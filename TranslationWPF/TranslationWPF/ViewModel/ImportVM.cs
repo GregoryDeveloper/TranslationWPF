@@ -35,7 +35,16 @@ namespace TranslationWPF.ViewModel
         #region Properties
 
         #region UI Properties
-        // return UIword = (UIword == null) ? rm.GetString("word", ci) + ":" : UIword; 
+
+        private string importUI;
+        public string ImportUI { get { return importUI = importUI ?? rm.GetString(StringConstant.import, ci); } }
+
+        private string formattedImportUI;
+        public string FormattedImportUI { get { return formattedImportUI = formattedImportUI ?? rm.GetString(StringConstant.formattedImport, ci); } }
+
+        private string exportUI;
+        public string ExportUI { get { return exportUI = exportUI ?? rm.GetString(StringConstant.export, ci); } }
+
         private string language1;
         public string Language1 { get { return language1 = language1 ?? rm.GetString(languagesOrder[0].ToDescription(), ci); } }
 
@@ -54,28 +63,17 @@ namespace TranslationWPF.ViewModel
         private string language2;
         public string Language2 { get { return language2 = language2 ?? rm.GetString(languagesOrder[1].ToDescription(), ci); } }
 
-        private string languageComment2;
-        public string LanguageComment2 { get { return languageComment2 = languageComment2 ?? rm.GetString(StringConstant.comment, ci); } }
-
-        private string languageExemple2;
-        public string LanguageExemple2 { get { return languageExemple2 = languageExemple2 ?? rm.GetString(StringConstant.exemple, ci); } }
-
-        private string languageSynonym2;
-        public string LanguageSynonym2 { get { return languageSynonym2 = languageSynonym2 ?? rm.GetString(StringConstant.synonysms, ci); } }
-
-        private string languageType2;
-        public string LanguageType2 { get { return languageType2 = languageType2 ?? rm.GetString(StringConstant.type, ci); } }
-
+        private string line;
+        public string Line { get { return line = line ?? rm.GetString(StringConstant.line, ci); } }
 
         #endregion
+
         public ObservableCollection<TranslationVM> Translations
         {
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations");}
         }
         public List<Translation> TranslationModel { get; set; }
-
-
 
         #endregion
         ResourceManager rm;

@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using TranslationWPF.DataValidation;
 using TranslationWPF.Helper;
+using TranslationWPF.Languages;
 using TranslationWPF.Model;
 
 namespace TranslationWPF.ViewModel
@@ -66,43 +67,43 @@ namespace TranslationWPF.ViewModel
         private string UIword;
         public string UIWord
         {
-            get { return UIword = (UIword == null) ? rm.GetString("word", ci) + ":" : UIword; }
+            get { return UIword = (UIword == null) ? rm.GetString(StringConstant.word, ci) + ":" : UIword; }
         }
 
         private string UItranslation;
         public string UITranslation
         {
-            get { return UItranslation = (UItranslation == null) ? rm.GetString("translation", ci) + ":" : UItranslation; }
+            get { return UItranslation = (UItranslation == null) ? rm.GetString(StringConstant.translation, ci) + ":" : UItranslation; }
         }
 
         private string UIcomment;
         public string UIComment
         {
-            get { return UIcomment = (UIcomment == null) ? rm.GetString("comment", ci) + ":" : UIcomment; }
+            get { return UIcomment = (UIcomment == null) ? rm.GetString(StringConstant.comment, ci) + ":" : UIcomment; }
         }
 
         private string UIexemple;
         public string UIExemple
         {
-            get { return UIexemple = (UIexemple == null) ? rm.GetString("exemple", ci) + ":" : UIexemple; }
+            get { return UIexemple = (UIexemple == null) ? rm.GetString(StringConstant.exemple, ci) + ":" : UIexemple; }
         }
 
         private string UIsynonysms;
         public string UISynonysms
         {
-            get { return UIsynonysms = (UIsynonysms == null) ? rm.GetString("synonysms", ci) + ":" : UIsynonysms; }
+            get { return UIsynonysms = (UIsynonysms == null) ? rm.GetString(StringConstant.synonysms, ci) + ":" : UIsynonysms; }
         }
 
         private string UItype;
         public string UIType
         {
-            get { return UItype = (UItype == null) ? rm.GetString("type", ci) + ":" : UItype; }
+            get { return UItype = (UItype == null) ? rm.GetString(StringConstant.type, ci) + ":" : UItype; }
         }
 
         private string UIaddButton;
         public string UIAddButton
         {
-            get { return UIaddButton = (UIaddButton == null) ? rm.GetString("addToList", ci) : UIaddButton; }
+            get { return UIaddButton = (UIaddButton == null) ? rm.GetString(StringConstant.addToList, ci) : UIaddButton; }
         }
 
         public bool IsVisible { get; set; }
@@ -110,13 +111,13 @@ namespace TranslationWPF.ViewModel
         private string UIadd;
         public string UIAdd
         {
-            get { return UIadd = (UIadd == null) ? rm.GetString("add", ci) : UIadd; }
+            get { return UIadd = (UIadd == null) ? rm.GetString(StringConstant.add, ci) : UIadd; }
         }
 
         private string UIdelete;
         public string UIDelete
         {
-            get { return UIdelete = (UIdelete == null) ? rm.GetString("delete", ci) : UIdelete; }
+            get { return UIdelete = (UIdelete == null) ? rm.GetString(StringConstant.delete, ci) : UIdelete; }
         }
 
         #endregion

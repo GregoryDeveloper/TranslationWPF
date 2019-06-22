@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TranslationWPF.Helper;
+using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Views;
 
@@ -41,18 +42,18 @@ namespace TranslationWPF.ViewModel
         private string validateButtonUI;
         public string ValidateButtonUI
         {
-            get { return validateButtonUI = (validateButtonUI == null) ? rm.GetString("validateButtonUI", ci) : validateButtonUI; }
+            get { return validateButtonUI = (validateButtonUI == null) ? rm.GetString(StringConstant.validateButtonUI, ci) : validateButtonUI; }
         }
         private string previousButtonUI;
         public string PreviousButtonUI
         {
-            get { return previousButtonUI = (previousButtonUI == null) ? rm.GetString("previousButtonUI", ci) : previousButtonUI; }
+            get { return previousButtonUI = (previousButtonUI == null) ? rm.GetString(StringConstant.previousButtonUI, ci) : previousButtonUI; }
         }
 
         private string nextButtonUI;
         public string NextButtonUI
         {
-            get { return nextButtonUI = (nextButtonUI == null) ? rm.GetString("nextButtonUI", ci) : nextButtonUI; }
+            get { return nextButtonUI = (nextButtonUI == null) ? rm.GetString(StringConstant.nextButtonUI, ci) : nextButtonUI; }
         }
         #endregion
 
@@ -109,7 +110,7 @@ namespace TranslationWPF.ViewModel
                 if (result == MessageBoxResult.Yes)
                 {
                     ResultView view = new ResultView();
-                    view.DataContext = new ResultsVM(Trainings);
+                    view.DataContext = new ResultsVM(Trainings,rm,ci);
                     view.ShowDialog();
                     Trainings = ((ResultsVM)view.DataContext).Trainings;
 

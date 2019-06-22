@@ -207,4 +207,40 @@
   <data name="leave" xml:space="preserve">
     <value>Leave</value>
   </data>
+  <data name="line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="formattedImport" xml:space="preserve">
+    <value>Formatted Import</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>export</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="incorrect2" xml:space="preserve">
+    <value>incorrect</value>
+  </data>
+  <data name="notFound" xml:space="preserve">
+    <value>not found</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="correctValues" xml:space="preserve">
+    <value>Correct values</value>
+  </data>
+  <data name="mistakesCount" xml:space="preserve">
+    <value>Number of errors</value>
+  </data>
+  <data name="values" xml:space="preserve">
+    <value>Values</value>
+  </data>
+  <data name="found" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="addSome" xml:space="preserve">
+    <value>Add</value>
+  </data>
 </root>

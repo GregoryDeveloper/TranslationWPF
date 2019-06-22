@@ -108,7 +108,7 @@ namespace TranslationWPF
                     try
                     {
                         List<Language.Languages> languages = PickUpLanguages();
-                        DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci, false, languages), languages);
+                        DataContext = new ModifyWordVM(translations, new EncodingVM(new French(), new English(), translations, rm, ci, false, languages), languages, rm, ci);
                     }
                     catch (Exception ex)
                     {
@@ -128,7 +128,7 @@ namespace TranslationWPF
         {
             LanguagePickupWindow window = new LanguagePickupWindow();
 
-            PickupVM pickup = new PickupVM(translations[0]);
+            PickupVM pickup = new PickupVM(translations[0],rm,ci);
             window.DataContext = pickup;
             window.ShowDialog();
             List<Language.Languages> languages = new List<Language.Languages>();

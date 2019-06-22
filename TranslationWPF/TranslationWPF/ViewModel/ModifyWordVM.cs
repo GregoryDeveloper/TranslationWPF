@@ -8,6 +8,9 @@ using System.Collections.ObjectModel;
 using TranslationWPF.Helper;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TranslationWPF.Languages;
+using System.Resources;
+using System.Globalization;
 
 namespace TranslationWPF.ViewModel
 {
@@ -26,8 +29,13 @@ namespace TranslationWPF.ViewModel
 
         public string UILanguage1 { get; }
         public string UILanguage2 { get; }
+        private string UIdelete;
+        public string UIDelete { get { return UIdelete = UIdelete ?? rm.GetString(StringConstant.delete, ci); } }
 
         #endregion  
+
+        private readonly ResourceManager rm;
+        private readonly CultureInfo ci;
 
         private ObservableCollection<TranslationVM> translations;
         public ObservableCollection<TranslationVM> Translations
@@ -44,13 +52,16 @@ namespace TranslationWPF.ViewModel
         public EncodingVM EncodingVM { get; set; }
         #endregion
 
-        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<Language.Languages> languages)
+        // TODO refactor rm and ci
+        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
         {
             EncodingVM = encodingVM;
             Translations = ConvertionHelper.ConvertTo(translations,languages);
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
+            this.rm = rm;
+            this.ci = ci;
         }
 
         #region Command

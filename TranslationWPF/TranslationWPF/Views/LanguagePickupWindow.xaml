@@ -16,11 +16,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Language1: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Language1}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <ComboBox Margin="10 0 0 0" Width="100" ItemsSource="{Binding LanguagesOrder}" SelectedItem="{Binding SelectedItem1}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Language2: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Language2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <ComboBox Margin="10 0 0 0" Width="100" ItemsSource="{Binding LanguagesOrder}" SelectedItem="{Binding SelectedItem2}"/>
         </StackPanel>
         <Button Grid.Row="1" Content="OK" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="Button_Click"/>

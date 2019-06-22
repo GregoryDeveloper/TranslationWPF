@@ -13,28 +13,150 @@
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="ImportBTN" Content="Import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
-            <Button x:Name="FormatedImportBTN" Content="Formatted import" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding FormattedImportCommand}" />
-            <Button x:Name="ExportBTN" Content="Export" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ExportCommand}" />
+            <Button x:Name="ImportBTN" Content="{Binding ImportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
+            <Button x:Name="FormatedImportBTN" Content="{Binding FormattedImportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding FormattedImportCommand}" />
+            <Button x:Name="ExportBTN" Content="{Binding ExportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ExportCommand}" />
         </StackPanel>
 
 
-        <DataGrid Grid.Row="1" Margin="10" ItemsSource="{Binding Translations}" AutoGenerateColumns="False">
+        <DataGrid x:Name="DG" Grid.Row="1" Margin="10" ItemsSource="{Binding Translations}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{Binding Language1}" Binding="{Binding Language1.Value}"/>
-                <DataGridTextColumn Header="{Binding LanguageComment1}" Binding="{Binding Language1.Comment}"/>
-                <DataGridTextColumn Header="{Binding LanguageExemple1}" Binding="{Binding Language1.Example}"/>
-                <DataGridTextColumn Header="{Binding LanguageSynonym1}" Binding="{Binding Synonyms1String}"/>
-                <DataGridTextColumn Header="{Binding LanguageType1}" Binding="{Binding Language1.Type}"/>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Language1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language1.Value}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageComment1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language1.Comment}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageExemple1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language1.Example}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageSynonym1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Synonyms1String}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageType1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language1.Type}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="{Binding Language2}" Binding="{Binding Language2.Value}"/>
+
+                <!--<DataGridTextColumn Header="{Binding LanguageComment1}" Binding="{Binding Language1.Comment}"/>-->
+                <!--<DataGridTextColumn Header="{Binding LanguageExemple1}" Binding="{Binding Language1.Example}"/>-->
+                <!--<DataGridTextColumn Header="{Binding LanguageSynonym1}" Binding="{Binding Synonyms1String}"/>-->
+                <!--<DataGridTextColumn Header="{Binding LanguageType1}" Binding="{Binding Language1.Type}"/>-->
+
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Language2, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language2.Value}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageComment1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language2.Comment}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageExemple1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language2.Example}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageSynonym1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Synonyms2String}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.LanguageType1, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Language2.Type}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!--<DataGridTextColumn Header="{Binding Language2}" Binding="{Binding Language2.Value}"/>
                 <DataGridTextColumn Header="{Binding LanguageComment2}" Binding="{Binding Language2.Comment}"/>
                 <DataGridTextColumn Header="{Binding LanguageExemple2}" Binding="{Binding Language2.Example}"/>
                 <DataGridTextColumn Header="{Binding LanguageSynonym2}" Binding="{Binding Synonyms2String}"/>
-                <DataGridTextColumn Header="{Binding LanguageType2}" Binding="{Binding Language2.Type}"/>
+                <DataGridTextColumn Header="{Binding LanguageType2}" Binding="{Binding Language2.Type}"/>-->
 
-
-                <DataGridTextColumn Header="Ligne" Binding="{Binding Translation.Line}"/>
+                <DataGridTemplateColumn IsReadOnly="True" >
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Line, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                       FontSize="10"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  Text="{Binding Translation.Line}" FontSize="11" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn Header="{Binding Line}" Binding="{Binding Translation.Line}"/>-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
