@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TranslationWPF.ViewModel;
 
 namespace TranslationWPF.Views
 {
@@ -25,6 +26,14 @@ namespace TranslationWPF.Views
             InitializeComponent();
         }
 
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ((ModifyWordVM)DataContext).TranslationsModel.Clear();
 
+            foreach (var item in ((ModifyWordVM)DataContext).Translations)
+            {
+                ((ModifyWordVM)DataContext).TranslationsModel.Add(item.Translation);
+            }
+        }
     }
 }

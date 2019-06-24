@@ -37,6 +37,9 @@ namespace TranslationWPF.ViewModel
         private readonly ResourceManager rm;
         private readonly CultureInfo ci;
 
+        // TODO refactor the reference tracking. Put an observalbe list in the mainwindow?
+        public List<Translation> TranslationsModel { get; set; }
+
         private ObservableCollection<TranslationVM> translations;
         public ObservableCollection<TranslationVM> Translations
         {
@@ -60,6 +63,7 @@ namespace TranslationWPF.ViewModel
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
+            TranslationsModel = translations;
             this.rm = rm;
             this.ci = ci;
         }
