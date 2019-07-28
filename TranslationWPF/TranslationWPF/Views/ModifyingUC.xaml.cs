@@ -28,12 +28,12 @@ namespace TranslationWPF.Views
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            ((ModifyWordVM)DataContext).TranslationsModel.Clear();
+            //((ModifyWordVM)DataContext).TranslationsModel.Clear();
 
-            foreach (var item in ((ModifyWordVM)DataContext).Translations)
-            {
-                ((ModifyWordVM)DataContext).TranslationsModel.Add(item.Translation);
-            }
+            //foreach (var item in ((ModifyWordVM)DataContext).TranslationService.Translations)
+            //{
+            //    ((ModifyWordVM)DataContext).TranslationsModel.Add(item.Translation);
+            //}
         }
     }
 }

@@ -46,10 +46,7 @@ namespace TranslationWPF.Languages
         public const string submitFormMessage = "submitFormMessage";
         public const string submitForm = "submitForm";
 
-
-        
-
-
+        public const string noItemExceptionMessage = "noItemExceptionMessage";
 
 
 

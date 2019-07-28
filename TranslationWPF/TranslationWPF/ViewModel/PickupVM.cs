@@ -43,6 +43,21 @@ namespace TranslationWPF.ViewModel
             this.ci = ci;
         }
 
+        //TODO refactoring
+        public PickupVM(ResourceManager rm, CultureInfo ci)
+        {
+
+            var languages = Enum.GetValues(typeof(Language.Languages)).Cast<Language.Languages>();
+
+            foreach (var item in languages)
+            {
+                LanguagesOrder.Add(item);
+            }
+
+            this.rm = rm;
+            this.ci = ci;
+        }
+
         private CommandHandler closingCommand;
         public CommandHandler ClosingCommand
         {

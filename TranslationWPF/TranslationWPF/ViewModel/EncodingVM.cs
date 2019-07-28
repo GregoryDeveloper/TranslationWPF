@@ -10,15 +10,19 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using TranslationWPF.DataValidation;
+using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
+using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel
 {
     public class EncodingVM : INotifyPropertyChanged, INotifyDataErrorInfo
     {
-        List<Translation> translations;
+        //List<Translation> translations;
+        public TranslationService TranslationService{ get; set; }
+
         ResourceManager rm;
         CultureInfo ci;
         // TODO unable the user to add a synonyms that is already in the list and pop up a notification message
@@ -151,8 +155,8 @@ namespace TranslationWPF.ViewModel
 
         #region Constructors
         public EncodingVM(Language _word, 
-                            Language _translation, 
-                            List<Translation> _translations, 
+                            Language _translation,
+                            TranslationService  _translationsService, 
                             ResourceManager rm, 
                             CultureInfo ci, 
                             bool displayAddButton, 
@@ -161,7 +165,7 @@ namespace TranslationWPF.ViewModel
 
             Translation t = new Translation(_word, _translation);
             Translation = new TranslationVM(t,languages);
-            translations = _translations;
+            TranslationService = _translationsService;
             this.rm = rm;
             this.ci = ci;
             IsVisible = displayAddButton;
@@ -254,7 +258,7 @@ namespace TranslationWPF.ViewModel
             Translation.Save();
             Translation translation = Translation.Translation;
 
-            translations.Add(translation);
+            TranslationService.Translations.Add(translation);
             ResetUI();
         }
 

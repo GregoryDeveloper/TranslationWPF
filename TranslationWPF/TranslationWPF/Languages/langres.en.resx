@@ -243,4 +243,7 @@
   <data name="addSome" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="noItemExceptionMessage" xml:space="preserve">
+    <value>No item has been loaded. Please, import a list.</value>
+  </data>
 </root>

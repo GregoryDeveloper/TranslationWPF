@@ -28,7 +28,7 @@ namespace TranslationWPF.Model
             [Description("English")]
             English =1,
             [Description("French")]
-            French = 2
+            French = 2,
         }
 
         // used for serialization

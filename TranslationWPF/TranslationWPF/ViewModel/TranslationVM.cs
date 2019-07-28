@@ -11,6 +11,7 @@ using TranslationWPF.Helper;
 
 namespace TranslationWPF.ViewModel
 {
+    // TODO: refacto properties must be bind to the translation object properties (reference)
     public class TranslationVM : INotifyPropertyChanged
     {
         #region OnpropertyChanged

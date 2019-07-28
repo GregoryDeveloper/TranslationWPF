@@ -11,11 +11,15 @@ using System.Runtime.CompilerServices;
 using TranslationWPF.Languages;
 using System.Resources;
 using System.Globalization;
+using TranslationWPF.Exceptions;
+using System.Windows;
+using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel
 {
     public class ModifyWordVM: INotifyPropertyChanged
     {
+
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -38,7 +42,7 @@ namespace TranslationWPF.ViewModel
         private readonly CultureInfo ci;
 
         // TODO refactor the reference tracking. Put an observalbe list in the mainwindow?
-        public List<Translation> TranslationsModel { get; set; }
+        //public List<Translation> TranslationsModel { get; set; }
 
         private ObservableCollection<TranslationVM> translations;
         public ObservableCollection<TranslationVM> Translations
@@ -46,6 +50,7 @@ namespace TranslationWPF.ViewModel
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations"); }
         }
+
         private TranslationVM _selectedItem;
         public TranslationVM SelectedItem
         {
@@ -53,19 +58,29 @@ namespace TranslationWPF.ViewModel
             set { _selectedItem = value; OnPropertyChanged("SelectedItem"); }
         }
         public EncodingVM EncodingVM { get; set; }
+
+        public TranslationService TranslationService { get; set; }
         #endregion
 
         // TODO refactor rm and ci
-        public ModifyWordVM(List<Translation> translations, EncodingVM encodingVM, List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
+        public ModifyWordVM(TranslationService translationsService, EncodingVM encodingVM, List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
         {
+            this.rm = rm;
+            this.ci = ci;
+
+            TranslationService = translationsService;
+
+            if (TranslationService.Translations.Count == 0)
+                throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
+
             EncodingVM = encodingVM;
-            Translations = ConvertionHelper.ConvertTo(translations,languages);
+            
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
-            TranslationsModel = translations;
-            this.rm = rm;
-            this.ci = ci;
+            Translations = this.TranslationService.TranslationsVM;
+
+
         }
 
         #region Command
@@ -99,7 +114,8 @@ namespace TranslationWPF.ViewModel
 
         private void _deleteCommandHandler()
         {
-            Translations.Remove(SelectedItem);
+            TranslationService.RemoveTranslation(SelectedItem);
+            //Translations.Remove(SelectedItem);
         }
 
         #endregion
@@ -111,18 +127,18 @@ namespace TranslationWPF.ViewModel
 
         private void NextElementHandler()
         {
-            SelectedItem = SelectedItem == null || SelectedItem == Translations.Last()
-                ? Translations.First() 
-                : Translations.Where(t => t.Id == SelectedItem.Id + 1).First();
+            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last()
+                ? TranslationService.TranslationsVM.First() 
+                : TranslationService.TranslationsVM.Where(t => t.Id == SelectedItem.Id + 1).First();
 
             EncodingVM.SetItem(SelectedItem);
         }
 
         private void PreviousElementHandler()
         {
-            SelectedItem = SelectedItem == null || SelectedItem == Translations.First()
-               ? Translations.Last()
-               : Translations.Where(t => t.Id == SelectedItem.Id - 1).First();
+            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First()
+               ? TranslationService.TranslationsVM.Last()
+               : TranslationService.TranslationsVM.Where(t => t.Id == SelectedItem.Id - 1).First();
 
             EncodingVM.SetItem(SelectedItem);
         }

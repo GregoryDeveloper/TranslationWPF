@@ -240,4 +240,7 @@
   <data name="addSome" xml:space="preserve">
     <value>Ajouter les</value>
   </data>
+  <data name="noItemExceptionMessage" xml:space="preserve">
+    <value>Aucun n'élément n'a été chargé.Veuillez importer une liste.</value>
+  </data>
 </root>

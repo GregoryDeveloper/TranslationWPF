@@ -95,6 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandHandlerWithParameter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Exceptions\NoItemException.cs" />
     <Compile Include="Languages\StringConstant.cs" />
     <Compile Include="Converter\BaseConverter.cs" />
     <Compile Include="Converter\BaseSpecifiedConcreteClassConverter .cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Model\TranslationBuilder\TranslationFormattedBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationUnformattedBuilder.cs" />
     <Compile Include="Model\Translation.cs" />
+    <Compile Include="Services\TranslationService.cs" />
     <Compile Include="ViewModel\EncodingVM.cs" />
     <Compile Include="ViewModel\ImportVM.cs" />
     <Compile Include="ViewModel\ModifyWordVM.cs" />

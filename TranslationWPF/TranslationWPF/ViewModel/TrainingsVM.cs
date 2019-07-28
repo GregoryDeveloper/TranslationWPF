@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
@@ -59,6 +60,9 @@ namespace TranslationWPF.ViewModel
 
         public TrainingsVM(List<Translation> translations, ResourceManager rm, CultureInfo ci)
         {
+            if (translations.Count == 0)
+                throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
+
             foreach (Translation item in translations)
             {
                 Trainings.Add(new TrainingVM(item,Language.Languages.English));
