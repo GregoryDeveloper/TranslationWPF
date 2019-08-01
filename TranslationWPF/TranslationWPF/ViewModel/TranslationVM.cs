@@ -139,26 +139,6 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        public TranslationVM(Translation translation)
-        {
-            Id = translation.Id;
-
-            //Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
-            //Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
-
-            //Translation.Languages.Add(Language1);
-            //Translation.Languages.Add(Language2);
-
-            Line = translation.Line;
-
-            Translation = translation;
-
-            AssignWord(translation.Languages[0]);
-            AssignTranslation(translation.Languages[1]);
-
-
-        }
-
         public TranslationVM(Translation translation, List<string> languages)
         {
             Id = translation.Id;
@@ -220,34 +200,34 @@ namespace TranslationWPF.ViewModel
         {
             if (languages[0] == Translation.Languages[0].GetLanguage())
             {
-                Language1 = Translation.Languages[0];
-                Language2 = Translation.Languages[1];
+                AssignWord(Translation.Languages[0]);
+                AssignTranslation(Translation.Languages[1]);
             }
             else
             {
-                Language1 = Translation.Languages[1];
-                Language2 = Translation.Languages[0];
+                AssignWord(Translation.Languages[1]);
+                AssignTranslation(Translation.Languages[0]);
+
             }
-
-            Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
-            Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
-
-            Translation.Languages.Add(Language1);
-            Translation.Languages.Add(Language2);
+           
         }
 
         private void AssignWord(Language language)
         {
             Language1 = language;
             WordSelectedType = language.Type;
+            Language1Synonyms.Clear();
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            //Translation.Languages.Add(Language1);
         }
 
         private void AssignTranslation(Language language)
         {
             Language2 = language;
             TranslationSelectedType = language.Type;
+            Language2Synonyms.Clear();
             Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
+            //Translation.Languages.Add(Language2);
 
         }
 

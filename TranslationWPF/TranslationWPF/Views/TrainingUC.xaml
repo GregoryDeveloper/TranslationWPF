@@ -45,7 +45,7 @@
                     </TextBox.InputBindings>
                 </TextBox>
 
-                <TextBlock Text="{Binding SelectedItem.Found, Converter={StaticResource BoolToStringConverter}}"/>
+                <TextBlock Text="{Binding SelectedItem.HasMistake, Converter={StaticResource BoolToStringConverter}}"/>
             </StackPanel>
             <Button Grid.ColumnSpan="2" 
                     Grid.Column="0" 

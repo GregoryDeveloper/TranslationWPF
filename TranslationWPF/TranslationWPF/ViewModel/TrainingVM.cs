@@ -44,12 +44,30 @@ namespace TranslationWPF.ViewModel
                 return Translation.Languages[0];
             }
         }
-
+        
         public string Input { get; set; } = "";
-        public int MistakesCount { get; set; } = 0;
+
+        private bool? hasMistake = null;
+
+        public bool? HasMistake
+        {
+            get { return hasMistake; }
+            set { hasMistake = value; OnPropertyChanged("HasMistake"); }
+        }
+        
+        private int mistakeCount = 0;
+        public int MistakesCount
+        {
+            get { return mistakeCount; }
+            set
+            {
+                mistakeCount = value;
+                HasMistake = MistakesCount != 0 ? true : false;
+            }
+        }
         public bool HasTried { get; set; } = false;
-        private bool? found;
-        public bool? Found
+        private bool found;
+        public bool Found
         {
             get { return found; }
             set { found = value; OnPropertyChanged("Found"); }
@@ -77,14 +95,14 @@ namespace TranslationWPF.ViewModel
             Input = "";
             MistakesCount = 0;
             HasTried = false;
-            found = null;
+            found = false;
         }
 
         public string GetRightValues()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(Language1.Value);
-            Language1.Synonysms.ForEach(item =>
+            sb.Append(Language2.Value);
+            Language2.Synonysms.ForEach(item =>
             {
                 sb.Append("/")
                     .Append(item);

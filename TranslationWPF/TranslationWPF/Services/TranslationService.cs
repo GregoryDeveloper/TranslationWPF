@@ -20,7 +20,6 @@ namespace TranslationWPF.Services
         public List<Translation> Translations { get; set; } = new List<Translation>();
 
         private ObservableCollection<TranslationVM> translationsVM = new ObservableCollection<TranslationVM>();
-
         public ObservableCollection<TranslationVM> TranslationsVM
         {
             get => this.translationsVM;
@@ -28,6 +27,21 @@ namespace TranslationWPF.Services
             {
                 this.translationsVM = value;
                 OnPropertyChanged("TranslationsVM");
+            }
+        }
+
+        private List<Language.Languages> languagesOrder = new List<Language.Languages>();
+        public List<Language.Languages> LanguagesOrder
+        {
+            get { return languagesOrder; }
+            set
+            {
+                languagesOrder = value;
+
+                foreach (TranslationVM item in TranslationsVM)
+                {
+                    item.AssignLanguages(LanguagesOrder);
+                }
             }
         }
 

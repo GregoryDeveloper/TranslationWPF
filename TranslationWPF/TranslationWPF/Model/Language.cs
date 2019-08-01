@@ -76,6 +76,15 @@ namespace TranslationWPF.Model
                     return new English();
             }
         }
+
+        // check if the value in parameter corresponds to the value or to a synonym.
+        public bool Validate(string value)
+        {
+            if (value == this.Value)
+                return true;
+
+            return Synonysms.Any(v => v == value);
+        }
        
 
     }

@@ -17,9 +17,9 @@ namespace TranslationWPF.Converter
             ResourceManager rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
             switch ((bool?)value)
             {
-                case true:
-                    return rm.GetString("correct");                   
                 case false:
+                    return rm.GetString("correct");                   
+                case true:
                     return rm.GetString("incorrect");
                 case null:
                     return "";

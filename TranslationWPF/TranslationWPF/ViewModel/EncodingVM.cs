@@ -163,7 +163,7 @@ namespace TranslationWPF.ViewModel
 
             Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
 
-            Translation = new TranslationVM(t,languages);
+            Translation = new TranslationVM(t);
             TranslationService = _translationsService;
             this.rm = rm;
             this.ci = ci;

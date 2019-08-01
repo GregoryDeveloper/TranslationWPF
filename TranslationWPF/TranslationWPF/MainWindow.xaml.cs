@@ -92,6 +92,7 @@ namespace TranslationWPF
             {
                 List<Language.Languages> languages = EncodingPickUpLanguages();
                 DataContext = new EncodingVM(translationService, rm,ci,true, languages);
+                translationService.LanguagesOrder = languages;
             }
             catch(Exception ex)
             {
@@ -114,8 +115,8 @@ namespace TranslationWPF
                     {
                         List<Language.Languages> languages = PickUpLanguages();
                         DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
-                        ((ModifyWordVM)DataContext).TranslationService = this.translationService;
-                        //translationService.Translations = ((ModifyWordVM)DataContext).TranslationsModel;
+                        translationService.LanguagesOrder = languages;
+
                     }
                     catch (Exception ex)
                     {
@@ -129,6 +130,7 @@ namespace TranslationWPF
                     try
                     {
                         DataContext = new TrainingsVM(translationService, rm, ci);
+
                     }
                     catch (Exception ex )
                     {

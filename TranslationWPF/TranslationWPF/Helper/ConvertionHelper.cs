@@ -34,7 +34,7 @@ namespace TranslationWPF.Helper
             ObservableCollection<TranslationVM> oTranslations = new ObservableCollection<TranslationVM>();
             foreach (Translation t in translations)
             {
-                oTranslations.Add(new TranslationVM(t, languages));
+                oTranslations.Add(new TranslationVM(t));
             }
             return oTranslations;
         }

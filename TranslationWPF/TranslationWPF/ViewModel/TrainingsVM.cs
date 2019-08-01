@@ -138,14 +138,13 @@ namespace TranslationWPF.ViewModel
             }
 
             else
-                //SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id + 1).First();
                 SelectedItem = Trainings.SkipWhile(t => t != SelectedItem).Skip(1).FirstOrDefault();
-
+            
         }
 
         private void ValidateElementHandler()
         {
-            if (SelectedItem.Input == SelectedItem.Language2.Value)
+            if (SelectedItem.Language2.Validate(SelectedItem.Input))
             {
                 SelectedItem.Found = true;
                 SelectedItem.HasTried = true;
