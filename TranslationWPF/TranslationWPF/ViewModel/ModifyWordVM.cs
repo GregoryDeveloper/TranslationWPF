@@ -40,6 +40,7 @@ namespace TranslationWPF.ViewModel
 
         private readonly ResourceManager rm;
         private readonly CultureInfo ci;
+        private int index;
 
         // TODO refactor the reference tracking. Put an observalbe list in the mainwindow?
         //public List<Translation> TranslationsModel { get; set; }
@@ -127,9 +128,10 @@ namespace TranslationWPF.ViewModel
 
         private void NextElementHandler()
         {
+
             SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last()
                 ? TranslationService.TranslationsVM.First() 
-                : TranslationService.TranslationsVM.Where(t => t.Id == SelectedItem.Id + 1).First();
+                : TranslationService.TranslationsVM.SkipWhile( t => t != SelectedItem).Skip(1).FirstOrDefault();
 
             EncodingVM.SetItem(SelectedItem);
         }
@@ -138,7 +140,7 @@ namespace TranslationWPF.ViewModel
         {
             SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First()
                ? TranslationService.TranslationsVM.Last()
-               : TranslationService.TranslationsVM.Where(t => t.Id == SelectedItem.Id - 1).First();
+               : TranslationService.TranslationsVM.TakeWhile(t => t != SelectedItem).Last();
 
             EncodingVM.SetItem(SelectedItem);
         }

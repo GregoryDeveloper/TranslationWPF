@@ -12,7 +12,9 @@ namespace TranslationWPF.Model
 {
     public class Translation
     {
+        // TODO: refacto useless now check
         private static int count { get; set; } = 0;
+        // TODO: refacto useless now check
         public int Id { get; }
         public string Line { get; set; }
         public List<Language> Languages { get; set; } = new List<Language>();

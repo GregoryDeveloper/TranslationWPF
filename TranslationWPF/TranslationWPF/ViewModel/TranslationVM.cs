@@ -24,7 +24,7 @@ namespace TranslationWPF.ViewModel
         #endregion  
 
         #region Properies
-
+        // TODO: refacto useless now check
         public int Id { get; }
 
         public Translation Translation { get; set; } = new Translation();
@@ -123,6 +123,42 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         private TranslationVM() { }
+
+        public TranslationVM(TranslationVM translationVM)
+        {
+            Translation = translationVM.Translation;
+
+            Language1 = translationVM.Language1;
+            Language2 = translationVM.Language2;
+
+            WordSelectedType = translationVM.WordSelectedType;
+            TranslationSelectedType = translationVM.TranslationSelectedType;
+
+            Language1Synonyms = new ObservableCollection<string>(translationVM.Language1Synonyms);
+            Language2Synonyms = new ObservableCollection<string> (translationVM.Language2Synonyms);
+
+        }
+
+        public TranslationVM(Translation translation)
+        {
+            Id = translation.Id;
+
+            //Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            //Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
+
+            //Translation.Languages.Add(Language1);
+            //Translation.Languages.Add(Language2);
+
+            Line = translation.Line;
+
+            Translation = translation;
+
+            AssignWord(translation.Languages[0]);
+            AssignTranslation(translation.Languages[1]);
+
+
+        }
+
         public TranslationVM(Translation translation, List<string> languages)
         {
             Id = translation.Id;
@@ -139,21 +175,19 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        public TranslationVM(Translation translation, List<Language.Languages> languages)
+        public TranslationVM(Translation translation)
         {
+            Translation = translation;
+
             Id = translation.Id;
 
-            AssignLanguages(translation, languages);
-
-            Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
-            Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
-
-            Translation.Languages.Add(Language1);
-            Translation.Languages.Add(Language2);
+            List<Language.Languages> languages = SetDefaultLanguagesOrder(translation);
+            AssignLanguages(languages);
 
             Line = translation.Line;
 
         }
+
 
         public void Save()
         {
@@ -182,21 +216,50 @@ namespace TranslationWPF.ViewModel
         }
 
         //TODO refactoring
-        private void AssignLanguages(Translation translation, List<Language.Languages> languages)
+        public void AssignLanguages(List<Language.Languages> languages)
         {
-            if (languages[0] == translation.Languages[0].GetLanguage())
+            if (languages[0] == Translation.Languages[0].GetLanguage())
             {
-                Language1 = translation.Languages[0];
-                Language2 = translation.Languages[1];
+                Language1 = Translation.Languages[0];
+                Language2 = Translation.Languages[1];
             }
             else
             {
-                Language1 = translation.Languages[1];
-                Language2 = translation.Languages[0];
+                Language1 = Translation.Languages[1];
+                Language2 = Translation.Languages[0];
             }
+
+            Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
+
+            Translation.Languages.Add(Language1);
+            Translation.Languages.Add(Language2);
         }
 
-       
+        private void AssignWord(Language language)
+        {
+            Language1 = language;
+            WordSelectedType = language.Type;
+            Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
+        }
+
+        private void AssignTranslation(Language language)
+        {
+            Language2 = language;
+            TranslationSelectedType = language.Type;
+            Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
+
+        }
+
+        private List<Language.Languages> SetDefaultLanguagesOrder(Translation translation)
+        {
+            List<Language.Languages> languages = new List<Language.Languages>();
+            languages.Add(translation.Languages[0].GetLanguage());
+            languages.Add(translation.Languages[1].GetLanguage());
+
+            return languages;
+        }
+
 
     }
 

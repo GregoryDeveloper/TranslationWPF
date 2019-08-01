@@ -43,11 +43,11 @@ namespace TranslationWPF
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
 
-            translationService.Translations.Add(new Translation(
+            translationService.AddTranslation(new Translation(
                 new French() { Value = "essayer" },
                 new English() { Value = "to try" }));
 
-            translationService.Translations.Add(new Translation(
+            translationService.AddTranslation(new Translation(
                     new French()
                     {
                         Value = "manger",
@@ -57,7 +57,7 @@ namespace TranslationWPF
                     {
                         Value = "to eat"
                     }));
-            translationService.Translations.Add(new Translation(
+            translationService.AddTranslation(new Translation(
                     new French() { Value = "dormir" },
                     new English() { Value = "to sleep" }));
             WelcomePage();
@@ -91,7 +91,7 @@ namespace TranslationWPF
             try
             {
                 List<Language.Languages> languages = EncodingPickUpLanguages();
-                DataContext = new EncodingVM(new French(), new English(), translationService, rm,ci,true, languages);
+                DataContext = new EncodingVM(translationService, rm,ci,true, languages);
             }
             catch(Exception ex)
             {
@@ -113,7 +113,7 @@ namespace TranslationWPF
                     try
                     {
                         List<Language.Languages> languages = PickUpLanguages();
-                        DataContext = new ModifyWordVM(translationService, new EncodingVM(new French(), new English(), translationService, rm, ci, false, languages), languages, rm, ci);
+                        DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
                         ((ModifyWordVM)DataContext).TranslationService = this.translationService;
                         //translationService.Translations = ((ModifyWordVM)DataContext).TranslationsModel;
                     }
@@ -128,7 +128,7 @@ namespace TranslationWPF
                 case "LBPratice":
                     try
                     {
-                        DataContext = new TrainingsVM(translationService.Translations, rm, ci);
+                        DataContext = new TrainingsVM(translationService, rm, ci);
                     }
                     catch (Exception ex )
                     {

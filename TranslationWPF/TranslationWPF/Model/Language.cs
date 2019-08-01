@@ -63,6 +63,19 @@ namespace TranslationWPF.Model
         public abstract new Types GetType();
         public abstract Language GetNewInstance();
         public abstract Languages GetLanguage();
+
+        public static Language CreateLanguage(Languages language)
+        {
+            switch (language)
+            {
+                case Languages.English:
+                    return new English();
+                case Languages.French:
+                    return new French();
+                default:
+                    return new English();
+            }
+        }
        
 
     }

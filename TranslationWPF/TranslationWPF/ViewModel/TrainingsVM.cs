@@ -13,6 +13,7 @@ using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
+using TranslationWPF.Services;
 using TranslationWPF.Views;
 
 namespace TranslationWPF.ViewModel
@@ -58,16 +59,17 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        public TrainingsVM(List<Translation> translations, ResourceManager rm, CultureInfo ci)
+        public TrainingsVM(TranslationService translationService, ResourceManager rm, CultureInfo ci)
         {
-            if (translations.Count == 0)
+            if (translationService.Translations.Count == 0)
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
 
-            foreach (Translation item in translations)
+            foreach (Translation item in translationService.Translations)
             {
-                Trainings.Add(new TrainingVM(item,Language.Languages.English));
+                Trainings.Add(new TrainingVM(item, Language.Languages.English));
             }
             //Trainings = ConvertionHelper.ConvertTo(translations);
+
             SelectedItem = Trainings[0];
             this.rm = rm;
             this.ci = ci;
@@ -104,8 +106,9 @@ namespace TranslationWPF.ViewModel
             if (SelectedItem == Trainings.First() )
                 return;
 
-            SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id - 1).First();
-            
+            //SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id - 1).First();
+            SelectedItem = Trainings.TakeWhile(t => t != SelectedItem).Last();
+
         }
 
         private void NextElementHandler()
@@ -135,7 +138,9 @@ namespace TranslationWPF.ViewModel
             }
 
             else
-                SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id + 1).First();
+                //SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id + 1).First();
+                SelectedItem = Trainings.SkipWhile(t => t != SelectedItem).Skip(1).FirstOrDefault();
+
         }
 
         private void ValidateElementHandler()

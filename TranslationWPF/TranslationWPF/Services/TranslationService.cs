@@ -19,23 +19,33 @@ namespace TranslationWPF.Services
 
         public List<Translation> Translations { get; set; } = new List<Translation>();
 
+        private ObservableCollection<TranslationVM> translationsVM = new ObservableCollection<TranslationVM>();
+
+        public ObservableCollection<TranslationVM> TranslationsVM
+        {
+            get => this.translationsVM;
+            set
+            {
+                this.translationsVM = value;
+                OnPropertyChanged("TranslationsVM");
+            }
+        }
+
         public TranslationService()
         { }
 
         public void AddTranslation(TranslationVM _translation)
         {
-            // Add translations
-            //Translation translation = new Translation();
-            //translation.Languages[0] = _translation.Language1;
-            //translation.Languages[1] = _translation.Language2;
-            //translation.Id = _translation.Id;
-            //translation.Languages[1].Type = _translation.Language2;
-            //translation.Languages[1] = _translation.Language2;
-            //translation.Languages[1] = _translation.Language2;
-
-
             Translations.Add(_translation.Translation);
             TranslationsVM.Add(_translation);
+        }
+
+        public void AddTranslation(Translation _translation)
+        {
+            Translations.Add(_translation);
+            translationsVM.Add(new TranslationVM(_translation));
+
+
         }
 
         public void RemoveTranslation(TranslationVM translation)
@@ -46,27 +56,5 @@ namespace TranslationWPF.Services
 
         }
 
-        //private DatabaseService databaseService;
-        //public DatabaseService DatabaseService
-        //{
-        //    get => this.databaseService;
-        //    set
-        //    {
-        //        this.databaseService = value;
-        //        this.Translations = databaseService.getTranslations;
-        //    }
-        //}
-
-        private ObservableCollection<TranslationVM> translationsVM;
-
-        public ObservableCollection<TranslationVM> TranslationsVM
-        {
-            get => this.translationsVM;
-            set
-            {
-                this.translationsVM = value;
-                OnPropertyChanged("Translations");
-            }
-        }
     }
 }

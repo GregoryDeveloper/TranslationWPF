@@ -154,21 +154,21 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Constructors
-        public EncodingVM(Language _word, 
-                            Language _translation,
-                            TranslationService  _translationsService, 
+        public EncodingVM(  TranslationService  _translationsService, 
                             ResourceManager rm, 
                             CultureInfo ci, 
                             bool displayAddButton, 
                             List<Language.Languages> languages)
         {
 
-            Translation t = new Translation(_word, _translation);
+            Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+
             Translation = new TranslationVM(t,languages);
             TranslationService = _translationsService;
             this.rm = rm;
             this.ci = ci;
             IsVisible = displayAddButton;
+
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
         }
@@ -255,10 +255,10 @@ namespace TranslationWPF.ViewModel
 
         void AddItemToList()
         {
+            // TODO: check if we can remove
             Translation.Save();
-            Translation translation = Translation.Translation;
 
-            TranslationService.Translations.Add(translation);
+            TranslationService.AddTranslation(new TranslationVM(Translation));
             ResetUI();
         }
 
