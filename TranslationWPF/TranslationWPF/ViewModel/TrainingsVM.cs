@@ -127,10 +127,6 @@ namespace TranslationWPF.ViewModel
                     view.ShowDialog();
                     Trainings = ((ResultsVM)view.DataContext).Trainings;
 
-                    foreach (var t in Trainings)
-                    {
-                        t.Refresh();
-                    }
                     if (Trainings.Count> 0)
                         SelectedItem = Trainings.First();
                 }
@@ -148,6 +144,7 @@ namespace TranslationWPF.ViewModel
             {
                 SelectedItem.Found = true;
                 SelectedItem.HasTried = true;
+                SelectedItem.HasMistake = false;
                 NextElementHandler();
             }
             else

@@ -142,6 +142,10 @@ namespace TranslationWPF.ViewModel
         void CloseHandler()
         {
 
+            foreach (var training in Trainings)
+            {
+                training.Refresh();
+            }
         }
         #endregion
 

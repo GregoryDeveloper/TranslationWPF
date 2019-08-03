@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -62,7 +62,10 @@ namespace TranslationWPF.ViewModel
             set
             {
                 mistakeCount = value;
-                HasMistake = MistakesCount != 0 ? true : false;
+                if (MistakesCount != 0)
+                    HasMistake = true;
+                else
+                    HasMistake = null;
             }
         }
         public bool HasTried { get; set; } = false;
@@ -93,6 +96,7 @@ namespace TranslationWPF.ViewModel
         public void Refresh()
         {
             Input = "";
+            HasMistake = null;
             MistakesCount = 0;
             HasTried = false;
             found = false;
