@@ -68,7 +68,7 @@ namespace TranslationWPF.ViewModel
 
         readonly ResourceManager rm;
         readonly CultureInfo ci;
-        public event EventHandler<(string, List<Language.Languages>)> ChangementEtat;
+        public event EventHandler<(string, List<Language.Languages>, Translation translation)> ChangementEtat;
 
         public AddLanguageVM(ResourceManager rm, 
                              CultureInfo ci,
@@ -138,11 +138,13 @@ namespace TranslationWPF.ViewModel
             languages.Add(SelectedItem1);
             languages.Add(SelectedItem2);
 
-            OnChangementEtat(("AddLanguageVM", languages));
+            DGSelectedItem.Translation.Languages.Add(Language.CreateLanguage(SelectedItem2));
+
+            OnChangementEtat(("AddLanguageVM", languages, DGSelectedItem.Translation));
         }
 
 
-        public void OnChangementEtat((string, List<Language.Languages>) e)
+        public void OnChangementEtat((string, List<Language.Languages>, Translation translation) e)
         {
             this.ChangementEtat?.Invoke(this, e);
         }

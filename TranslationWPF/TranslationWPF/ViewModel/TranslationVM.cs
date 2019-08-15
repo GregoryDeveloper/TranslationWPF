@@ -27,7 +27,7 @@ namespace TranslationWPF.ViewModel
         // TODO: refacto useless now check
         public int Id { get; }
 
-        public Translation Translation { get; set; } = new Translation();
+        public Translation Translation { get; set; }
 
         private Language language1;
         public Language Language1
@@ -148,8 +148,7 @@ namespace TranslationWPF.ViewModel
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
             Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
 
-            Translation.Languages.Add(Language1);
-            Translation.Languages.Add(Language2);
+            Translation = translation;
 
             Line = translation.Line;
 
@@ -183,16 +182,27 @@ namespace TranslationWPF.ViewModel
         //TODO refactoring
         private void AssignLanguages(Translation translation, List<Language.Languages> languages)
         {
-            if (languages[0] == translation.Languages[0].GetLanguage())
+            Language1 = GetLanguage(translation.Languages, languages[0]);
+            Language2 = GetLanguage(translation.Languages, languages[1]);
+
+        }
+
+
+        /// <summary>
+        /// Returns the language from the model to attatch to the viewmodel
+        /// </summary>
+        /// <param name="languages"> list of languages available</param>
+        /// <param name="languageType">language meant to be assigned (eg spanish)</param>
+        private Language GetLanguage(List<Language> languages, Language.Languages languageType )
+        {
+            foreach (var language in languages)
             {
-                Language1 = translation.Languages[0];
-                Language2 = translation.Languages[1];
+                if (languageType == language.GetLanguage()) 
+                    return language;
+
             }
-            else
-            {
-                Language1 = translation.Languages[1];
-                Language2 = translation.Languages[0];
-            }
+
+            return null;
         }
 
         //TODO refactoring

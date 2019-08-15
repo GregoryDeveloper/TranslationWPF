@@ -44,8 +44,8 @@ namespace TranslationWPF
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
 
             translationService.AddTranslation(new Translation(
-                new French() { Value = "essayer" },
-                new English() { Value = "to try" }));
+                new French() { Value = "espérer" },
+                new English() { Value = "to hope" }));
 
             translationService.AddTranslation(new Translation(
                     new French()
@@ -153,11 +153,10 @@ namespace TranslationWPF
             }
         }
 
-        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages) e)
+        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages, Translation translation) e)
         {
-            DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages);
+            DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages, e.translation);
             translationService.LanguagesOrder = e.Languages;
-            Console.WriteLine("test: " + e.Name);
         }
 
         private List<Language.Languages> PickUpLanguages()

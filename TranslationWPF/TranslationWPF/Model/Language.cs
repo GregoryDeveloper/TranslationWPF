@@ -78,6 +78,8 @@ namespace TranslationWPF.Model
                     return new English();
                 case Languages.French:
                     return new French();
+                case Languages.Spanish:
+                    return new Spanish();
                 default:
                     return new English();
             }

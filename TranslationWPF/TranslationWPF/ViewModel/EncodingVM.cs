@@ -25,6 +25,8 @@ namespace TranslationWPF.ViewModel
 
         ResourceManager rm;
         CultureInfo ci;
+
+        bool exists = false;
         // TODO unable the user to add a synonyms that is already in the list and pop up a notification message
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -154,16 +156,30 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Constructors
-        public EncodingVM(  TranslationService  _translationsService, 
-                            ResourceManager rm, 
-                            CultureInfo ci, 
-                            bool displayAddButton, 
-                            List<Language.Languages> languages)
+        public EncodingVM(TranslationService _translationsService,
+                            ResourceManager rm,
+                            CultureInfo ci,
+                            bool displayAddButton,
+                            List<Language.Languages> languages,
+                            Translation translation = null
+                            )
         {
+            Translation t;
+            if (translation == null)
+            {
+                exists = false;
+                t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+                Translation = new TranslationVM(t, languages);
+            }
+            else
+            {
+                exists = true;
+                t = translation;
+                Translation = new TranslationVM(t, languages);
 
-            Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+            }
 
-            Translation = new TranslationVM(t);
+
             TranslationService = _translationsService;
             this.rm = rm;
             this.ci = ci;
@@ -249,8 +265,12 @@ namespace TranslationWPF.ViewModel
         {
             if (!CheckCredentials())
                 return;
+            if (!exists)
+                AddItemToList();
+            else
+                ModidfyItem();
+            ResetUI();
 
-            AddItemToList();
         }
 
         void AddItemToList()
@@ -259,7 +279,10 @@ namespace TranslationWPF.ViewModel
             Translation.Save();
 
             TranslationService.AddTranslation(new TranslationVM(Translation));
-            ResetUI();
+        }
+        void ModidfyItem()
+        {
+
         }
 
         void ResetUI()
