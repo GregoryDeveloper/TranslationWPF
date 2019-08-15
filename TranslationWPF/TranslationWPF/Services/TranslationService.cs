@@ -43,6 +43,7 @@ namespace TranslationWPF.Services
                 {
                     item.AssignLanguages(LanguagesOrder);
                 }
+                SetDisplayableLanguages();
             }
         }
 
@@ -75,5 +76,14 @@ namespace TranslationWPF.Services
         {
             return Translations.Where(t => t.HasLanguage(language)).ToList();
         }
+
+        private void SetDisplayableLanguages()
+        {
+            foreach (var item in TranslationsVM)
+            {
+                item.SetDisplay(LanguagesOrder);
+            }   
+        }
+
     }
 }

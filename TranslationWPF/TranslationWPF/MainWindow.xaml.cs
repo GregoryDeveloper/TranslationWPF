@@ -45,7 +45,8 @@ namespace TranslationWPF
 
             translationService.AddTranslation(new Translation(
                 new French() { Value = "espérer" },
-                new English() { Value = "to hope" }));
+                new English() { Value = "to hope" },
+                new Spanish() { Value = "esperar"}));
 
             translationService.AddTranslation(new Translation(
                     new French()

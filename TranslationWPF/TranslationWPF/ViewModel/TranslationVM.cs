@@ -118,6 +118,8 @@ namespace TranslationWPF.ViewModel
             set { line = value; OnPropertyChanged("Line"); }
         }
 
+        public bool Display { get; set; } = true;
+
 
         //public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
@@ -164,6 +166,21 @@ namespace TranslationWPF.ViewModel
             AssignLanguages(languages);
 
             Line = translation.Line;
+
+        }
+
+        public void SetDisplay(List<Language.Languages> languages)
+        {
+
+            foreach (var language in languages)
+            {
+                if (!Translation.HasLanguage(language))
+                {
+                    Display = false;
+                    return;
+                }
+            }
+            Display = true;
 
         }
 

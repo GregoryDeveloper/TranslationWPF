@@ -116,7 +116,6 @@ namespace TranslationWPF.ViewModel
         private void _deleteCommandHandler()
         {
             TranslationService.RemoveTranslation(SelectedItem);
-            //Translations.Remove(SelectedItem);
         }
 
         #endregion
