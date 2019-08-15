@@ -16,12 +16,8 @@
             <Setter Property="Foreground" Value="SaddleBrown"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-        <!--<Style TargetType="Button">
-            <Setter Property="Background" Value="#DCDCDC"/>
-        </Style>-->
         <ImageBrush x:Key="RightArrow" ImageSource="/Images/RightArrow.png" />
         <ImageBrush x:Key="LeftArrow" ImageSource="/Images/LeftArrow.png" />
-
     </UserControl.Resources>
     <Grid Background="White">
         <DockPanel x:Name="DP" LastChildFill="True">

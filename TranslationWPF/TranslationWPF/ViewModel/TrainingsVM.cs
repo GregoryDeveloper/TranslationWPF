@@ -119,7 +119,10 @@ namespace TranslationWPF.ViewModel
             if (SelectedItem == Trainings.Last())
             {
                 MessageBoxResult result;
-                result = MessageBox.Show(rm.GetString(StringConstant.submitFormMessage), rm.GetString(StringConstant.submitForm), MessageBoxButton.YesNoCancel);
+                result = MessageBox.Show(rm.GetString(StringConstant.submitFormMessage), 
+                                         rm.GetString(StringConstant.submitForm), 
+                                         MessageBoxButton.YesNoCancel);
+
                 if (result == MessageBoxResult.Yes)
                 {
                     ResultView view = new ResultView();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using TranslationWPF.Model;
 using TranslationWPF.ViewModel;
@@ -70,5 +71,9 @@ namespace TranslationWPF.Services
 
         }
 
+        public List<Translation> GetTranslations(Language.Languages language)
+        {
+            return Translations.Where(t => t.HasLanguage(language)).ToList();
+        }
     }
 }

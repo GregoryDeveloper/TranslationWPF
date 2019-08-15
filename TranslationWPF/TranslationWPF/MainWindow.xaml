@@ -21,6 +21,9 @@
         <DataTemplate x:Name="trainingViewTemplate" DataType="{x:Type viewmodels:TrainingsVM}">
             <views:TrainingUC DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="addLanguageViewTemplate" DataType="{x:Type viewmodels:AddLanguageVM}">
+            <views:AddLanguageUC DataContext="{Binding}"></views:AddLanguageUC>
+        </DataTemplate>
 
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -117,6 +120,12 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Brain" Width="25" Height="25" VerticalAlignment="Center"  Margin="10"/>
                             <TextBlock Text="Practice" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="LBAddLanguage" Height="60" Width="150" PreviewMouseDown="ListViewItem_PreviewMouseDown">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Add" Width="25" Height="25" VerticalAlignment="Center"  Margin="10"/>
+                            <TextBlock Text="Add language" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

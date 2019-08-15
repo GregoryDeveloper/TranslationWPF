@@ -243,4 +243,10 @@
   <data name="noItemExceptionMessage" xml:space="preserve">
     <value>Aucun n'élément n'a été chargé.Veuillez importer une liste.</value>
   </data>
+  <data name="addingLanguage" xml:space="preserve">
+    <value>Langue à ajouter</value>
+  </data>
+  <data name="baseLanguage" xml:space="preserve">
+    <value>Langue de référence</value>
+  </data>
 </root>

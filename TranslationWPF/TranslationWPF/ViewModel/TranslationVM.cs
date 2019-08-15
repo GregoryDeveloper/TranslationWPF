@@ -139,7 +139,7 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        public TranslationVM(Translation translation, List<string> languages)
+        public TranslationVM(Translation translation, List<Language.Languages> languages)
         {
             Id = translation.Id;
 
@@ -181,9 +181,9 @@ namespace TranslationWPF.ViewModel
         }
 
         //TODO refactoring
-        private void AssignLanguages(Translation translation, List<string> languages)
+        private void AssignLanguages(Translation translation, List<Language.Languages> languages)
         {
-            if (languages[0] == translation.Languages[0].GetLanguage().ToDescription())
+            if (languages[0] == translation.Languages[0].GetLanguage())
             {
                 Language1 = translation.Languages[0];
                 Language2 = translation.Languages[1];

@@ -117,12 +117,15 @@
     <Compile Include="Model\LanguageBuilder\LanguageDirector.cs" />
     <Compile Include="Model\LanguageBuilder\LanguageEnglishBuilder.cs" />
     <Compile Include="Model\LanguageBuilder\LanguageFrenchBuilder.cs" />
+    <Compile Include="Model\Spanish.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationDirector.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationFormattedBuilder.cs" />
     <Compile Include="Model\TranslationBuilder\TranslationUnformattedBuilder.cs" />
     <Compile Include="Model\Translation.cs" />
     <Compile Include="Services\TranslationService.cs" />
+    <Compile Include="ViewModel\AddLanguageVM.cs" />
+    <Compile Include="ViewModel\AddTranslationVM.cs" />
     <Compile Include="ViewModel\EncodingVM.cs" />
     <Compile Include="ViewModel\ImportVM.cs" />
     <Compile Include="ViewModel\ModifyWordVM.cs" />
@@ -133,6 +136,9 @@
     <Compile Include="ViewModel\TrainingVM.cs" />
     <Compile Include="ViewModel\TranslationVM.cs" />
     <Compile Include="ViewModel\WelcomeVM.cs" />
+    <Compile Include="Views\AddLanguageUC.xaml.cs">
+      <DependentUpon>AddLanguageUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EncondingUC.xaml.cs">
       <DependentUpon>EncondingUC.xaml</DependentUpon>
     </Compile>
@@ -166,6 +172,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddLanguageUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EncondingUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -10,6 +10,8 @@ namespace TranslationWPF.Model
     {
         public const int english = 1;
         public const int french = 2;
+        public const int spanish = 3;
+
 
     }
 }

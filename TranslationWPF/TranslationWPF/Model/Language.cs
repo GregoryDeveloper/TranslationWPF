@@ -29,6 +29,8 @@ namespace TranslationWPF.Model
             English =1,
             [Description("French")]
             French = 2,
+            [Description("Spanish")]
+            Spanish = 3
         }
 
         // used for serialization
@@ -63,6 +65,10 @@ namespace TranslationWPF.Model
         public abstract new Types GetType();
         public abstract Language GetNewInstance();
         public abstract Languages GetLanguage();
+        public static List<Languages> GetLanguages()
+        {
+            return Enum.GetValues(typeof(Language.Languages)).Cast<Language.Languages>().ToList();
+        }
 
         public static Language CreateLanguage(Languages language)
         {

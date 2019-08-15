@@ -35,7 +35,37 @@ namespace TranslationWPF.Model
             return sb.ToString();
         }
 
-   
+        public bool HasLanguage(Language.Languages language)
+        {
+            return Languages.Any(l => l.GetLanguage() == language);
+        }
+
+        public List<Language.Languages> GetCurrentLanguages()
+        {
+            List<Language.Languages> languages = new List<Language.Languages>();
+            Languages.ForEach(l => languages.Add(l.GetLanguage()));
+
+            return languages;
+        }
+
+        public List<Language.Languages> GetMissingLanguages()
+        {
+            List<Language.Languages> currentlanguages = GetCurrentLanguages();
+            List<Language.Languages> languages = Language.GetLanguages();
+
+            return languages.Where(l => !currentlanguages.Contains(l)).ToList();
+        }
+
+        public string GetLanguageValue(Language.Languages language)
+        {
+            return Languages.Where(l => l.GetLanguage() == language)
+                     .Select(l => l.Value)
+                     .First();
+        }
+
+
+
+
 
     }
 }

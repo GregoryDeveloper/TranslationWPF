@@ -246,4 +246,10 @@
   <data name="noItemExceptionMessage" xml:space="preserve">
     <value>No item has been loaded. Please, import a list.</value>
   </data>
+  <data name="addingLanguage" xml:space="preserve">
+    <value>Language to add</value>
+  </data>
+  <data name="baseLanguage" xml:space="preserve">
+    <value>Based language</value>
+  </data>
 </root>

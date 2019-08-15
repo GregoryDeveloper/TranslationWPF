@@ -60,6 +60,11 @@ namespace TranslationWPF
             translationService.AddTranslation(new Translation(
                     new French() { Value = "dormir" },
                     new English() { Value = "to sleep" }));
+
+            translationService.AddTranslation(new Translation(
+                new French() { Value = "essayer" },
+                new Spanish() { Value = "probar" }));
+
             WelcomePage();
 
         }
@@ -137,9 +142,22 @@ namespace TranslationWPF
                         MessageBox.Show(ex.Message);
                     }
                     break;
+                case "LBAddLanguage":
+                    var dataContext = new AddLanguageVM(rm, ci, translationService);
+                    dataContext.ChangementEtat += UCClosed;
+                    DataContext = dataContext;
+
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages) e)
+        {
+            DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages);
+            translationService.LanguagesOrder = e.Languages;
+            Console.WriteLine("test: " + e.Name);
         }
 
         private List<Language.Languages> PickUpLanguages()

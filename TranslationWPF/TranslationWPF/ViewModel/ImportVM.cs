@@ -68,6 +68,7 @@ namespace TranslationWPF.ViewModel
 
         #endregion
 
+        private ObservableCollection<TranslationVM> translations;
         public ObservableCollection<TranslationVM> Translations
         {
             get { return translations; }
@@ -78,7 +79,6 @@ namespace TranslationWPF.ViewModel
         #endregion
         ResourceManager rm;
         CultureInfo ci;
-        private ObservableCollection<TranslationVM> translations;
         private List<Language.Languages> languagesOrder;
 
         public ImportVM(List<Translation> translations, List<Language.Languages> languages,ResourceManager rm, CultureInfo ci)
