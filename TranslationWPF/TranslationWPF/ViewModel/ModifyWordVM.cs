@@ -127,19 +127,77 @@ namespace TranslationWPF.ViewModel
 
         private void NextElementHandler()
         {
+            if (SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last())
+            {
+                int i =  0;
 
-            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last()
-                ? TranslationService.TranslationsVM.First() 
-                : TranslationService.TranslationsVM.SkipWhile( t => t != SelectedItem).Skip(1).FirstOrDefault();
+                while (i < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[i].Display == false)
+                {
+                    i++;
+                }
+
+                SelectedItem = TranslationService.TranslationsVM[i];
+            }
+            else
+            {
+                for (int i = 0; i < TranslationService.TranslationsVM.Count; i++)
+                {
+                    if (TranslationService.TranslationsVM[i] == SelectedItem && TranslationService.TranslationsVM[i].Display == true)
+                    {
+                        int j = i + 1;
+
+                        while (j < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[j].Display == false)
+                        {
+                            j++;
+                        }
+
+                        SelectedItem =  j >= TranslationService.TranslationsVM.Count ? TranslationService.TranslationsVM[0] : TranslationService.TranslationsVM[j];
+                        break;
+                    }
+                }
+            }
 
             EncodingVM.SetItem(SelectedItem);
         }
 
         private void PreviousElementHandler()
         {
-            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First()
-               ? TranslationService.TranslationsVM.Last()
-               : TranslationService.TranslationsVM.TakeWhile(t => t != SelectedItem).Last();
+
+            if (SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First())
+            {
+               
+                int i = TranslationService.TranslationsVM.Count - 1;
+
+                while(i > -1 && TranslationService.TranslationsVM[i].Display == false)
+                {
+                    i--;
+                }
+
+                SelectedItem = TranslationService.TranslationsVM[i];
+
+            }
+            else
+            {
+                for (int i = TranslationService.TranslationsVM.Count - 1; i > -1 ; i--)
+                {
+                    if (TranslationService.TranslationsVM[i] == SelectedItem && TranslationService.TranslationsVM[i].Display == true)
+                    {
+                        int j = i - 1;
+
+                        while (j < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[j].Display == false)
+                        {
+                            j--;
+                        }
+
+                        SelectedItem = j < 0 
+                                        ? TranslationService.TranslationsVM[TranslationService.TranslationsVM.Count - 1] 
+                                        : TranslationService.TranslationsVM[j];
+
+                        break;
+                    }
+                }
+
+            }
 
             EncodingVM.SetItem(SelectedItem);
         }

@@ -120,8 +120,6 @@ namespace TranslationWPF.ViewModel
 
         public bool Display { get; set; } = true;
 
-
-        //public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
 
         private TranslationVM() { }
@@ -225,18 +223,10 @@ namespace TranslationWPF.ViewModel
         //TODO refactoring
         public void AssignLanguages(List<Language.Languages> languages)
         {
-            if (languages[0] == Translation.Languages[0].GetLanguage())
-            {
-                AssignWord(Translation.Languages[0]);
-                AssignTranslation(Translation.Languages[1]);
-            }
-            else
-            {
-                AssignWord(Translation.Languages[1]);
-                AssignTranslation(Translation.Languages[0]);
 
-            }
-           
+            Language1 = GetLanguage(Translation.Languages, languages[0]);
+            Language2 = GetLanguage(Translation.Languages, languages[1]);
+
         }
 
         private void AssignWord(Language language)
@@ -245,7 +235,6 @@ namespace TranslationWPF.ViewModel
             WordSelectedType = language.Type;
             Language1Synonyms.Clear();
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
-            //Translation.Languages.Add(Language1);
         }
 
         private void AssignTranslation(Language language)
@@ -254,7 +243,6 @@ namespace TranslationWPF.ViewModel
             TranslationSelectedType = language.Type;
             Language2Synonyms.Clear();
             Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
-            //Translation.Languages.Add(Language2);
 
         }
 
