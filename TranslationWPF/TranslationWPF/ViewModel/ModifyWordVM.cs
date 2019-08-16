@@ -17,7 +17,7 @@ using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel
 {
-    public class ModifyWordVM: INotifyPropertyChanged
+    public class ModifyWordVM : INotifyPropertyChanged
     {
 
         #region PropertyChanged
@@ -75,7 +75,7 @@ namespace TranslationWPF.ViewModel
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
 
             EncodingVM = encodingVM;
-            
+
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
@@ -127,35 +127,8 @@ namespace TranslationWPF.ViewModel
 
         private void NextElementHandler()
         {
-            if (SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last())
-            {
-                int i =  0;
 
-                while (i < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[i].Display == false)
-                {
-                    i++;
-                }
-
-                SelectedItem = TranslationService.TranslationsVM[i];
-            }
-            else
-            {
-                for (int i = 0; i < TranslationService.TranslationsVM.Count; i++)
-                {
-                    if (TranslationService.TranslationsVM[i] == SelectedItem && TranslationService.TranslationsVM[i].Display == true)
-                    {
-                        int j = i + 1;
-
-                        while (j < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[j].Display == false)
-                        {
-                            j++;
-                        }
-
-                        SelectedItem =  j >= TranslationService.TranslationsVM.Count ? TranslationService.TranslationsVM[0] : TranslationService.TranslationsVM[j];
-                        break;
-                    }
-                }
-            }
+            SelectedItem = TranslationService.GetNextOrFirstElement(SelectedItem);
 
             EncodingVM.SetItem(SelectedItem);
         }
@@ -163,43 +136,10 @@ namespace TranslationWPF.ViewModel
         private void PreviousElementHandler()
         {
 
-            if (SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First())
-            {
-               
-                int i = TranslationService.TranslationsVM.Count - 1;
-
-                while(i > -1 && TranslationService.TranslationsVM[i].Display == false)
-                {
-                    i--;
-                }
-
-                SelectedItem = TranslationService.TranslationsVM[i];
-
-            }
-            else
-            {
-                for (int i = TranslationService.TranslationsVM.Count - 1; i > -1 ; i--)
-                {
-                    if (TranslationService.TranslationsVM[i] == SelectedItem && TranslationService.TranslationsVM[i].Display == true)
-                    {
-                        int j = i - 1;
-
-                        while (j < TranslationService.TranslationsVM.Count && TranslationService.TranslationsVM[j].Display == false)
-                        {
-                            j--;
-                        }
-
-                        SelectedItem = j < 0 
-                                        ? TranslationService.TranslationsVM[TranslationService.TranslationsVM.Count - 1] 
-                                        : TranslationService.TranslationsVM[j];
-
-                        break;
-                    }
-                }
-
-            }
+            SelectedItem = TranslationService.GetPreviousOrLastElement(SelectedItem);
 
             EncodingVM.SetItem(SelectedItem);
         }
+
     }
 }

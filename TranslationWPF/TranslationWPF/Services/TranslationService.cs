@@ -94,6 +94,120 @@ namespace TranslationWPF.Services
             }
         }
 
-        
+        #region GetNextElement
+        public TranslationVM GetNextOrFirstElement(TranslationVM translation)
+        {
+            if (translation == null)
+            {
+                return GetFirstElement();
+            }
+            else
+            {
+                return GetNextElement(translation);
+            }
+        }
+
+        private TranslationVM GetNextElement(TranslationVM translation)
+        {
+            int i = GetNextElementIndex(translation);
+
+            if (i < TranslationsVM.Count)
+                return TranslationsVM[i];
+            else
+                return GetLastElement();
+
+        }
+
+        private TranslationVM GetFirstElement()
+        {
+
+            int i = GetNextDisplayableElementIndex(0);
+
+            return TranslationsVM[i];
+        }
+        private int GetNextElementIndex(TranslationVM translation)
+        {
+            int i = 0;
+
+            while (i < TranslationsVM.Count && TranslationsVM[i] != translation)
+            {
+                i++;
+            }
+
+            i++;
+
+            return GetNextDisplayableElementIndex(i);
+        }
+
+        private int GetNextDisplayableElementIndex(int index)
+        {
+            while (index < TranslationsVM.Count && TranslationsVM[index].Display == false)
+            {
+                index++;
+            }
+
+            return index;
+        }
+        #endregion
+
+        #region GetPreviousElement
+        public TranslationVM GetPreviousOrLastElement(TranslationVM translation)
+        {
+            if (translation == null)
+            {
+                return GetLastElement();
+            }
+            else
+            {
+                return GetPreviousElement(translation);
+            }
+        }
+
+        private TranslationVM GetPreviousElement(TranslationVM translation)
+        {
+            int i = GetPreviousElementIndex(translation);
+
+            if (i >= 0)
+                return TranslationsVM[i];
+            else
+                return GetLastElement();
+
+        }
+
+        private TranslationVM GetLastElement()
+        {
+
+            int i = GetPreviousDisplayableElementIndex(TranslationsVM.Count - 1);
+
+            return TranslationsVM[i];
+        }
+        private int GetPreviousElementIndex(TranslationVM translation)
+        {
+            int i = TranslationsVM.Count - 1;
+
+            while (i > -1 && TranslationsVM[i] != translation)
+            {
+                i--;
+            }
+
+            i--;
+
+            return GetPreviousDisplayableElementIndex(i);
+
+        }
+
+        private int GetPreviousDisplayableElementIndex(int index)
+        {
+            while (index > -1 && TranslationsVM[index].Display == false)
+            {
+                index--;
+            }
+
+            return index;
+        }
+
+        #endregion
+
+
     }
 }
