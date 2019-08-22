@@ -64,7 +64,7 @@
     </Window.Triggers>
 
     <Grid Background="LightGray">
-        <Grid Height="60" VerticalAlignment="Top" Background="#FF1368BD">
+        <Grid Height="60" VerticalAlignment="Top" Background="#FF1368BD" MouseDown="Grid_MouseDown">
             <TextBlock Text="Design com WPF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" >
                 <TextBlock x:Name="UserNameTB" VerticalAlignment="Center" FontSize="18"/>
