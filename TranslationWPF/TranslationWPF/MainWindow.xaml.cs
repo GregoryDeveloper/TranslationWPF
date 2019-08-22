@@ -121,8 +121,8 @@ namespace TranslationWPF
                     {
                         List<Language.Languages> languages = PickUpLanguages();
                         DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
-                        translationService.LanguagesOrder = languages;
-
+                        
+                       
                     }
                     catch (Exception ex)
                     {

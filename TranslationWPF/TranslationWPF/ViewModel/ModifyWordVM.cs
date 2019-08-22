@@ -79,8 +79,8 @@ namespace TranslationWPF.ViewModel
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
-            Translations = this.TranslationService.TranslationsVM;
-
+            TranslationService.LanguagesOrder = languages;
+            Translations = this.TranslationService.DisplayableTranslationsVM;
 
         }
 

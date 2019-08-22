@@ -27,9 +27,18 @@ namespace TranslationWPF.Services
             set
             {
                 this.translationsVM = value;
+                SetDisplayableTranslationsVM();
                 OnPropertyChanged("TranslationsVM");
             }
         }
+
+        private ObservableCollection<TranslationVM> displayableTranslationsVM  = new ObservableCollection<TranslationVM>();
+        public ObservableCollection<TranslationVM> DisplayableTranslationsVM
+        {
+            get { return displayableTranslationsVM; }
+            set { displayableTranslationsVM = value; OnPropertyChanged("DisplayableTranslationsVM"); }
+        }
+
 
         private List<Language.Languages> languagesOrder = new List<Language.Languages>();
         public List<Language.Languages> LanguagesOrder
@@ -38,13 +47,8 @@ namespace TranslationWPF.Services
             set
             {
                 languagesOrder = value;
-
-                foreach (TranslationVM item in TranslationsVM)
-                {
-                    item.AssignLanguages(LanguagesOrder);
-                }
-                SetDisplayableLanguages();
                 SetVisibleLanguages();
+                SetDisplayableLanguages();
             }
         }
 
@@ -62,7 +66,6 @@ namespace TranslationWPF.Services
             Translations.Add(_translation);
             translationsVM.Add(new TranslationVM(_translation));
 
-
         }
 
         public void RemoveTranslation(TranslationVM translation)
@@ -78,12 +81,24 @@ namespace TranslationWPF.Services
             return Translations.Where(t => t.HasLanguage(language)).ToList();
         }
 
+        private void SetDisplayableTranslationsVM()
+        {
+            DisplayableTranslationsVM.Clear();
+            foreach (var item in TranslationsVM)
+            {
+                if (item.Display == true)
+                    DisplayableTranslationsVM.Add(item);
+            }
+        }
+
         private void SetDisplayableLanguages()
         {
             foreach (var item in TranslationsVM)
             {
                 item.SetDisplay(LanguagesOrder);
-            }   
+            }
+
+            SetDisplayableTranslationsVM();
         }
 
         private void SetVisibleLanguages()
