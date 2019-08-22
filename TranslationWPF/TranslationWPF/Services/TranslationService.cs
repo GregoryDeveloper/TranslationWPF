@@ -93,7 +93,7 @@ namespace TranslationWPF.Services
                 item.AssignLanguages(LanguagesOrder);
             }
         }
-
+        // TODO : index ?
         #region GetNextElement
         public TranslationVM GetNextOrFirstElement(TranslationVM translation)
         {
@@ -114,7 +114,7 @@ namespace TranslationWPF.Services
             if (i < TranslationsVM.Count)
                 return TranslationsVM[i];
             else
-                return GetLastElement();
+                return GetFirstElement();
 
         }
 
