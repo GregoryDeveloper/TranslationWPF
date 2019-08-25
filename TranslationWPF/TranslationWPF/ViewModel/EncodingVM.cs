@@ -9,6 +9,7 @@ using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows;
 using TranslationWPF.DataValidation;
 using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
@@ -161,22 +162,20 @@ namespace TranslationWPF.ViewModel
                             CultureInfo ci,
                             bool displayAddButton,
                             List<Language.Languages> languages,
-                            Translation translation = null
+                            TranslationVM translation = null
                             )
         {
-            Translation t;
+            
             if (translation == null)
             {
                 exists = false;
-                t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+                Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
                 Translation = new TranslationVM(t, languages);
             }
             else
             {
                 exists = true;
-                t = translation;
-                Translation = new TranslationVM(t, languages);
-
+                Translation = translation;
             }
 
 
@@ -266,10 +265,12 @@ namespace TranslationWPF.ViewModel
             if (!CheckCredentials())
                 return;
             if (!exists)
+            {
                 AddItemToList();
+                ResetUI();
+            }
             else
                 ModidfyItem();
-            ResetUI();
 
         }
 
@@ -282,7 +283,9 @@ namespace TranslationWPF.ViewModel
         }
         void ModidfyItem()
         {
-
+            // TODO: Language translation
+            Translation.Save();
+            MessageBox.Show("The language has been added", "Adding Language", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void ResetUI()

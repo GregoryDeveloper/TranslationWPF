@@ -106,5 +106,10 @@ namespace TranslationWPF.Model
         {
             return Languages.English;
         }
+
+        public override bool Is(Languages language)
+        {
+           return language == Languages.English? true : false ;
+        }
     }
 }

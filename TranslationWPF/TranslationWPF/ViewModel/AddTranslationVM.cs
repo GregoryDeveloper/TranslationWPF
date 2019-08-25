@@ -21,7 +21,7 @@ namespace TranslationWPF.ViewModel
         }
         #endregion  
 
-        public Translation Translation { get; set; }
+        public TranslationVM TranslationVM { get; set; }
 
         private string languageValue;
 
@@ -31,10 +31,10 @@ namespace TranslationWPF.ViewModel
             set { languageValue = value; OnPropertyChanged("LanguageValue"); }
         }
 
-        public AddTranslationVM(Translation translation,Language.Languages language)
+        public AddTranslationVM(TranslationVM translation,Language.Languages language)
         {
-            Translation = translation;
-            LanguageValue = Translation.GetLanguageValue(language);
+            TranslationVM = translation;
+            LanguageValue = TranslationVM.Translation.GetLanguageValue(language);
         }
     }
 }
