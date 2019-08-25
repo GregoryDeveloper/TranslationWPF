@@ -68,7 +68,7 @@ namespace TranslationWPF.ViewModel
 
         readonly ResourceManager rm;
         readonly CultureInfo ci;
-        public event EventHandler<(string, List<Language.Languages>, Translation translation)> ChangementEtat;
+        public event EventHandler<(string, List<Language.Languages>, TranslationVM translation)> ChangementEtat;
 
         public AddLanguageVM(ResourceManager rm, 
                              CultureInfo ci,
@@ -110,9 +110,9 @@ namespace TranslationWPF.ViewModel
         private void SelectionChangedHandler()
         {
             NewLanguages.Clear();
-            List<Translation> translations = TranslationService.GetTranslations(SelectedItem1);
+            var translations = TranslationService.GetTranslations(SelectedItem1);
             Translations = new ObservableCollection<AddTranslationVM>();
-            foreach (Translation translation in translations)
+            foreach (TranslationVM translation in translations)
             {
                 Translations.Add(new AddTranslationVM(translation, SelectedItem1));
             }
@@ -126,7 +126,7 @@ namespace TranslationWPF.ViewModel
 
             NewLanguages.Clear();
 
-            foreach (var item in DGSelectedItem.Translation.GetMissingLanguages())
+            foreach (var item in DGSelectedItem.TranslationVM.Translation.GetMissingLanguages())
             {
                 NewLanguages.Add(item);
             }
@@ -138,13 +138,13 @@ namespace TranslationWPF.ViewModel
             languages.Add(SelectedItem1);
             languages.Add(SelectedItem2);
 
-            DGSelectedItem.Translation.Languages.Add(Language.CreateLanguage(SelectedItem2));
+            DGSelectedItem.TranslationVM.Translation.Languages.Add(Language.CreateLanguage(SelectedItem2));
 
-            OnChangementEtat(("AddLanguageVM", languages, DGSelectedItem.Translation));
+            OnChangementEtat(("AddLanguageVM", languages, DGSelectedItem.TranslationVM));
         }
 
 
-        public void OnChangementEtat((string, List<Language.Languages>, Translation translation) e)
+        public void OnChangementEtat((string, List<Language.Languages>, TranslationVM translation) e)
         {
             this.ChangementEtat?.Invoke(this, e);
         }

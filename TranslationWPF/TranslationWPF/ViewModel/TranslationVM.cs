@@ -185,12 +185,12 @@ namespace TranslationWPF.ViewModel
 
         public void Save()
         {
+            Translation.SetLanguageType(Language1.GetLanguage(), WordSelectedType);
+            Translation.SetLanguageType(Language2.GetLanguage(), TranslationSelectedType);
 
-            Translation.Languages[0].Type = WordSelectedType;
-            Translation.Languages[1].Type = TranslationSelectedType;
-
-            Translation.Languages[0].Synonysms = Language1Synonyms.ToList();
-            Translation.Languages[1].Synonysms = Language2Synonyms.ToList();
+            Translation.SetLanguageSynonysms(Language1.GetLanguage(), Language1Synonyms.ToList());
+            Translation.SetLanguageSynonysms(Language2.GetLanguage(), Language2Synonyms.ToList());
+            
 
         }
 

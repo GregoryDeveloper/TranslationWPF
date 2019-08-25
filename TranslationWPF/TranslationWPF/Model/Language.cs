@@ -65,6 +65,7 @@ namespace TranslationWPF.Model
         public abstract new Types GetType();
         public abstract Language GetNewInstance();
         public abstract Languages GetLanguage();
+        public abstract bool Is(Language.Languages language);
         public static List<Languages> GetLanguages()
         {
             return Enum.GetValues(typeof(Language.Languages)).Cast<Language.Languages>().ToList();

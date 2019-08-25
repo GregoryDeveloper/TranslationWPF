@@ -154,7 +154,7 @@ namespace TranslationWPF
             }
         }
 
-        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages, Translation translation) e)
+        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages, TranslationVM translation) e)
         {
             DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages, e.translation);
             translationService.LanguagesOrder = e.Languages;

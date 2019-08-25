@@ -63,9 +63,23 @@ namespace TranslationWPF.Model
                      .First();
         }
 
+        public void SetLanguageType(Language.Languages language, Language.Types type)
+        {
+            foreach (Language l in Languages)
+            {
+                if (l.Is(language))
+                    l.Type = type;            
+            }
+        }
 
-
-
+        public void SetLanguageSynonysms(Language.Languages language, List<String> synonysms)
+        {
+            foreach (Language l in Languages)
+            {
+                if (l.Is(language))
+                    l.Synonysms = synonysms;
+            }
+        }
 
     }
 }
