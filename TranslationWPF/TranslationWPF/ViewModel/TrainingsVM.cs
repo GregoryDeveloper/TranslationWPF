@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TranslationWPF.Exceptions;
-using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Services;
@@ -59,16 +54,22 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        public TrainingsVM(TranslationService translationService, ResourceManager rm, CultureInfo ci)
+        public TrainingsVM(TranslationService translationService, 
+                           ResourceManager rm, 
+                           CultureInfo ci, 
+                           Language.Languages referenceLanguage, 
+                           Language.Languages trainedLanguage)
         {
             if (translationService.Translations.Count == 0)
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
 
             foreach (Translation item in translationService.Translations)
             {
-                Trainings.Add(new TrainingVM(item, Language.Languages.English));
+                if (item.HasLanguages(referenceLanguage, trainedLanguage))
+                {
+                    Trainings.Add(new TrainingVM(item, referenceLanguage, trainedLanguage));
+                }
             }
-            //Trainings = ConvertionHelper.ConvertTo(translations);
 
             SelectedItem = Trainings[0];
             this.rm = rm;

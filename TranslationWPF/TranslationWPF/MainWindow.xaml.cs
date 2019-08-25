@@ -135,7 +135,9 @@ namespace TranslationWPF
                 case "LBPratice":
                     try
                     {
-                        DataContext = new TrainingsVM(translationService, rm, ci);
+                        List<Language.Languages> languages = PickUpLanguages();
+
+                        DataContext = new TrainingsVM(translationService, rm, ci, languages[0], languages[1]);
 
                     }
                     catch (Exception ex )
