@@ -16,12 +16,8 @@
             <Setter Property="Foreground" Value="SaddleBrown"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-        <!--<Style TargetType="Button">
-            <Setter Property="Background" Value="#DCDCDC"/>
-        </Style>-->
         <ImageBrush x:Key="RightArrow" ImageSource="/Images/RightArrow.png" />
         <ImageBrush x:Key="LeftArrow" ImageSource="/Images/LeftArrow.png" />
-
     </UserControl.Resources>
     <Grid Background="White">
         <DockPanel x:Name="DP" LastChildFill="True">
@@ -32,8 +28,18 @@
                       RowHeight="40" 
                       Height="120" 
                       Margin="100 10"
-                      CanUserAddRows="True"
+                      CanUserAddRows="False"
                       >
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Display}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="2*" IsReadOnly="True" >
                         <DataGridTemplateColumn.Header>

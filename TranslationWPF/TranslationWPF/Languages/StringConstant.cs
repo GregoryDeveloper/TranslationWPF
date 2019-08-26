@@ -48,6 +48,10 @@ namespace TranslationWPF.Languages
 
         public const string noItemExceptionMessage = "noItemExceptionMessage";
 
+        public const string baseLanguage = "baseLanguage";
+        public const string addingLanguage= "addingLanguage";
+
+
 
 
     }

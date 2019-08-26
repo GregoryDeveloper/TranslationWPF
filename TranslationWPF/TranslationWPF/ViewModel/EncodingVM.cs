@@ -9,6 +9,7 @@ using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows;
 using TranslationWPF.DataValidation;
 using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
@@ -25,6 +26,8 @@ namespace TranslationWPF.ViewModel
 
         ResourceManager rm;
         CultureInfo ci;
+
+        bool exists = false;
         // TODO unable the user to add a synonyms that is already in the list and pop up a notification message
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -152,18 +155,30 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #endregion
-
+        private List<Language.Languages> languages;
         #region Constructors
-        public EncodingVM(  TranslationService  _translationsService, 
-                            ResourceManager rm, 
-                            CultureInfo ci, 
-                            bool displayAddButton, 
-                            List<Language.Languages> languages)
+        public EncodingVM(TranslationService _translationsService,
+                            ResourceManager rm,
+                            CultureInfo ci,
+                            bool displayAddButton,
+                            List<Language.Languages> languages,
+                            TranslationVM translation = null
+                            )
         {
+            this.languages = languages;
 
-            Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+            if (translation == null)
+            {
+                exists = false;
+                EncodeNewTranslation();
+            }
+            else
+            {
+                exists = true;
+                Translation = translation;
+            }
 
-            Translation = new TranslationVM(t);
+
             TranslationService = _translationsService;
             this.rm = rm;
             this.ci = ci;
@@ -172,6 +187,8 @@ namespace TranslationWPF.ViewModel
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
         }
+
+        
         #endregion
 
         #region Commands
@@ -210,7 +227,11 @@ namespace TranslationWPF.ViewModel
         {
             Translation = translation;
         }
-
+        private void EncodeNewTranslation()
+        {
+            Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+            Translation = new TranslationVM(t, languages);
+        }
         void RemoveWordHandler(string item)
         {
             string itemToRemove = Translation.Language1Synonyms.First(w => w == item);
@@ -249,17 +270,29 @@ namespace TranslationWPF.ViewModel
         {
             if (!CheckCredentials())
                 return;
+            if (!exists)
+            {
+                AddItemToList();
+                ResetUI();
+            }
+            else
+                ModidfyItem();
 
-            AddItemToList();
         }
 
         void AddItemToList()
         {
-            // TODO: check if we can remove
             Translation.Save();
 
-            TranslationService.AddTranslation(new TranslationVM(Translation));
-            ResetUI();
+            TranslationService.AddTranslation(Translation);
+
+            EncodeNewTranslation();
+        }
+        void ModidfyItem()
+        {
+            // TODO: Language translation
+            Translation.Save();
+            MessageBox.Show("The language has been added", "Adding Language", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void ResetUI()

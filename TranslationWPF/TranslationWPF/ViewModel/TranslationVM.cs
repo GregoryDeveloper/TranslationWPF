@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TranslationWPF.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TranslationWPF.Helper;
+using System;
 
 namespace TranslationWPF.ViewModel
 {
@@ -27,7 +25,7 @@ namespace TranslationWPF.ViewModel
         // TODO: refacto useless now check
         public int Id { get; }
 
-        public Translation Translation { get; set; } = new Translation();
+        public Translation Translation { get; set; }
 
         private Language language1;
         public Language Language1
@@ -118,11 +116,11 @@ namespace TranslationWPF.ViewModel
             set { line = value; OnPropertyChanged("Line"); }
         }
 
+        public bool Display { get; set; } = true;
 
-        //public TranslationTrainingVM Training { get; set; } = new TranslationTrainingVM();
         #endregion
 
-        private TranslationVM() { }
+        public TranslationVM() { }
 
         public TranslationVM(TranslationVM translationVM)
         {
@@ -139,7 +137,7 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        public TranslationVM(Translation translation, List<string> languages)
+        public TranslationVM(Translation translation, List<Language.Languages> languages)
         {
             Id = translation.Id;
 
@@ -148,8 +146,7 @@ namespace TranslationWPF.ViewModel
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
             Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
 
-            Translation.Languages.Add(Language1);
-            Translation.Languages.Add(Language2);
+            Translation = translation;
 
             Line = translation.Line;
 
@@ -168,49 +165,90 @@ namespace TranslationWPF.ViewModel
 
         }
 
+        public void SetDisplay(List<Language.Languages> languages)
+        {
+
+            foreach (var language in languages)
+            {
+                if (!Translation.HasLanguage(language))
+                {
+                    Display = false;
+                    return;
+                }
+            }
+            Display = true;
+
+        }
+
 
         public void Save()
         {
+            Translation.Languages[0] = Language1;
+            Translation.Languages[1] = Language2;
 
-            Translation.Languages[0].Type = WordSelectedType;
-            Translation.Languages[1].Type = TranslationSelectedType;
 
-            Translation.Languages[0].Synonysms = Language1Synonyms.ToList();
-            Translation.Languages[1].Synonysms = Language2Synonyms.ToList();
+            Translation.SetLanguageType(Language1.GetLanguage(), WordSelectedType);
+            Translation.SetLanguageType(Language2.GetLanguage(), TranslationSelectedType);
+
+            Translation.SetLanguageSynonysms(Language1.GetLanguage(), Language1Synonyms.ToList());
+            Translation.SetLanguageSynonysms(Language2.GetLanguage(), Language2Synonyms.ToList());
+            
 
         }
 
         //TODO refactoring
-        private void AssignLanguages(Translation translation, List<string> languages)
+        private void AssignLanguages(Translation translation, List<Language.Languages> languages)
         {
-            if (languages[0] == translation.Languages[0].GetLanguage().ToDescription())
+            try
+            {
+                Language1 = GetLanguage(translation.Languages, languages[0]);
+                Language2 = GetLanguage(translation.Languages, languages[1]);
+            }
+            catch(KeyNotFoundException ex)
             {
                 Language1 = translation.Languages[0];
                 Language2 = translation.Languages[1];
             }
-            else
-            {
-                Language1 = translation.Languages[1];
-                Language2 = translation.Languages[0];
-            }
+
         }
 
         //TODO refactoring
         public void AssignLanguages(List<Language.Languages> languages)
         {
-            if (languages[0] == Translation.Languages[0].GetLanguage())
+            try
             {
-                AssignWord(Translation.Languages[0]);
-                AssignTranslation(Translation.Languages[1]);
+                Language1 = GetLanguage(Translation.Languages, languages[0]);
+                Language2 = GetLanguage(Translation.Languages, languages[1]);
             }
-            else
+
+            catch (KeyNotFoundException ex)
             {
-                AssignWord(Translation.Languages[1]);
-                AssignTranslation(Translation.Languages[0]);
+                Language1 = Translation.Languages[0];
+                Language2 = Translation.Languages[1];
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Returns the language from the model to attatch to the viewmodel
+        /// </summary>
+        /// <param name="languages"> list of languages available</param>
+        /// <param name="languageType">language meant to be assigned (eg spanish)</param>
+        private Language GetLanguage(List<Language> languages, Language.Languages languageType )
+        {
+            foreach (var language in languages)
+            {
+                if (languageType == language.GetLanguage()) 
+                    return language;
 
             }
-           
+
+            throw new KeyNotFoundException($"The language {languageType} hasn't been found");
         }
+
+       
 
         private void AssignWord(Language language)
         {
@@ -218,7 +256,6 @@ namespace TranslationWPF.ViewModel
             WordSelectedType = language.Type;
             Language1Synonyms.Clear();
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
-            //Translation.Languages.Add(Language1);
         }
 
         private void AssignTranslation(Language language)
@@ -227,7 +264,6 @@ namespace TranslationWPF.ViewModel
             TranslationSelectedType = language.Type;
             Language2Synonyms.Clear();
             Language2.Synonysms.ForEach(s => Language2Synonyms.Add(s));
-            //Translation.Languages.Add(Language2);
 
         }
 

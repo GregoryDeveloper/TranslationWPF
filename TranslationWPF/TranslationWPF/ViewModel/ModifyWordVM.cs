@@ -17,7 +17,7 @@ using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel
 {
-    public class ModifyWordVM: INotifyPropertyChanged
+    public class ModifyWordVM : INotifyPropertyChanged
     {
 
         #region PropertyChanged
@@ -75,12 +75,12 @@ namespace TranslationWPF.ViewModel
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
 
             EncodingVM = encodingVM;
-            
+
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
 
-            Translations = this.TranslationService.TranslationsVM;
-
+            TranslationService.LanguagesOrder = languages;
+            Translations = this.TranslationService.DisplayableTranslationsVM;
 
         }
 
@@ -116,7 +116,6 @@ namespace TranslationWPF.ViewModel
         private void _deleteCommandHandler()
         {
             TranslationService.RemoveTranslation(SelectedItem);
-            //Translations.Remove(SelectedItem);
         }
 
         #endregion
@@ -129,20 +128,18 @@ namespace TranslationWPF.ViewModel
         private void NextElementHandler()
         {
 
-            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.Last()
-                ? TranslationService.TranslationsVM.First() 
-                : TranslationService.TranslationsVM.SkipWhile( t => t != SelectedItem).Skip(1).FirstOrDefault();
+            SelectedItem = TranslationService.GetNextOrFirstElement(SelectedItem);
 
             EncodingVM.SetItem(SelectedItem);
         }
 
         private void PreviousElementHandler()
         {
-            SelectedItem = SelectedItem == null || SelectedItem == TranslationService.TranslationsVM.First()
-               ? TranslationService.TranslationsVM.Last()
-               : TranslationService.TranslationsVM.TakeWhile(t => t != SelectedItem).Last();
+
+            SelectedItem = TranslationService.GetPreviousOrLastElement(SelectedItem);
 
             EncodingVM.SetItem(SelectedItem);
         }
+
     }
 }

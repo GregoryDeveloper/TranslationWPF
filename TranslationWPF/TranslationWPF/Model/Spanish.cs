@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TranslationWPF.Model.Language;
 
 namespace TranslationWPF.Model
 {
-    public class French : Language
+    public class Spanish: Language
     {
-
-        public French() : base() { ObjType = Constant.french; }
-        public French(string value, string comment, string example, Types type, List<string> synonysms)
-            : base(value, comment, example, type, synonysms) { ObjType = Constant.french; }
+        public Spanish() : base() { ObjType = Constant.spanish; }
+        public Spanish(string value, string comment, string example, Types type, List<string> synonysms)
+            : base(value, comment, example, type, synonysms) { ObjType = Constant.spanish; }
 
         public override Types GetType()
         {
             return Types.undefined;
-            //throw new NotImplementedException();
         }
 
         public override Types[] GetTypesAvailables()
@@ -26,17 +25,17 @@ namespace TranslationWPF.Model
 
         public override Language GetNewInstance()
         {
-            return new French();
+            return new Spanish();
         }
 
         public override Languages GetLanguage()
         {
-            return Languages.French;
+            return Languages.Spanish;
         }
 
         public override bool Is(Languages language)
         {
-            return language == Languages.French ? true : false;
+            return language == Languages.Spanish ? true : false;
         }
     }
 }

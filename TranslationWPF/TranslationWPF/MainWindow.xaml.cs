@@ -43,23 +43,29 @@ namespace TranslationWPF
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
 
-            translationService.AddTranslation(new Translation(
-                new French() { Value = "essayer" },
-                new English() { Value = "to try" }));
+            //translationService.AddTranslation(new Translation(
+            //    new French() { Value = "espérer" },
+            //    new English() { Value = "to hope" },
+            //    new Spanish() { Value = "esperar"}));
 
-            translationService.AddTranslation(new Translation(
-                    new French()
-                    {
-                        Value = "manger",
-                        Synonysms = { "dévorer", "déguster" }
-                    },
-                    new English()
-                    {
-                        Value = "to eat"
-                    }));
-            translationService.AddTranslation(new Translation(
-                    new French() { Value = "dormir" },
-                    new English() { Value = "to sleep" }));
+            //translationService.AddTranslation(new Translation(
+            //        new French()
+            //        {
+            //            Value = "manger",
+            //            Synonysms = { "dévorer", "déguster" }
+            //        },
+            //        new English()
+            //        {
+            //            Value = "to eat"
+            //        }));
+            //translationService.AddTranslation(new Translation(
+            //        new French() { Value = "dormir" },
+            //        new English() { Value = "to sleep" }));
+
+            //translationService.AddTranslation(new Translation(
+            //    new French() { Value = "essayer" },
+            //    new Spanish() { Value = "probar" }));
+
             WelcomePage();
 
         }
@@ -79,11 +85,6 @@ namespace TranslationWPF
         {
             ButtonOpenMenu.Visibility = Visibility.Visible;
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
-        }
-
-        void view_RaiseCustomEvent(object sender, CustomEventArgs e)
-        {
-            translationService.Translations = e.Translations;
         }
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -115,8 +116,8 @@ namespace TranslationWPF
                     {
                         List<Language.Languages> languages = PickUpLanguages();
                         DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
-                        translationService.LanguagesOrder = languages;
-
+                        
+                       
                     }
                     catch (Exception ex)
                     {
@@ -129,7 +130,9 @@ namespace TranslationWPF
                 case "LBPratice":
                     try
                     {
-                        DataContext = new TrainingsVM(translationService, rm, ci);
+                        List<Language.Languages> languages = PickUpLanguages();
+
+                        DataContext = new TrainingsVM(translationService, rm, ci, languages[0], languages[1]);
 
                     }
                     catch (Exception ex )
@@ -137,9 +140,21 @@ namespace TranslationWPF
                         MessageBox.Show(ex.Message);
                     }
                     break;
+                case "LBAddLanguage":
+                    var dataContext = new AddLanguageVM(rm, ci, translationService);
+                    dataContext.ChangementEtat += UCClosed;
+                    DataContext = dataContext;
+
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void UCClosed(object sender, (string Name, List<Language.Languages> Languages, TranslationVM translation) e)
+        {
+            DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages, e.translation);
+            translationService.LanguagesOrder = e.Languages;
         }
 
         private List<Language.Languages> PickUpLanguages()
@@ -149,7 +164,7 @@ namespace TranslationWPF
 
             LanguagePickupWindow window = new LanguagePickupWindow();
 
-            PickupVM pickup = new PickupVM(translationService.Translations[0],rm,ci);
+            PickupVM pickup = new PickupVM(translationService.GetLanguages(), rm,ci);
             window.DataContext = pickup;
             window.ShowDialog();
             List<Language.Languages> languages = new List<Language.Languages>();
@@ -177,7 +192,7 @@ namespace TranslationWPF
             try
             {
                 // link to the corresponding using done in MainWindow.xaml in window.resources
-                DataContext = new WelcomeVM(translationService.Translations, rm, ci);
+                DataContext = new WelcomeVM(translationService, rm, ci);
             }
             catch (Exception ex)
             {

@@ -15,36 +15,17 @@ namespace TranslationWPF.ViewModel
 
         private Translation Translation { get; set; }
         private Language.Languages languageTrained;
+        private Language.Languages referenceLanguage;
+
 
         public int Id
         {
             get {return Translation.Id; }
         }
-        public Language Language1
-        {
-            get
-            {
-                foreach (var item in Translation.Languages)
-                {
-                    if (item.GetLanguage() == languageTrained)
-                        return item;
-                }
-                return Translation.Languages[0];
-            }
-        }
-        public Language Language2
-        {
-            get
-            {
-                foreach (var item in Translation.Languages)
-                {
-                    if (item.GetLanguage() != languageTrained)
-                        return item;
-                }
-                return Translation.Languages[0];
-            }
-        }
-        
+        public Language Language1 { get; set; }
+        public Language Language2 { get;set; }
+
+
         public string Input { get; set; } = "";
 
         private bool? hasMistake = null;
@@ -87,10 +68,15 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        public TrainingVM(Translation translation, Language.Languages languageTrained)
+        public TrainingVM(Translation translation, Language.Languages referenceLanguage, Language.Languages languageTrained)
         {
             this.Translation = translation;
             this.languageTrained = languageTrained;
+            this.referenceLanguage = referenceLanguage;
+
+            Language1 = Translation.GetLanguage(referenceLanguage);
+            Language2 = Translation.GetLanguage(languageTrained);
+
         }
 
         public void Refresh()

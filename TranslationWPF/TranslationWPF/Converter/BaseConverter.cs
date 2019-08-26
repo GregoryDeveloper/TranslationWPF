@@ -23,6 +23,8 @@ namespace TranslationWPF.Converter
                     return JsonConvert.DeserializeObject<English>(jo.ToString(), SpecifiedSubclassConversion);
                 case (int)Language.Languages.French:
                     return JsonConvert.DeserializeObject<French>(jo.ToString(), SpecifiedSubclassConversion);
+                case (int)Language.Languages.Spanish:
+                    return JsonConvert.DeserializeObject<Spanish>(jo.ToString(), SpecifiedSubclassConversion);
 
                 default:
                     throw new Exception();
