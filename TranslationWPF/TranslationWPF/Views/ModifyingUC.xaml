@@ -28,7 +28,7 @@
                       RowHeight="40" 
                       Height="120" 
                       Margin="100 10"
-                      CanUserAddRows="True"
+                      CanUserAddRows="False"
                       >
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="{x:Type DataGridRow}">

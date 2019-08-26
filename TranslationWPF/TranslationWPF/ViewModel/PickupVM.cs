@@ -32,11 +32,11 @@ namespace TranslationWPF.ViewModel
         #endregion 
 
         // TODO :   ResourceManager rm, CultureInfo ci
-        public PickupVM(Translation translation, ResourceManager rm, CultureInfo ci)
+        public PickupVM(List<Language.Languages> Languages, ResourceManager rm, CultureInfo ci)
         {
-            foreach (Language item in translation.Languages)
+            foreach (var item in Languages)
             {
-                LanguagesOrder.Add(item.GetLanguage());
+                LanguagesOrder.Add(item);
             }
 
             this.rm = rm;

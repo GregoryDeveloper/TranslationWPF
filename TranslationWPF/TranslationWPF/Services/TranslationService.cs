@@ -81,15 +81,44 @@ namespace TranslationWPF.Services
 
         public void RemoveTranslation(TranslationVM translation)
         {
-            // Remove translations
+ 
             Translations.Remove(translation.Translation);
             TranslationsVM.Remove(translation);
+            DisplayableTranslationsVM.Remove(translation);
 
         }
 
         public List<TranslationVM> GetTranslations(Language.Languages language)
         {
             return TranslationsVM.Where(t => t.Translation.HasLanguage(language)).ToList();
+        }
+
+        public List<Language.Languages> GetLanguages()
+        {
+            List<Language.Languages> languages = new List<Language.Languages>();
+
+            foreach (var translation in Translations)
+            {
+                AddLanguagesIfNotExist(languages,translation);
+            }
+
+            return languages;
+        }
+
+        private void AddLanguagesIfNotExist(List<Language.Languages> languages,Translation translation)
+        {
+            var translationLanguages = translation.GetCurrentLanguages();
+
+            foreach (var language in translationLanguages)
+            {
+                AddIfNotExist(languages, language);
+            }
+        }
+
+        private void AddIfNotExist(List<Language.Languages> languages, Language.Languages language)
+        {
+            if (!languages.Any(l => l == language))
+                languages.Add(language);
         }
 
         private void SetDisplayableTranslationsVM()
@@ -119,6 +148,7 @@ namespace TranslationWPF.Services
                 item.AssignLanguages(LanguagesOrder);
             }
         }
+
 
         #region GetNextElement
         public TranslationVM GetNextOrFirstElement(TranslationVM translation)

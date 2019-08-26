@@ -120,7 +120,7 @@ namespace TranslationWPF.ViewModel
 
         #endregion
 
-        private TranslationVM() { }
+        public TranslationVM() { }
 
         public TranslationVM(TranslationVM translationVM)
         {
@@ -183,6 +183,10 @@ namespace TranslationWPF.ViewModel
 
         public void Save()
         {
+            Translation.Languages[0] = Language1;
+            Translation.Languages[1] = Language2;
+
+
             Translation.SetLanguageType(Language1.GetLanguage(), WordSelectedType);
             Translation.SetLanguageType(Language2.GetLanguage(), TranslationSelectedType);
 

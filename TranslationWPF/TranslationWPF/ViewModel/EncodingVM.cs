@@ -155,7 +155,7 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #endregion
-
+        private List<Language.Languages> languages;
         #region Constructors
         public EncodingVM(TranslationService _translationsService,
                             ResourceManager rm,
@@ -165,12 +165,12 @@ namespace TranslationWPF.ViewModel
                             TranslationVM translation = null
                             )
         {
-            
+            this.languages = languages;
+
             if (translation == null)
             {
                 exists = false;
-                Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
-                Translation = new TranslationVM(t, languages);
+                EncodeNewTranslation();
             }
             else
             {
@@ -187,6 +187,8 @@ namespace TranslationWPF.ViewModel
             UILanguage1 = languages[0].ToDescription();
             UILanguage2 = languages[1].ToDescription();
         }
+
+        
         #endregion
 
         #region Commands
@@ -225,7 +227,11 @@ namespace TranslationWPF.ViewModel
         {
             Translation = translation;
         }
-
+        private void EncodeNewTranslation()
+        {
+            Translation t = new Translation(Language.CreateLanguage(languages[0]), Language.CreateLanguage(languages[1]));
+            Translation = new TranslationVM(t, languages);
+        }
         void RemoveWordHandler(string item)
         {
             string itemToRemove = Translation.Language1Synonyms.First(w => w == item);
@@ -276,10 +282,11 @@ namespace TranslationWPF.ViewModel
 
         void AddItemToList()
         {
-            // TODO: check if we can remove
             Translation.Save();
 
-            TranslationService.AddTranslation(new TranslationVM(Translation));
+            TranslationService.AddTranslation(Translation);
+
+            EncodeNewTranslation();
         }
         void ModidfyItem()
         {

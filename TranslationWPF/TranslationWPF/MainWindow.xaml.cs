@@ -164,7 +164,7 @@ namespace TranslationWPF
 
             LanguagePickupWindow window = new LanguagePickupWindow();
 
-            PickupVM pickup = new PickupVM(translationService.Translations[0],rm,ci);
+            PickupVM pickup = new PickupVM(translationService.GetLanguages(), rm,ci);
             window.DataContext = pickup;
             window.ShowDialog();
             List<Language.Languages> languages = new List<Language.Languages>();
