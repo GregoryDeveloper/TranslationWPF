@@ -20,16 +20,10 @@ namespace TranslationWPF.Views
     /// </summary>
     public partial class ImportView : Window
     {
-        public event EventHandler<CustomEventArgs> RaiseCustomEvent;
         public ImportView()
         {
             InitializeComponent();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-            RaiseCustomEvent(this, new CustomEventArgs(((ImportVM)DataContext).TranslationModel));
-        }
     }
 }

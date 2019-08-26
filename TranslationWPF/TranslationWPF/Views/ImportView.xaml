@@ -6,7 +6,7 @@
         
         xmlns:local="clr-namespace:TranslationWPF.Views"
         mc:Ignorable="d"
-        Title="ImportView" Height="450" Width="800" Closing="Window_Closing" >
+        Title="ImportView" Height="450" Width="800" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

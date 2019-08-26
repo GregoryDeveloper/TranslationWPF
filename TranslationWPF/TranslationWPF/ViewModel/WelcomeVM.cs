@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
+using TranslationWPF.Services;
 using TranslationWPF.Views;
 
 namespace TranslationWPF.ViewModel
@@ -30,16 +31,18 @@ namespace TranslationWPF.ViewModel
         #region Properties
         private ResourceManager rm;
         private CultureInfo ci;
-        public List<Translation> Translations { get; set; }
+        private TranslationService translationService;
+        //public List<Translation> Translations { get; set; }
         #endregion
 
         #endregion
 
-        public WelcomeVM(List<Translation> translations, ResourceManager rm, CultureInfo ci)
+        public WelcomeVM(TranslationService translationService, ResourceManager rm, CultureInfo ci)
         {
             this.rm = rm;
             this.ci = ci;
-            Translations = translations;
+
+            this.translationService = translationService;
         }
 
         #region Commands
@@ -64,13 +67,11 @@ namespace TranslationWPF.ViewModel
                     TranslationWPF.Model.Language.Languages.French,
                     TranslationWPF.Model.Language.Languages.English
                 };
-            Translations.Clear();
             ImportView view = new ImportView();
-            ImportVM importView = new ImportVM(Translations, languages, rm, ci);
+            ImportVM importView = new ImportVM(translationService, languages, rm, ci);
             view.DataContext = importView;
-            view.RaiseCustomEvent += new EventHandler<CustomEventArgs>(view_RaiseCustomEvent);
+           
             view.Show();
-            //this.Close();
         }
 
         private void LeaveHandler()
@@ -80,14 +81,5 @@ namespace TranslationWPF.ViewModel
 
         #endregion
 
-        #region Events
-            void view_RaiseCustomEvent(object sender, CustomEventArgs e)
-            {
-                foreach (Translation translation in e.Translations)
-                {
-                    Translations.Add(translation);
-                }
-        }
-        #endregion
     }
 }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TranslationWPF.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TranslationWPF.Helper;
+using System;
 
 namespace TranslationWPF.ViewModel
 {
@@ -197,10 +195,36 @@ namespace TranslationWPF.ViewModel
         //TODO refactoring
         private void AssignLanguages(Translation translation, List<Language.Languages> languages)
         {
-            Language1 = GetLanguage(translation.Languages, languages[0]);
-            Language2 = GetLanguage(translation.Languages, languages[1]);
+            try
+            {
+                Language1 = GetLanguage(translation.Languages, languages[0]);
+                Language2 = GetLanguage(translation.Languages, languages[1]);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                Language1 = translation.Languages[0];
+                Language2 = translation.Languages[1];
+            }
 
         }
+
+        //TODO refactoring
+        public void AssignLanguages(List<Language.Languages> languages)
+        {
+            try
+            {
+                Language1 = GetLanguage(Translation.Languages, languages[0]);
+                Language2 = GetLanguage(Translation.Languages, languages[1]);
+            }
+
+            catch (KeyNotFoundException ex)
+            {
+                Language1 = Translation.Languages[0];
+                Language2 = Translation.Languages[1];
+            }
+
+        }
+
 
 
         /// <summary>
@@ -217,17 +241,10 @@ namespace TranslationWPF.ViewModel
 
             }
 
-            return null;
+            throw new KeyNotFoundException($"The language {languageType} hasn't been found");
         }
 
-        //TODO refactoring
-        public void AssignLanguages(List<Language.Languages> languages)
-        {
-
-            Language1 = GetLanguage(Translation.Languages, languages[0]);
-            Language2 = GetLanguage(Translation.Languages, languages[1]);
-
-        }
+       
 
         private void AssignWord(Language language)
         {

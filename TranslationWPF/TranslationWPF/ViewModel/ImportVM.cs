@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.IO;
@@ -14,6 +11,7 @@ using Newtonsoft.Json;
 using System.Resources;
 using System.Globalization;
 using TranslationWPF.Languages;
+using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel
 {
@@ -74,20 +72,23 @@ namespace TranslationWPF.ViewModel
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations");}
         }
-        public List<Translation> TranslationModel { get; set; }
+
+        TranslationService translationService;
+        List<Language.Languages> languagesOrder;
 
         #endregion
         ResourceManager rm;
         CultureInfo ci;
-        private List<Language.Languages> languagesOrder;
 
-        public ImportVM(List<Translation> translations, List<Language.Languages> languages,ResourceManager rm, CultureInfo ci)
+        public ImportVM(TranslationService translationService,List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
         {
             this.rm = rm;
             this.ci = ci;
             languagesOrder = languages;
-            Translations = ConvertionHelper.ConvertTo(translations,languages);
-            TranslationModel = translations;
+
+            this.translationService = translationService;
+            Translations = translationService.TranslationsVM;
+
         }
         #region Commands
         private CommandHandler _importCommand;
@@ -117,9 +118,8 @@ namespace TranslationWPF.ViewModel
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == true)
             {
-                TranslationModel = GetWordsFromImport(ofd.FileName, Import.Unformatted);
-                ClearTranslations();
-                Translations = ConvertionHelper.ConvertTo(TranslationModel,languagesOrder);
+                List<Translation> importedTranslations =  GetWordsFromImport(ofd.FileName, Import.Unformatted);
+                translationService.CreateNewTranslationList(importedTranslations);
             }
 
         }
@@ -137,7 +137,7 @@ namespace TranslationWPF.ViewModel
             {
                 string content = File.ReadAllText(ofd.FileName);
                 translations = JsonConvert.DeserializeObject<List<Translation>>(content);
-                Translations = ConvertionHelper.ConvertTo(translations, languagesOrder);
+                translationService.CreateNewTranslationList(translations);
             }
 
 
@@ -196,12 +196,7 @@ namespace TranslationWPF.ViewModel
 
                 if (sfd.ShowDialog() == true)
                 {
-                    List<Translation> translations = new List<Translation>();
-                    foreach (TranslationVM item in Translations)
-                    {
-                        translations.Add(item.Translation);
-                    }
-                    File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translations));
+                    File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translationService.Translations));
                 }
 
             }

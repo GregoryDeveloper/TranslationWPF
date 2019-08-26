@@ -55,6 +55,17 @@ namespace TranslationWPF.Services
         public TranslationService()
         { }
 
+        public void CreateNewTranslationList(List<Translation> translations)
+        {
+            Translations.Clear();
+            TranslationsVM.Clear();
+
+            foreach (var item in translations)
+            {
+                AddTranslation(item);
+            }
+        }
+
         public void AddTranslation(TranslationVM _translation)
         {
             Translations.Add(_translation.Translation);

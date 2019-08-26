@@ -43,28 +43,28 @@ namespace TranslationWPF
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
 
-            translationService.AddTranslation(new Translation(
-                new French() { Value = "espérer" },
-                new English() { Value = "to hope" },
-                new Spanish() { Value = "esperar"}));
+            //translationService.AddTranslation(new Translation(
+            //    new French() { Value = "espérer" },
+            //    new English() { Value = "to hope" },
+            //    new Spanish() { Value = "esperar"}));
 
-            translationService.AddTranslation(new Translation(
-                    new French()
-                    {
-                        Value = "manger",
-                        Synonysms = { "dévorer", "déguster" }
-                    },
-                    new English()
-                    {
-                        Value = "to eat"
-                    }));
-            translationService.AddTranslation(new Translation(
-                    new French() { Value = "dormir" },
-                    new English() { Value = "to sleep" }));
+            //translationService.AddTranslation(new Translation(
+            //        new French()
+            //        {
+            //            Value = "manger",
+            //            Synonysms = { "dévorer", "déguster" }
+            //        },
+            //        new English()
+            //        {
+            //            Value = "to eat"
+            //        }));
+            //translationService.AddTranslation(new Translation(
+            //        new French() { Value = "dormir" },
+            //        new English() { Value = "to sleep" }));
 
-            translationService.AddTranslation(new Translation(
-                new French() { Value = "essayer" },
-                new Spanish() { Value = "probar" }));
+            //translationService.AddTranslation(new Translation(
+            //    new French() { Value = "essayer" },
+            //    new Spanish() { Value = "probar" }));
 
             WelcomePage();
 
@@ -85,11 +85,6 @@ namespace TranslationWPF
         {
             ButtonOpenMenu.Visibility = Visibility.Visible;
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
-        }
-
-        void view_RaiseCustomEvent(object sender, CustomEventArgs e)
-        {
-            translationService.Translations = e.Translations;
         }
 
         private void LBEncoding_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -197,7 +192,7 @@ namespace TranslationWPF
             try
             {
                 // link to the corresponding using done in MainWindow.xaml in window.resources
-                DataContext = new WelcomeVM(translationService.Translations, rm, ci);
+                DataContext = new WelcomeVM(translationService, rm, ci);
             }
             catch (Exception ex)
             {
