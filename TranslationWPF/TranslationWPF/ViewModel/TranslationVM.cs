@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TranslationWPF.Model;
@@ -155,14 +155,8 @@ namespace TranslationWPF.ViewModel
         public TranslationVM(Translation translation)
         {
             Translation = translation;
-
             Id = translation.Id;
-
-            List<Language.Languages> languages = SetDefaultLanguagesOrder(translation);
-            AssignLanguages(languages);
-
-            Line = translation.Line;
-
+            AssignAndSetLanguages(translation);
         }
 
         public void SetDisplay(List<Language.Languages> languages)
@@ -212,8 +206,16 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        //TODO refactoring
-        public void AssignLanguages(List<Language.Languages> languages)
+        private void AssignAndSetLanguages(Translation translation)
+        {
+            List<Language.Languages> languages = SetDefaultLanguagesOrder(translation);
+
+            SaveLanguagesInOrder(languages);
+            SaveExtraFields(translation);
+
+        }
+
+        public void SaveLanguagesInOrder(List<Language.Languages> languages)
         {
             try
             {
@@ -227,6 +229,20 @@ namespace TranslationWPF.ViewModel
                 Language2 = Translation.Languages[1];
             }
 
+        }
+
+        private void SaveExtraFields(Translation translation)
+        {
+            WordSelectedType = translation.Languages[0].Type;
+            TranslationSelectedType = translation.Languages[1].Type;
+
+            var language1Synonysms = translation.Languages[0].Synonysms;
+            var language2Synonysms = translation.Languages[1].Synonysms;
+
+            language1Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            language2Synonysms.ForEach(s => Language1Synonyms.Add(s));
+            
+            Line = translation.Line;
         }
 
 
