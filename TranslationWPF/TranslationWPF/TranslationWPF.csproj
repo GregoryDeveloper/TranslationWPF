@@ -95,7 +95,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandHandlerWithParameter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Exceptions\NoItemException.cs" />
+    <Compile Include="Helper\PickupLanguageHelper.cs" />
     <Compile Include="Languages\StringConstant.cs" />
     <Compile Include="Converter\BaseConverter.cs" />
     <Compile Include="Converter\BaseSpecifiedConcreteClassConverter .cs" />
@@ -108,7 +110,7 @@
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Helper\ValidationHelper.cs" />
-    <Compile Include="Model\Constant.cs" />
+    <Compile Include="Model\LanguageConstant.cs" />
     <Compile Include="Model\English.cs" />
     <Compile Include="Helper\FormattedStringHelper.cs" />
     <Compile Include="Model\French.cs" />

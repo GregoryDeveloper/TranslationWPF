@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TranslationWPF.Model
 {
-    public static class Constant
+    public static class LanguageConstant
     {
         public const int english = 1;
         public const int french = 2;

@@ -16,6 +16,7 @@
             <Button x:Name="ImportBTN" Content="{Binding ImportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ImportCommand}" />
             <Button x:Name="FormatedImportBTN" Content="{Binding FormattedImportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding FormattedImportCommand}" />
             <Button x:Name="ExportBTN" Content="{Binding ExportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding ExportCommand}" />
+            <Button x:Name="TextExportBTN" Content="{Binding TextExportUI}" Width="150" Height="50" VerticalAlignment="Top" Margin="10" Command="{Binding TextExportCommand}" />
         </StackPanel>
 
 

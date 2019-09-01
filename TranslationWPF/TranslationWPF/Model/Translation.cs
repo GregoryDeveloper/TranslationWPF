@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TranslationWPF.Helper;
-using TranslationWPF.ViewModel;
 
 namespace TranslationWPF.Model
 {
@@ -97,6 +93,28 @@ namespace TranslationWPF.Model
                     l.Synonysms = synonysms;
             }
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Languages[0].Value)
+              .Append(FormattedStringHelper.GetWordWithWhiteSpaces(sb.ToString(), Constants.SPACE_NUMBER_BOUNDARY))
+              .Append(Constants.SEPARATOR)
+              .Append(' ', Constants.SPACE_NUMBER)
+              .Append(Languages[1].Value);
+
+            foreach (string item in Languages[1].Synonysms)
+            {
+                sb.Append(Constants.SYNONYM_SEPARATOR)
+                  .Append(item);
+            }
+
+
+            return sb.ToString();
+        }
+
+        
 
     }
 }

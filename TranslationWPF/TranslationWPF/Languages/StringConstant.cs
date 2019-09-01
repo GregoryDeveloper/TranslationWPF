@@ -15,6 +15,7 @@ namespace TranslationWPF.Languages
         public const string import = "import";
         public const string formattedImport = "formattedImport";
         public const string export = "export";
+        public const string textExportUI = "textExportUI";
         public const string line = "line";
 
 

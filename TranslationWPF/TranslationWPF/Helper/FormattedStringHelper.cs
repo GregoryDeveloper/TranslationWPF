@@ -119,6 +119,22 @@ namespace TranslationWPF.Helper
             return sb.ToString();
 
         }
+
+        /// <summary>
+        /// Add some extra whiite spaces to a word. eg: parameter = "language", 20 => result language + 12 white spaces
+        /// </summary>
+        /// <param name="word">the word on which the extra spaces are added</param>
+        /// <param name="boundary"> the boundary set the length of the word + extra spaces</param>
+        /// <returns>the word with the extra spaces specified</returns>
+        public static string GetWordWithWhiteSpaces(string word,int boundary)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            int extraWhiteSpaces = boundary - word.Length;
+            sb.Append(' ', extraWhiteSpaces);
+            return sb.ToString();
+        }
+
         private static string GetSynonymsString(List<string> synonysms)
         {
             string s = "";
