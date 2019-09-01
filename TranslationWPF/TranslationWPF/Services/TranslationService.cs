@@ -145,7 +145,7 @@ namespace TranslationWPF.Services
         {
             foreach (var item in TranslationsVM)
             {
-                item.AssignLanguages(LanguagesOrder);
+                item.SaveLanguagesInOrder(LanguagesOrder);
             }
         }
 
