@@ -258,4 +258,7 @@
   <data name="keepListCaption" xml:space="preserve">
     <value>Conservation de la liste</value>
   </data>
+  <data name="clear" xml:space="preserve">
+    <value>Vider la liste</value>
+  </data>
 </root>

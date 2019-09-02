@@ -56,10 +56,17 @@ namespace TranslationWPF.Services
         public TranslationService()
         { }
 
+        public void AddNewTranslationListToCurrentList(List<Translation> translations)
+        {
+            foreach (var item in translations)
+            {
+                AddTranslation(item);
+            }
+        }
+
         public void CreateNewTranslationList(List<Translation> translations)
         {
-            Translations.Clear();
-            TranslationsVM.Clear();
+            Clear();
 
             foreach (var item in translations)
             {
@@ -67,12 +74,11 @@ namespace TranslationWPF.Services
             }
         }
 
-        public void AddNewTranslationListToCurrentList(List<Translation> translations)
+
+        public void Clear()
         {
-            foreach (var item in translations)
-            {
-                AddTranslation(item);
-            }
+            Translations.Clear();
+            TranslationsVM.Clear();
         }
 
         public void AddTranslation(TranslationVM _translation)

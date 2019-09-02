@@ -261,4 +261,7 @@
   <data name="keepListCaption" xml:space="preserve">
     <value>Preservation of the list</value>
   </data>
+  <data name="clear" xml:space="preserve">
+    <value>Clear out the list</value>
+  </data>
 </root>

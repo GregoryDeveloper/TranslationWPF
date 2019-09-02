@@ -26,6 +26,10 @@ namespace TranslationWPF.ViewModel
         
         private string leavebtn;
         public string Leavebtn { get { return leavebtn = leavebtn ?? rm.GetString(StringConstant.leave, ci); } }
+
+        private string clearbtn;
+        public string Clearbtn { get { return clearbtn = clearbtn ?? rm.GetString(StringConstant.clear, ci); } }
+
         #endregion
 
         #region Properties
@@ -57,6 +61,12 @@ namespace TranslationWPF.ViewModel
         {
             get { return _leaveCommand ?? (_leaveCommand = new CommandHandler(() => LeaveHandler(), true)); }
         }
+
+        private CommandHandler _clearCommand;
+        public CommandHandler ClearCommand
+        {
+            get { return _clearCommand ?? (_clearCommand = new CommandHandler(() => ClearHandler(), true)); }
+        }
         #endregion
 
         #region Handlers
@@ -77,6 +87,11 @@ namespace TranslationWPF.ViewModel
         private void LeaveHandler()
         {
             Application.Current.Shutdown();
+        }
+
+        private void ClearHandler()
+        {
+            translationService.Clear();
         }
 
         #endregion

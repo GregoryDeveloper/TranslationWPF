@@ -36,6 +36,7 @@ namespace TranslationWPF.Languages
 
         public const string title = "title";
         public const string leave = "leave";
+        public const string clear = "clear";
 
         public const string addToList = "addToList";
         public const string add = "add";

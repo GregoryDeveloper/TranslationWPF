@@ -19,6 +19,7 @@
             <TextBlock Text="{Binding Title}" HorizontalAlignment="Center" FontSize="30" Foreground="SaddleBrown"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <Button Content="{Binding Clearbtn}" Width="200" Margin="10" Command="{Binding ClearCommand}"/>
             <Button Content="{Binding Importbtn}" Width="200" Margin="10" Command="{Binding ImportCommand}"/>
             <Button Content="{Binding Leavebtn}" Width="200" Margin="10" Command="{Binding LeaveCommand}"/>
         </StackPanel>
