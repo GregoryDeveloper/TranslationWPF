@@ -43,6 +43,10 @@ namespace TranslationWPF.ViewModel
         private string exportUI;
         public string ExportUI { get { return exportUI = exportUI ?? rm.GetString(StringConstant.export, ci); } }
 
+        private string textExportUI;
+        public string TextExportUI { get { return textExportUI = textExportUI ?? rm.GetString(StringConstant.textExportUI, ci); } }
+
+        
         private string language1;
         public string Language1 { get { return language1 = language1 ?? rm.GetString(languagesOrder[0].ToDescription(), ci); } }
 
@@ -111,6 +115,15 @@ namespace TranslationWPF.ViewModel
             get { return _exportCommand ?? (_exportCommand = new CommandHandler(() => ExecuteFormattedExport(), true)); }
 
         }
+
+        private CommandHandler _textExportCommand;
+        public CommandHandler TextExportCommand
+        {
+            get { return _textExportCommand ?? (_textExportCommand = new CommandHandler(() => ExecuteTextExport(), true)); }
+
+        }
+
+        
         #endregion
         #region Methods
         private void ExecuteImport()
@@ -143,7 +156,6 @@ namespace TranslationWPF.ViewModel
 
         }
 
-       
         private List<Translation> GetWordsFromImport(string path, Import import)
         {
             List<Translation> translations = new List<Translation>();
@@ -188,24 +200,44 @@ namespace TranslationWPF.ViewModel
 
         private void ExecuteFormattedExport()
         {
-            try
-            {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
-                sfd.FilterIndex = 1;
 
-                if (sfd.ShowDialog() == true)
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            sfd.FilterIndex = 1;
+
+            if (sfd.ShowDialog() == true)
+            {
+                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translationService.Translations));
+            }
+
+        }
+
+        private void ExecuteTextExport()
+        {
+            translationService.LanguagesOrder = PickupLanguageHelper.PickUpLanguages(translationService, rm, ci);
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "text files (*.txt)|*.txt|All files (*.*)|*.*";
+            sfd.FilterIndex = 1;
+
+            if (sfd.ShowDialog() == true)
+            {
+                SaveTranslationToTextFile(sfd.FileName);
+            }
+
+           
+        }
+
+        private void SaveTranslationToTextFile(string filename)
+        {
+            using (StreamWriter file =
+           new StreamWriter(filename))
+            {
+                foreach (Translation translation in translationService.Translations)
                 {
-                    File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translationService.Translations));
+                    file.WriteLine(translation.ToString());
                 }
-
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
         }
 
 

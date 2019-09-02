@@ -26,9 +26,9 @@ namespace TranslationWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        // TODO : remove rm,ci and translationService from all the constructors
         ResourceManager rm;
         CultureInfo ci;
-        //List<Translation> translations = new List<Translation>();
         TranslationService translationService;
         public MainWindow()
         {
@@ -91,7 +91,7 @@ namespace TranslationWPF
                 case "LBModify":
                     try
                     {
-                        List<Language.Languages> languages = PickUpLanguages();
+                        List<Language.Languages> languages = PickupLanguageHelper.PickUpLanguages(translationService,rm,ci);
                         DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
                         
                        
@@ -107,7 +107,7 @@ namespace TranslationWPF
                 case "LBPratice":
                     try
                     {
-                        List<Language.Languages> languages = PickUpLanguages();
+                        List<Language.Languages> languages = PickupLanguageHelper.PickUpLanguages(translationService, rm, ci);
 
                         DataContext = new TrainingsVM(translationService, rm, ci, languages[0], languages[1]);
 
@@ -134,21 +134,7 @@ namespace TranslationWPF
             translationService.LanguagesOrder = e.Languages;
         }
 
-        private List<Language.Languages> PickUpLanguages()
-        {
-            if (translationService.Translations.Count == 0)
-                throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
-
-            LanguagePickupWindow window = new LanguagePickupWindow();
-
-            PickupVM pickup = new PickupVM(translationService.GetLanguages(), rm,ci);
-            window.DataContext = pickup;
-            window.ShowDialog();
-            List<Language.Languages> languages = new List<Language.Languages>();
-            languages.Add(pickup.SelectedItem1);
-            languages.Add(pickup.SelectedItem2);
-            return languages;
-        }
+       
 
         // TODO refactring
         private List<Language.Languages> EncodingPickUpLanguages()

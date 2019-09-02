@@ -249,4 +249,7 @@
   <data name="baseLanguage" xml:space="preserve">
     <value>Langue de référence</value>
   </data>
+  <data name="textExportUI" xml:space="preserve">
+    <value>Export text</value>
+  </data>
 </root>
