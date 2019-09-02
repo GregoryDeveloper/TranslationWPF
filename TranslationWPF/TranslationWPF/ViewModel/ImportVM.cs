@@ -12,6 +12,7 @@ using System.Resources;
 using System.Globalization;
 using TranslationWPF.Languages;
 using TranslationWPF.Services;
+using System.Windows;
 
 namespace TranslationWPF.ViewModel
 {
@@ -144,16 +145,24 @@ namespace TranslationWPF.ViewModel
 
         private void ExecuteFormattedImport()
         {
+            var message = rm.GetString(StringConstant.keepList, ci);
+            var caption = rm.GetString(StringConstant.keepListCaption, ci);
+            MessageBoxResult result =  MessageBox.Show(message, caption,MessageBoxButton.YesNo);
+
             OpenFileDialog ofd = new OpenFileDialog();
             List<Translation> translations;
+
             if (ofd.ShowDialog() == true)
             {
                 string content = File.ReadAllText(ofd.FileName);
                 translations = JsonConvert.DeserializeObject<List<Translation>>(content);
-                translationService.CreateNewTranslationList(translations);
+
+                if (result == MessageBoxResult.Yes)             
+                    translationService.AddNewTranslationListToCurrentList(translations);
+                
+                else
+                    translationService.CreateNewTranslationList(translations);
             }
-
-
         }
 
         private List<Translation> GetWordsFromImport(string path, Import import)

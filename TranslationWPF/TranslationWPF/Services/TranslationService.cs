@@ -67,6 +67,14 @@ namespace TranslationWPF.Services
             }
         }
 
+        public void AddNewTranslationListToCurrentList(List<Translation> translations)
+        {
+            foreach (var item in translations)
+            {
+                AddTranslation(item);
+            }
+        }
+
         public void AddTranslation(TranslationVM _translation)
         {
             Translations.Add(_translation.Translation);

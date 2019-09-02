@@ -252,4 +252,10 @@
   <data name="textExportUI" xml:space="preserve">
     <value>Export text</value>
   </data>
+  <data name="keepList" xml:space="preserve">
+    <value>Voulez-vous ajouter la liste que vous allez importer à la liste actuelle ?</value>
+  </data>
+  <data name="keepListCaption" xml:space="preserve">
+    <value>Conservation de la liste</value>
+  </data>
 </root>
