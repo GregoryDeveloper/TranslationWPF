@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace TranslationWPF.Languages
 {
@@ -51,6 +47,10 @@ namespace TranslationWPF.Languages
 
         public const string baseLanguage = "baseLanguage";
         public const string addingLanguage= "addingLanguage";
+        public const string keepList = "keepList";
+        public const string keepListCaption = "keepListCaption";
+
+
 
 
 

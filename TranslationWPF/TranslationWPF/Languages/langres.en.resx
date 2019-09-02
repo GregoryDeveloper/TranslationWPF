@@ -255,4 +255,10 @@
   <data name="textExportUI" xml:space="preserve">
     <value>Text export</value>
   </data>
+  <data name="keepList" xml:space="preserve">
+    <value>Would you like to add the new list to the current list?</value>
+  </data>
+  <data name="keepListCaption" xml:space="preserve">
+    <value>Preservation of the list</value>
+  </data>
 </root>
