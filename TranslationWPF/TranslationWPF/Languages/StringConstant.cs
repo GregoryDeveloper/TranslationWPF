@@ -51,6 +51,8 @@ namespace TranslationWPF.Languages
         public const string keepList = "keepList";
         public const string keepListCaption = "keepListCaption";
 
+        public const string leaveMessageBox = "leaveMessageBox";
+        public const string leaveMessageBoxCaption = "leaveMessageBoxCaption";
 
 
 

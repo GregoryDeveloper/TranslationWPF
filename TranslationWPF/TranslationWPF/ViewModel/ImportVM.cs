@@ -154,8 +154,7 @@ namespace TranslationWPF.ViewModel
 
             if (ofd.ShowDialog() == true)
             {
-                string content = File.ReadAllText(ofd.FileName);
-                translations = JsonConvert.DeserializeObject<List<Translation>>(content);
+                translations = translationService.FormattedLoad(ofd.FileName);
 
                 if (result == MessageBoxResult.Yes)             
                     translationService.AddNewTranslationListToCurrentList(translations);
@@ -216,7 +215,7 @@ namespace TranslationWPF.ViewModel
 
             if (sfd.ShowDialog() == true)
             {
-                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(translationService.Translations));
+                translationService.Save(sfd.FileName);
             }
 
         }

@@ -264,4 +264,10 @@
   <data name="clear" xml:space="preserve">
     <value>Clear out the list</value>
   </data>
+  <data name="leaveMessageBox" xml:space="preserve">
+    <value>The vocabulary list has been modified as hasn't been saved. Do you still want to exit the application?</value>
+  </data>
+  <data name="leaveMessageBoxCaption" xml:space="preserve">
+    <value>Exit</value>
+  </data>
 </root>

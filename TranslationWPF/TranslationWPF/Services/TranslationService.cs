@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -53,6 +55,13 @@ namespace TranslationWPF.Services
             }
         }
 
+        private bool isDirty = false;
+        public bool IsDirty
+        {
+            get { return isDirty; }
+        }
+
+
         public TranslationService()
         { }
 
@@ -62,8 +71,14 @@ namespace TranslationWPF.Services
             {
                 AddTranslation(item);
             }
+
+            isDirty = true;
         }
 
+        /// <summary>
+        /// Meant to be called when we import a new list hence isDirty = false
+        /// </summary>
+        /// <param name="translations"></param>
         public void CreateNewTranslationList(List<Translation> translations)
         {
             Clear();
@@ -72,25 +87,30 @@ namespace TranslationWPF.Services
             {
                 AddTranslation(item);
             }
-        }
 
+            isDirty = false;
+        }
 
         public void Clear()
         {
             Translations.Clear();
             TranslationsVM.Clear();
+            isDirty = true;
+
         }
 
         public void AddTranslation(TranslationVM _translation)
         {
             Translations.Add(_translation.Translation);
             TranslationsVM.Add(_translation);
+            isDirty = true;
         }
 
         public void AddTranslation(Translation _translation)
         {
             Translations.Add(_translation);
             translationsVM.Add(new TranslationVM(_translation));
+            isDirty = true;
 
         }
 
@@ -100,6 +120,7 @@ namespace TranslationWPF.Services
             Translations.Remove(translation.Translation);
             TranslationsVM.Remove(translation);
             DisplayableTranslationsVM.Remove(translation);
+            isDirty = true;
 
         }
 
@@ -133,7 +154,10 @@ namespace TranslationWPF.Services
         private void AddIfNotExist(List<Language.Languages> languages, Language.Languages language)
         {
             if (!languages.Any(l => l == language))
+            {
                 languages.Add(language);
+                isDirty = true;
+            }
         }
 
         private void SetDisplayableTranslationsVM()
@@ -278,6 +302,22 @@ namespace TranslationWPF.Services
         }
 
         #endregion
+
+        public void Save(string filename)
+        {
+            File.WriteAllText(filename, JsonConvert.SerializeObject(Translations));
+            isDirty = false;
+        }
+
+        public List<Translation> FormattedLoad(string filename)
+        {
+            string content = File.ReadAllText(filename);
+            var translations =  JsonConvert.DeserializeObject<List<Translation>>(content);
+
+            isDirty = false;
+
+            return translations;
+        }
 
 
     }
