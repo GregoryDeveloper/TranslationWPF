@@ -261,4 +261,10 @@
   <data name="clear" xml:space="preserve">
     <value>Vider la liste</value>
   </data>
+  <data name="leaveMessageBox" xml:space="preserve">
+    <value>La liste de vocabulaire a été modifée sans être sauvegardée, voulez-vous tout de même quitter l'application ?</value>
+  </data>
+  <data name="leaveMessageBoxCaption" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
 </root>

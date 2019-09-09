@@ -49,7 +49,20 @@ namespace TranslationWPF
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (translationService.IsDirty)
+            {
+                var message = rm.GetString(StringConstant.leaveMessageBox, ci);
+                var caption = rm.GetString(StringConstant.leaveMessageBoxCaption, ci);
+
+                MessageBoxResult result = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                    Application.Current.Shutdown();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
