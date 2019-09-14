@@ -57,16 +57,15 @@ namespace TranslationWPF.ViewModel
         #endregion  
         #endregion
 
-        // TODO: ResourceManager CultureInfo
-        public ResultsVM(ObservableCollection<TrainingVM> results, ResourceManager rm, CultureInfo ci)
+        public ResultsVM(ObservableCollection<TrainingVM> results)
         {
             foreach (TrainingVM item in results)
             {
                 Results.Add(new ResultVM(item));
             }
 
-            this.ci = ci;
-            this.rm = rm;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
         }
 
         #region Commands

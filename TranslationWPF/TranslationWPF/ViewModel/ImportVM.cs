@@ -83,15 +83,16 @@ namespace TranslationWPF.ViewModel
 
         #endregion
         ResourceManager rm;
-        CultureInfo ci;
+        readonly CultureInfo ci;
 
-        public ImportVM(TranslationService translationService,List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
+        public ImportVM(List<Language.Languages> languages)
         {
-            this.rm = rm;
-            this.ci = ci;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            this.translationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
+
             languagesOrder = languages;
 
-            this.translationService = translationService;
             Translations = translationService.TranslationsVM;
 
         }

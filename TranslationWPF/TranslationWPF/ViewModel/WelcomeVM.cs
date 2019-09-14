@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Services;
@@ -41,12 +39,11 @@ namespace TranslationWPF.ViewModel
 
         #endregion
 
-        public WelcomeVM(TranslationService translationService, ResourceManager rm, CultureInfo ci)
+        public WelcomeVM()
         {
-            this.rm = rm;
-            this.ci = ci;
-
-            this.translationService = translationService;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            this.translationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
         }
 
         #region Commands
@@ -78,7 +75,7 @@ namespace TranslationWPF.ViewModel
                     TranslationWPF.Model.Language.Languages.English
                 };
             ImportView view = new ImportView();
-            ImportVM importView = new ImportVM(translationService, languages, rm, ci);
+            ImportVM importView = new ImportVM(languages);
             view.DataContext = importView;
            
             view.Show();

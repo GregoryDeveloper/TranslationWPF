@@ -12,6 +12,8 @@ namespace TranslationWPF
         public const int SPACE_NUMBER = 40;
         public const char SEPARATOR = '=';
         public const char SYNONYM_SEPARATOR = ',';
+        public const string TRANSLATION_SERVICE= "TranslationService";
+
 
 
     }

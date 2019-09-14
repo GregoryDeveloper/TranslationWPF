@@ -157,10 +157,7 @@ namespace TranslationWPF.ViewModel
         #endregion
         private List<Language.Languages> languages;
         #region Constructors
-        public EncodingVM(TranslationService _translationsService,
-                            ResourceManager rm,
-                            CultureInfo ci,
-                            bool displayAddButton,
+        public EncodingVM(bool displayAddButton,
                             List<Language.Languages> languages,
                             TranslationVM translation = null
                             )
@@ -178,10 +175,10 @@ namespace TranslationWPF.ViewModel
                 Translation = translation;
             }
 
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            TranslationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
 
-            TranslationService = _translationsService;
-            this.rm = rm;
-            this.ci = ci;
             IsVisible = displayAddButton;
 
             UILanguage1 = languages[0].ToDescription();

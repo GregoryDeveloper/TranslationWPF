@@ -98,6 +98,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Exceptions\NoItemException.cs" />
     <Compile Include="Helper\PickupLanguageHelper.cs" />
+    <Compile Include="Helper\ResourceHelper.cs" />
+    <Compile Include="Languages\LanguageSingleton.cs" />
     <Compile Include="Languages\StringConstant.cs" />
     <Compile Include="Converter\BaseConverter.cs" />
     <Compile Include="Converter\BaseSpecifiedConcreteClassConverter .cs" />
