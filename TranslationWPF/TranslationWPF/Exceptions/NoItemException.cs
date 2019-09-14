@@ -2,6 +2,7 @@
 
 namespace TranslationWPF.Exceptions
 {
+    [Serializable]
     public class NoItemException: Exception
     {
         public NoItemException()

@@ -200,8 +200,9 @@ namespace TranslationWPF.ViewModel
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // TODO: hard coded string
                 Console.WriteLine("Could not read the file");
             }
             return translations;

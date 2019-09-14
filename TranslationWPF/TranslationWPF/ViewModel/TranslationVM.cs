@@ -191,7 +191,7 @@ namespace TranslationWPF.ViewModel
                 Language1 = GetLanguage(translation.Languages, languages[0]);
                 Language2 = GetLanguage(translation.Languages, languages[1]);
             }
-            catch(KeyNotFoundException ex)
+            catch(KeyNotFoundException)
             {
                 Language1 = translation.Languages[0];
                 Language2 = translation.Languages[1];
@@ -216,7 +216,7 @@ namespace TranslationWPF.ViewModel
                 Language2 = GetLanguage(Translation.Languages, languages[1]);
             }
 
-            catch (KeyNotFoundException ex)
+            catch (KeyNotFoundException)
             {
                 Language1 = Translation.Languages[0];
                 Language2 = Translation.Languages[1];
