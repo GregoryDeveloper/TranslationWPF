@@ -64,12 +64,11 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         // TODO refactor rm and ci
-        public ModifyWordVM(TranslationService translationsService, EncodingVM encodingVM, List<Language.Languages> languages, ResourceManager rm, CultureInfo ci)
+        public ModifyWordVM(EncodingVM encodingVM, List<Language.Languages> languages)
         {
-            this.rm = rm;
-            this.ci = ci;
-
-            TranslationService = translationsService;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            TranslationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
 
             if (TranslationService.Translations.Count == 0)
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));

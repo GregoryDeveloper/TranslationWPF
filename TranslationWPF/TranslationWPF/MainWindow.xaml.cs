@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Security.Principal;
 using System.Threading;
-
 using System.Windows;
 using System.Windows.Controls;
-
 using System.Windows.Input;
-using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
@@ -33,7 +28,9 @@ namespace TranslationWPF
         public MainWindow()
         {
             InitializeComponent();
-            this.translationService = new TranslationService();
+
+            this.translationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -82,7 +79,7 @@ namespace TranslationWPF
             try
             {
                 List<Language.Languages> languages = EncodingPickUpLanguages();
-                DataContext = new EncodingVM(translationService, rm,ci,true, languages);
+                DataContext = new EncodingVM(true, languages);
                 translationService.LanguagesOrder = languages;
             }
             catch(Exception ex)
@@ -105,7 +102,7 @@ namespace TranslationWPF
                     try
                     {
                         List<Language.Languages> languages = PickupLanguageHelper.PickUpLanguages(translationService,rm,ci);
-                        DataContext = new ModifyWordVM(translationService, new EncodingVM(translationService, rm, ci, false, languages), languages, rm, ci);
+                        DataContext = new ModifyWordVM(new EncodingVM(false, languages), languages);
                         
                        
                     }
@@ -122,7 +119,7 @@ namespace TranslationWPF
                     {
                         List<Language.Languages> languages = PickupLanguageHelper.PickUpLanguages(translationService, rm, ci);
 
-                        DataContext = new TrainingsVM(translationService, rm, ci, languages[0], languages[1]);
+                        DataContext = new TrainingsVM(languages[0], languages[1]);
 
                     }
                     catch (Exception ex )
@@ -131,7 +128,7 @@ namespace TranslationWPF
                     }
                     break;
                 case "LBAddLanguage":
-                    var dataContext = new AddLanguageVM(rm, ci, translationService);
+                    var dataContext = new AddLanguageVM();
                     dataContext.ChangementEtat += UCClosed;
                     DataContext = dataContext;
 
@@ -143,7 +140,7 @@ namespace TranslationWPF
 
         private void UCClosed(object sender, (string Name, List<Language.Languages> Languages, TranslationVM translation) e)
         {
-            DataContext = new EncodingVM(translationService, rm, ci, true, e.Languages, e.translation);
+            DataContext = new EncodingVM(true, e.Languages, e.translation);
             translationService.LanguagesOrder = e.Languages;
         }
 
@@ -154,7 +151,7 @@ namespace TranslationWPF
         {
             LanguagePickupWindow window = new LanguagePickupWindow();
 
-            PickupVM pickup = new PickupVM( rm, ci);
+            PickupVM pickup = new PickupVM();
             window.DataContext = pickup;
             window.ShowDialog();
             List<Language.Languages> languages = new List<Language.Languages>();
@@ -168,7 +165,7 @@ namespace TranslationWPF
             try
             {
                 // link to the corresponding using done in MainWindow.xaml in window.resources
-                DataContext = new WelcomeVM(translationService, rm, ci);
+                DataContext = new WelcomeVM();
             }
             catch (Exception ex)
             {

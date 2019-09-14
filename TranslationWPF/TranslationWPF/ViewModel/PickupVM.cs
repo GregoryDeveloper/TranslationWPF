@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
 
@@ -31,20 +29,19 @@ namespace TranslationWPF.ViewModel
         public Language.Languages SelectedItem2 { get; set; }
         #endregion 
 
-        // TODO :   ResourceManager rm, CultureInfo ci
-        public PickupVM(List<Language.Languages> Languages, ResourceManager rm, CultureInfo ci)
+        public PickupVM(List<Language.Languages> Languages)
         {
             foreach (var item in Languages)
             {
                 LanguagesOrder.Add(item);
             }
 
-            this.rm = rm;
-            this.ci = ci;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
         }
 
         //TODO refactoring
-        public PickupVM(ResourceManager rm, CultureInfo ci)
+        public PickupVM()
         {
 
             var languages = Enum.GetValues(typeof(Language.Languages)).Cast<Language.Languages>();
@@ -54,8 +51,8 @@ namespace TranslationWPF.ViewModel
                 LanguagesOrder.Add(item);
             }
 
-            this.rm = rm;
-            this.ci = ci;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
         }
 
         private CommandHandler closingCommand;

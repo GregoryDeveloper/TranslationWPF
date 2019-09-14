@@ -48,7 +48,7 @@ namespace TranslationWPF.Views
             var service = viewmodel.TranslationService;
 
             //TODO: refacto navigation au même endroit
-            DataContext = new EncodingVM(service, rm, ci, true, languages);
+            DataContext = new EncodingVM(true, languages);
         }
     }
 }

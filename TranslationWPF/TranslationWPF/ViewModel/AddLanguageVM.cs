@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
+using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Services;
@@ -21,6 +22,8 @@ namespace TranslationWPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        #region Properties
 
         #region UIProperties
         private string baseLanguage;
@@ -39,8 +42,6 @@ namespace TranslationWPF.ViewModel
             get { return translations; }
             set { translations = value; OnPropertyChanged("Translations"); }
         }
-
-
 
         private Language.Languages selectedItem1;
         public Language.Languages SelectedItem1
@@ -65,18 +66,17 @@ namespace TranslationWPF.ViewModel
 
         public  TranslationService TranslationService { get; set; }
 
+        #endregion
 
         readonly ResourceManager rm;
         readonly CultureInfo ci;
         public event EventHandler<(string, List<Language.Languages>, TranslationVM translation)> ChangementEtat;
 
-        public AddLanguageVM(ResourceManager rm, 
-                             CultureInfo ci,
-                             TranslationService translationService)
+        public AddLanguageVM()
         {
-            this.rm = rm;
-            this.ci = ci;
-            this.TranslationService = translationService;
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            this.TranslationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
             
             this.BaseLanguages = new ObservableCollection<Language.Languages> (Language.GetLanguages());
             

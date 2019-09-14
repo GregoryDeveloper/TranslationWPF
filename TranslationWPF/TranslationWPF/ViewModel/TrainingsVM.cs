@@ -6,6 +6,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using TranslationWPF.Exceptions;
+using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;
 using TranslationWPF.Services;
@@ -54,12 +55,13 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        public TrainingsVM(TranslationService translationService, 
-                           ResourceManager rm, 
-                           CultureInfo ci, 
-                           Language.Languages referenceLanguage, 
+        public TrainingsVM(Language.Languages referenceLanguage, 
                            Language.Languages trainedLanguage)
         {
+            this.rm = LanguageSingleton.Instance.ResourceManager;
+            this.ci = LanguageSingleton.Instance.CultureInfo;
+            TranslationService translationService = ResourceHelper.GetResource<TranslationService>(Constants.TRANSLATION_SERVICE);
+
             if (translationService.Translations.Count == 0)
                 throw new NoItemException(rm.GetString(StringConstant.noItemExceptionMessage, ci));
 
@@ -72,8 +74,6 @@ namespace TranslationWPF.ViewModel
             }
 
             SelectedItem = Trainings[0];
-            this.rm = rm;
-            this.ci = ci;
         }
 
         #region Command
@@ -107,7 +107,6 @@ namespace TranslationWPF.ViewModel
             if (SelectedItem == Trainings.First() )
                 return;
 
-            //SelectedItem = Trainings.Where(t => t.Id == SelectedItem.Id - 1).First();
             SelectedItem = Trainings.TakeWhile(t => t != SelectedItem).Last();
 
         }
@@ -127,7 +126,7 @@ namespace TranslationWPF.ViewModel
                 if (result == MessageBoxResult.Yes)
                 {
                     ResultView view = new ResultView();
-                    view.DataContext = new ResultsVM(Trainings,rm,ci);
+                    view.DataContext = new ResultsVM(Trainings);
                     view.ShowDialog();
                     Trainings = ((ResultsVM)view.DataContext).Trainings;
 
