@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TranslationWPF.Model;
 using System.Collections.ObjectModel;
 using TranslationWPF.Helper;
@@ -12,7 +8,6 @@ using TranslationWPF.Languages;
 using System.Resources;
 using System.Globalization;
 using TranslationWPF.Exceptions;
-using System.Windows;
 using TranslationWPF.Services;
 
 namespace TranslationWPF.ViewModel

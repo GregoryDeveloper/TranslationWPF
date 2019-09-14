@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using TranslationWPF.Model;
 using TranslationWPF.Languages;
 using System.Resources;
 using System.Globalization;
