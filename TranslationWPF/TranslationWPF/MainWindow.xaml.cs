@@ -21,7 +21,6 @@ namespace TranslationWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        // TODO : remove rm,ci and translationService from all the constructors
         ResourceManager rm;
         CultureInfo ci;
         TranslationService translationService;

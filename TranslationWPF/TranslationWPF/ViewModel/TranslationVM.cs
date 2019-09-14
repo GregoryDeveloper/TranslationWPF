@@ -20,8 +20,6 @@ namespace TranslationWPF.ViewModel
         #endregion  
 
         #region Properies
-        // TODO: refacto useless now check
-        public int Id { get; }
 
         public Translation Translation { get; set; }
 
@@ -137,8 +135,6 @@ namespace TranslationWPF.ViewModel
 
         public TranslationVM(Translation translation, List<Language.Languages> languages)
         {
-            Id = translation.Id;
-
             AssignLanguages(translation, languages);
 
             Language1.Synonysms.ForEach(s => Language1Synonyms.Add(s));
@@ -153,7 +149,6 @@ namespace TranslationWPF.ViewModel
         public TranslationVM(Translation translation)
         {
             Translation = translation;
-            Id = translation.Id;
             AssignAndSetLanguages(translation);
         }
 

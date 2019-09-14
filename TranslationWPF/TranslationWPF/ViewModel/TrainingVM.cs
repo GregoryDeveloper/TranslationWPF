@@ -17,11 +17,6 @@ namespace TranslationWPF.ViewModel
         private Language.Languages languageTrained;
         private Language.Languages referenceLanguage;
 
-
-        public int Id
-        {
-            get {return Translation.Id; }
-        }
         public Language Language1 { get; set; }
         public Language Language2 { get;set; }
 

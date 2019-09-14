@@ -28,7 +28,6 @@ namespace TranslationWPF.ViewModel
         CultureInfo ci;
 
         bool exists = false;
-        // TODO unable the user to add a synonyms that is already in the list and pop up a notification message
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -287,7 +286,7 @@ namespace TranslationWPF.ViewModel
         }
         void ModidfyItem()
         {
-            // TODO: Language translation
+            // TODO: Magic string
             Translation.Save();
             MessageBox.Show("The language has been added", "Adding Language", MessageBoxButton.OK, MessageBoxImage.Information);
         }

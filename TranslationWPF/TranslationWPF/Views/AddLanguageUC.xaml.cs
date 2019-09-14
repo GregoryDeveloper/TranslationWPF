@@ -34,6 +34,7 @@ namespace TranslationWPF.Views
             InitializeComponent();
             ci = Thread.CurrentThread.CurrentCulture;
 
+            // TODO: hard coded string
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
         }
 

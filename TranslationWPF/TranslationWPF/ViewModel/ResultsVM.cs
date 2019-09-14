@@ -14,8 +14,6 @@ namespace TranslationWPF.ViewModel
     public class ResultsVM
     {
         #region Properties
-        //private string UIdelete;
-        //public string UIDelete { get { return UIdelete = UIdelete ?? rm.GetString(StringConstant.delete, ci); } }
         #region UIProperties
         private string UIword;
         public string UIWord { get { return UIword = UIword ?? rm.GetString(StringConstant.word, ci); } }
@@ -105,13 +103,13 @@ namespace TranslationWPF.ViewModel
         #region Methods
         void AddElementHandler()
         {
-            if (SelectedItem != null && !Trainings.Any(t => t.Id == SelectedItem.Training.Id))
+            if (SelectedItem != null && !Trainings.Any(t => t == SelectedItem.Training))
                 Trainings.Add(SelectedItem.Training);
         }
 
         void RemoveElementHandler()
         {
-            if (SelectedItem2 != null && Trainings.Any(t => t.Id == SelectedItem2.Id))
+            if (SelectedItem2 != null && Trainings.Any(t => t == SelectedItem2))
                 Trainings.Remove(SelectedItem2);
         }
 
@@ -133,7 +131,7 @@ namespace TranslationWPF.ViewModel
         {
             foreach (ResultVM item in elements)
             {
-                if (!data.Any(d => d.Id == item.Training.Id))
+                if (!data.Any(d => d == item.Training))
                     Trainings.Add(item.Training);
             }
         }
