@@ -78,11 +78,11 @@ namespace TranslationWPF.ViewModel
             set { translations = value; OnPropertyChanged("Translations");}
         }
 
-        TranslationService translationService;
-        List<Language.Languages> languagesOrder;
+        readonly TranslationService translationService;
+        readonly List<Language.Languages> languagesOrder;
 
         #endregion
-        ResourceManager rm;
+        readonly ResourceManager rm;
         readonly CultureInfo ci;
 
         public ImportVM(List<Language.Languages> languages)
@@ -151,23 +151,23 @@ namespace TranslationWPF.ViewModel
             MessageBoxResult result =  MessageBox.Show(message, caption,MessageBoxButton.YesNo);
 
             OpenFileDialog ofd = new OpenFileDialog();
-            List<Translation> translations;
+            List<Translation> importedTranslations;
 
             if (ofd.ShowDialog() == true)
             {
-                translations = translationService.FormattedLoad(ofd.FileName);
+                importedTranslations = translationService.FormattedLoad(ofd.FileName);
 
                 if (result == MessageBoxResult.Yes)             
-                    translationService.AddNewTranslationListToCurrentList(translations);
+                    translationService.AddNewTranslationListToCurrentList(importedTranslations);
                 
                 else
-                    translationService.CreateNewTranslationList(translations);
+                    translationService.CreateNewTranslationList(importedTranslations);
             }
         }
 
         private List<Translation> GetWordsFromImport(string path, Import import)
         {
-            List<Translation> translations = new List<Translation>();
+            List<Translation> importedTranslations = new List<Translation>();
             try
             {
                 using (StreamReader sr = new StreamReader(path))
@@ -175,17 +175,17 @@ namespace TranslationWPF.ViewModel
                     while (sr.Peek() >= 0)
                     {
 
-                        String line = sr.ReadLine();
+                        String fileLine = sr.ReadLine();
 
                         TranslationDirector director = new TranslationDirector();
                         TranslationBuilder translationBuilder;
                         switch (import)
                         {
                             case Import.Formatted:
-                                 translationBuilder = new TranslationFormattedBuilder(line);
+                                 translationBuilder = new TranslationFormattedBuilder(fileLine);
                                 break;
                             case Import.Unformatted:
-                                 translationBuilder = new TranslationUnformattedBuilder(line);
+                                 translationBuilder = new TranslationUnformattedBuilder(fileLine);
                                 break;
                             default:
                                 throw new InvalidDataException();
@@ -195,7 +195,7 @@ namespace TranslationWPF.ViewModel
 
                         director.Construct(translationBuilder);
 
-                        translations.Add(translationBuilder.GetResult());
+                        importedTranslations.Add(translationBuilder.GetResult());
                     }
                 }
 
@@ -205,7 +205,7 @@ namespace TranslationWPF.ViewModel
                 // TODO: hard coded string
                 Console.WriteLine("Could not read the file");
             }
-            return translations;
+            return importedTranslations;
         }
 
         private void ExecuteFormattedExport()

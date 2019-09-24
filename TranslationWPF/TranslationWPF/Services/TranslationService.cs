@@ -164,7 +164,7 @@ namespace TranslationWPF.Services
             DisplayableTranslationsVM.Clear();
             foreach (var item in TranslationsVM)
             {
-                if (item.Display == true)
+                if (!item.Display)
                     DisplayableTranslationsVM.Add(item);
             }
         }
@@ -235,7 +235,7 @@ namespace TranslationWPF.Services
 
         private int GetNextDisplayableElementIndex(int index)
         {
-            while (index < TranslationsVM.Count && TranslationsVM[index].Display == false)
+            while (index < TranslationsVM.Count && !TranslationsVM[index].Display)
             {
                 index++;
             }
@@ -292,7 +292,7 @@ namespace TranslationWPF.Services
 
         private int GetPreviousDisplayableElementIndex(int index)
         {
-            while (index > -1 && TranslationsVM[index].Display == false)
+            while (index > -1 && !TranslationsVM[index].Display)
             {
                 index--;
             }

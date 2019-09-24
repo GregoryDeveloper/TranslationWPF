@@ -40,8 +40,8 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region ViewModel Properties
-        ResourceManager rm;
-        CultureInfo ci;
+        readonly ResourceManager rm;
+        readonly CultureInfo ci;
 
         public ObservableCollection<ResultVM> Results { get; set; } = new ObservableCollection<ResultVM>();
         public ObservableCollection<TrainingVM> Trainings { get; set; } = new ObservableCollection<TrainingVM>();
@@ -111,14 +111,14 @@ namespace TranslationWPF.ViewModel
 
         void AddNotFoundElementHandler()
         {
-            var result = Results.Where(r => r.Training.Found != true);
+            var result = Results.Where(r => !r.Training.Found);
             List<ResultVM> notFoundList = new List<ResultVM>(result);
             AddIfNotExist(notFoundList, Trainings);
         }
 
         void AddMistakesElementHandler()
         {
-            var result = Results.Where(r => r.Training.HasTried == false || r.Training.MistakesCount > 0);
+            var result = Results.Where(r => !r.Training.HasTried || r.Training.MistakesCount > 0);
             List<ResultVM> notFoundList = new List<ResultVM>(result);
             AddIfNotExist(notFoundList, Trainings);
         }

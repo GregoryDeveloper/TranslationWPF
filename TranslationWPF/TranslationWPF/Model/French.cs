@@ -16,7 +16,6 @@ namespace TranslationWPF.Model
         public override Types GetType()
         {
             return Types.undefined;
-            //throw new NotImplementedException();
         }
 
         public override Types[] GetTypesAvailables()
@@ -36,7 +35,7 @@ namespace TranslationWPF.Model
 
         public override bool Is(Languages language)
         {
-            return language == Languages.French ? true : false;
+            return language == Languages.French;
         }
     }
 }

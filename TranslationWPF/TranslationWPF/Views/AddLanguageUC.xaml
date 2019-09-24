@@ -24,7 +24,6 @@
         </Style>
     </UserControl.Resources>
     <Grid Background="White">
-        <!--<Frame Source="AddLanguageUC.xaml" />-->
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -54,10 +53,11 @@
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="200 10" >
-            <ListView ItemsSource="{Binding Translations}" SelectedItem="{Binding DGSelectedItem}">
+            <ListView Height="205" ItemsSource="{Binding Translations}" SelectedItem="{Binding DGSelectedItem}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding LanguageValue}" Header="Word" Width="150"></GridViewColumn>
+                        <!--TODO: hardcoded header-->
+                        <GridViewColumn DisplayMemberBinding="{Binding LanguageValue}" Header="Word" Width="500"/>
                     </GridView>
                 </ListView.View>
                 <i:Interaction.Triggers>

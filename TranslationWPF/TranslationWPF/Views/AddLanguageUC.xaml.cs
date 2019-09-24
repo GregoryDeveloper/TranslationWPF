@@ -46,8 +46,6 @@ namespace TranslationWPF.Views
             languages.Add(viewmodel.SelectedItem1);
             languages.Add(viewmodel.SelectedItem2);
 
-            var service = viewmodel.TranslationService;
-
             //TODO: refacto navigation au même endroit
             DataContext = new EncodingVM(true, languages);
         }

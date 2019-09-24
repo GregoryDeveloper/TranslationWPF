@@ -43,8 +43,7 @@ namespace TranslationWPF.Model
 
         public Language GetLanguage(Language.Languages language)
         {
-            return Languages.Where(l => l.GetLanguage() == language)
-                     .FirstOrDefault();
+            return Languages.FirstOrDefault(l => l.GetLanguage() == language);
         }
 
         public List<Language.Languages> GetCurrentLanguages()

@@ -30,10 +30,9 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #region Properties
-        private ResourceManager rm;
-        private CultureInfo ci;
-        private TranslationService translationService;
-        //public List<Translation> Translations { get; set; }
+        private readonly ResourceManager rm;
+        private readonly CultureInfo ci;
+        private readonly TranslationService translationService;
         #endregion
 
         #endregion

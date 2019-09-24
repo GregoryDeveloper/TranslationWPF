@@ -74,10 +74,10 @@ namespace TranslationWPF.ViewModel
         }
 
         #region Command
-        private CommandHandlerWithParameter _selectionCommand;
-        public CommandHandlerWithParameter SelectionCommand
+        private CommandHandler _selectionCommand;
+        public CommandHandler SelectionCommand
         {
-            get { return _selectionCommand ?? (_selectionCommand = new CommandHandlerWithParameter((item) => SelectionHandler((TranslationVM)item), true)); }
+            get { return _selectionCommand ?? (_selectionCommand = new CommandHandler(() => SelectionHandler(),true)); }
 
         }
 
@@ -109,7 +109,7 @@ namespace TranslationWPF.ViewModel
 
         #endregion
 
-        private void SelectionHandler(TranslationVM translation)
+        private void SelectionHandler()
         {
             EncodingVM.SetItem(SelectedItem);
         }

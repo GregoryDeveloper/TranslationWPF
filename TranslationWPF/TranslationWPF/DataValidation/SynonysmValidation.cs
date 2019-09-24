@@ -14,7 +14,7 @@ namespace TranslationWPF.DataValidation
 
         ResourceManager rm;
         CultureInfo ci;
-        public int minCharNumber = 1;
+        private readonly int minCharNumber = 1;
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -51,7 +51,6 @@ namespace TranslationWPF.DataValidation
         bool Exists(string word)
         {
             throw new NotImplementedException();
-            //return Words.Exists(w => w == word);
         }
     }
 }

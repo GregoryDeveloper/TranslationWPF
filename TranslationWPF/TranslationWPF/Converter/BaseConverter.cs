@@ -26,8 +26,6 @@ namespace TranslationWPF.Converter
                 case (int)Language.Languages.Spanish:
                     return JsonConvert.DeserializeObject<Spanish>(jo.ToString(), SpecifiedSubclassConversion);
 
-                default:
-                    throw new Exception();
             }
             throw new NotImplementedException();
         }

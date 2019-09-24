@@ -21,13 +21,12 @@ namespace TranslationWPF.ViewModel
 {
     public class EncodingVM : INotifyPropertyChanged, INotifyDataErrorInfo
     {
-        //List<Translation> translations;
         public TranslationService TranslationService{ get; set; }
 
-        ResourceManager rm;
-        CultureInfo ci;
-
-        bool exists = false;
+        readonly ResourceManager rm;
+        readonly CultureInfo ci;
+        readonly bool exists = false;
+        private readonly List<Language.Languages> languages;
         #region Propertychanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,7 +40,7 @@ namespace TranslationWPF.ViewModel
         public IEnumerable GetErrors(string propertyName)
         {
             if (String.IsNullOrEmpty(propertyName) || (!HasErrors))
-                return null;
+                return new List<string>();
             return new List<string>() { "Invalid credentials" };
         }
         public bool HasErrors { get; set; } = false;
@@ -154,7 +153,6 @@ namespace TranslationWPF.ViewModel
         #endregion
 
         #endregion
-        private List<Language.Languages> languages;
         #region Constructors
         public EncodingVM(bool displayAddButton,
                             List<Language.Languages> languages,
@@ -210,7 +208,7 @@ namespace TranslationWPF.ViewModel
         private CommandHandlerWithParameter _addWordCommand;
         public CommandHandlerWithParameter AddWordCommand
         {
-            get { return _addWordCommand ?? (_addWordCommand = new CommandHandlerWithParameter((item) => AddWordHandler((string)item), true)); }
+            get { return _addWordCommand ?? (_addWordCommand = new CommandHandlerWithParameter((item) => AddWordHandler(), true)); }
 
         }
 
@@ -262,7 +260,7 @@ namespace TranslationWPF.ViewModel
 
         }
 
-        void AddWordHandler(string item)
+        void AddWordHandler()
         {
             if (!CheckCredentials())
                 return;

@@ -46,10 +46,10 @@ namespace TranslationWPF.Model
         {
             int splitIndex = GetSplitIndex(line);
 
-            return (ExtractString(line, 0, splitIndex-1),ExtractString(line,splitIndex+1,line.Length-1));
+            return (ExtractString(0, splitIndex-1),ExtractString(splitIndex+1,line.Length-1));
 
         }
-        private string ExtractString(string s, int startIndex, int endIndex)
+        private string ExtractString(int startIndex, int endIndex)
         {
             StringBuilder sb = new StringBuilder();
 

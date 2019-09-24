@@ -9,7 +9,7 @@ namespace TranslationWPF
 {
     public class CustomEventArgs
     {
-            private List<Translation> translations;
+            private readonly List<Translation> translations;
             public List<Translation> Translations
             {
                 get { return translations; }

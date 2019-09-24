@@ -9,7 +9,7 @@ namespace TranslationWPF.Model
     public class English: Language
     {
 
-        private string[] adjectivesEnding = { "able","ible","al","an","ar","ent","ful","ic","ical","ine","ile","ive","less","ous","some" };
+        private readonly string[] adjectivesEnding = { "able","ible","al","an","ar","ent","ful","ic","ical","ine","ile","ive","less","ous","some" };
 
         public English() : base() { ObjType = LanguageConstant.english; }
         public English(string value, string comment, string example, Types type, List<string> synonysms)
@@ -109,7 +109,7 @@ namespace TranslationWPF.Model
 
         public override bool Is(Languages language)
         {
-           return language == Languages.English? true : false ;
+           return language == Languages.English;
         }
     }
 }

@@ -11,17 +11,16 @@ namespace TranslationWPF.DataValidation
     public class ValueValidation:ValidationRule
     {
         ResourceManager rm;
-        private int maxCharNumber = 25;
-        public int minCharNumber = 1;
+        private readonly int maxCharNumber = 25;
 
-        
+        public int MinCharNumber { get; set; } = 1;
 
-        public override ValidationResult Validate(object _value, CultureInfo cultureInfo)
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
 
             rm = new ResourceManager("TranslationWPF.Languages.langres", Assembly.GetExecutingAssembly());
 
-            switch (ValidationHelper.IsValid(_value,minCharNumber,maxCharNumber))
+            switch (ValidationHelper.IsValid(value,MinCharNumber,maxCharNumber))
             {
                 case ValidationHelper.ErrorCode.TypeError:
                     return new ValidationResult(false, rm.GetString("validationInvalidStringErrorMessage", cultureInfo));
@@ -32,7 +31,7 @@ namespace TranslationWPF.DataValidation
                 case ValidationHelper.ErrorCode.LengthStringError:
                     return new ValidationResult(false,
                                         rm.GetString("validationLengthStringErrorMessage1", cultureInfo) 
-                                        + minCharNumber + rm.GetString("validationLengthStringErrorMessage2", cultureInfo));
+                                        + MinCharNumber + rm.GetString("validationLengthStringErrorMessage2", cultureInfo));
                 case ValidationHelper.ErrorCode.OK:
                     return ValidationResult.ValidResult;
                 default:
@@ -42,10 +41,8 @@ namespace TranslationWPF.DataValidation
 
         public bool IsValid(object word, object translation)
         {
-            return ValidationHelper.IsValid(word, minCharNumber, maxCharNumber) == ValidationHelper.ErrorCode.OK
-                && ValidationHelper.IsValid(translation, minCharNumber, maxCharNumber) == ValidationHelper.ErrorCode.OK
-                ? true
-                : false;
+            return ValidationHelper.IsValid(word, MinCharNumber, maxCharNumber) == ValidationHelper.ErrorCode.OK
+                && ValidationHelper.IsValid(translation, MinCharNumber, maxCharNumber) == ValidationHelper.ErrorCode.OK;
         }
 
 

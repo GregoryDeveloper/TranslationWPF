@@ -54,17 +54,6 @@ namespace TranslationWPF.ViewModel
             this.rm = LanguageSingleton.Instance.ResourceManager;
             this.ci = LanguageSingleton.Instance.CultureInfo;
         }
-
-        private CommandHandler closingCommand;
-        public CommandHandler ClosingCommand
-        {
-            get { return closingCommand ?? (closingCommand = new CommandHandler(() => Closing(), true)); }
-
-        }
         
-        private void Closing()
-        {
-
-        }
     }
 }

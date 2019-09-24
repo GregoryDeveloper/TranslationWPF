@@ -110,9 +110,9 @@ namespace TranslationWPF.ViewModel
         private void SelectionChangedHandler()
         {
             NewLanguages.Clear();
-            var translations = TranslationService.GetTranslations(SelectedItem1);
+            List<TranslationVM> languageTranslations = TranslationService.GetTranslations(SelectedItem1);
             Translations = new ObservableCollection<AddTranslationVM>();
-            foreach (TranslationVM translation in translations)
+            foreach (TranslationVM translation in languageTranslations)
             {
                 Translations.Add(new AddTranslationVM(translation, SelectedItem1));
             }

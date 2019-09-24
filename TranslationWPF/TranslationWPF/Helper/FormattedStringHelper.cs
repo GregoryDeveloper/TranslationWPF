@@ -23,7 +23,6 @@ namespace TranslationWPF.Helper
 
         public static Language FillFromStringRepresention(string sRepresentation, Language language)
         {
-            //Line = sRepresentation;
             string[] elements = SplitLine(sRepresentation, '{', '}');
 
             foreach (string item in elements)

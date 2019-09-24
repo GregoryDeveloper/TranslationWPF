@@ -14,8 +14,6 @@ namespace TranslationWPF.ViewModel
         #region Properties
 
         private Translation Translation { get; set; }
-        private Language.Languages languageTrained;
-        private Language.Languages referenceLanguage;
 
         public Language Language1 { get; set; }
         public Language Language2 { get;set; }
@@ -66,12 +64,9 @@ namespace TranslationWPF.ViewModel
         public TrainingVM(Translation translation, Language.Languages referenceLanguage, Language.Languages languageTrained)
         {
             this.Translation = translation;
-            this.languageTrained = languageTrained;
-            this.referenceLanguage = referenceLanguage;
 
             Language1 = Translation.GetLanguage(referenceLanguage);
             Language2 = Translation.GetLanguage(languageTrained);
-
         }
 
         public void Refresh()

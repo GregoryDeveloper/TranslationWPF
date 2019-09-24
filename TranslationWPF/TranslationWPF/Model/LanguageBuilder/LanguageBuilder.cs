@@ -56,7 +56,7 @@ namespace TranslationWPF.Model
         {
             string wordLine = "";
             string sSynonyms = "";
-            List<string> synonyms = new List<string>();
+
             if (modifiedLine.Contains("(") && modifiedLine.Contains(")") && modifiedLine.Contains('='))
             {
                 wordLine = ExtractUntilCaractere(modifiedLine, 0, '(');

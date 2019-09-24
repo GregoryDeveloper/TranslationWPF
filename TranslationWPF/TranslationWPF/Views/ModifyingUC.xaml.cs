@@ -26,14 +26,5 @@ namespace TranslationWPF.Views
             InitializeComponent();
         }
 
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            //((ModifyWordVM)DataContext).TranslationsModel.Clear();
-
-            //foreach (var item in ((ModifyWordVM)DataContext).TranslationService.Translations)
-            //{
-            //    ((ModifyWordVM)DataContext).TranslationsModel.Add(item.Translation);
-            //}
-        }
     }
 }

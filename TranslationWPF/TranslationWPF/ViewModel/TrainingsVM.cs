@@ -25,8 +25,8 @@ namespace TranslationWPF.ViewModel
         }
         #endregion
 
-        ResourceManager rm;
-        CultureInfo ci;
+        readonly ResourceManager rm;
+        readonly CultureInfo ci;
 
         private ObservableCollection<TrainingVM> Trainings = new ObservableCollection<TrainingVM>();
         private TrainingVM selectedItem;
