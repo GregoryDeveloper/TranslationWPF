@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows.Input;
 
-namespace TranslationWPF
+namespace TranslationWPF.Commands
 {
     public class CommandHandlerWithParameter :ICommand
     {

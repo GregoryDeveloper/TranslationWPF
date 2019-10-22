@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Resources;
 using System.Windows;
+using TranslationWPF.Commands;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;
 using TranslationWPF.Model;

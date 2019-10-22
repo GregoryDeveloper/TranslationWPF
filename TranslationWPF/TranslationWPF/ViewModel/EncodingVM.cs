@@ -10,6 +10,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
+using TranslationWPF.Commands;
 using TranslationWPF.DataValidation;
 using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;

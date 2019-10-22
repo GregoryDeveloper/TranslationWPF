@@ -1,4 +1,4 @@
-﻿namespace TranslationWPF.Model
+﻿namespace TranslationWPF.Model.LanguageBuilder
 {
     public class LanguageFrenchBuilder : LanguageBuilder
     {

@@ -13,6 +13,8 @@ using System.Globalization;
 using TranslationWPF.Languages;
 using TranslationWPF.Services;
 using System.Windows;
+using TranslationWPF.Model.TranslationBuilder;
+using TranslationWPF.Commands;
 
 namespace TranslationWPF.ViewModel
 {

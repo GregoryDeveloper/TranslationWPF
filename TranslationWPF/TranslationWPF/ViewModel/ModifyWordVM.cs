@@ -14,6 +14,7 @@ using System.Globalization;
 using TranslationWPF.Exceptions;
 using System.Windows;
 using TranslationWPF.Services;
+using TranslationWPF.Commands;
 
 namespace TranslationWPF.ViewModel
 {

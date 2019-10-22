@@ -13,7 +13,7 @@ namespace TranslationWPF.Languages
     public sealed class LanguageSingleton
     {
 
-        private static LanguageSingleton instance = null;
+        private static readonly LanguageSingleton instance = null;
         public static LanguageSingleton Instance
         {
             get { return instance == null ? new LanguageSingleton() : instance; }

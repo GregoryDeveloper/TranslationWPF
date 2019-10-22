@@ -1,4 +1,4 @@
-﻿namespace TranslationWPF.Model
+﻿namespace TranslationWPF.Model.TranslationBuilder
 {
     public class TranslationDirector
     {

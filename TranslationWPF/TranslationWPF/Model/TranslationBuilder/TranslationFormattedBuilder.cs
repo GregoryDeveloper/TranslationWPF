@@ -1,6 +1,8 @@
 ﻿using System.Text;
+using TranslationWPF.Model.LanguageBuilder;
+using TranslationWPF.Model.TranslationBuilder;
 
-namespace TranslationWPF.Model
+namespace TranslationWPF.Model.TranslationBuilder
 {
     public class TranslationFormattedBuilder : TranslationBuilder
     {
@@ -25,8 +27,8 @@ namespace TranslationWPF.Model
             (english, french) = Splitline(line);
 
             LanguageDirector director = new LanguageDirector();
-            LanguageBuilder englishBuilder = new LanguageEnglishBuilder(english);
-            LanguageBuilder frenchBuilder = new LanguageFrenchBuilder(french);
+            LanguageBuilder.LanguageBuilder englishBuilder = new LanguageEnglishBuilder(english);
+            LanguageBuilder.LanguageBuilder frenchBuilder = new LanguageFrenchBuilder(french);
 
             director.ConstructformattedImport(englishBuilder);
             director.ConstructformattedImport(frenchBuilder);

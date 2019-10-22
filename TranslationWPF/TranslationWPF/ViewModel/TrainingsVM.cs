@@ -5,6 +5,7 @@ using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using TranslationWPF.Commands;
 using TranslationWPF.Exceptions;
 using TranslationWPF.Helper;
 using TranslationWPF.Languages;

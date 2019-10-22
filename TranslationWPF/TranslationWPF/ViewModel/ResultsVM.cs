@@ -8,6 +8,7 @@ using TranslationWPF.Model;
 using TranslationWPF.Languages;
 using System.Resources;
 using System.Globalization;
+using TranslationWPF.Commands;
 
 namespace TranslationWPF.ViewModel
 {

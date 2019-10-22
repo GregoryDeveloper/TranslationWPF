@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TranslationWPF.Helper;
 
-namespace TranslationWPF.Model
+namespace TranslationWPF.Model.LanguageBuilder
 {
     public abstract class LanguageBuilder
     {
