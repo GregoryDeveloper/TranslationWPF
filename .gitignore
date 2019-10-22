@@ -328,3 +328,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+TranslationWPF/NDependOut1/
+
+TranslationWPF/NDependOut/
+
+TranslationWPF/TranslationWPF.ndproj
+
+TranslationWPF/TranslationWPF1.ndproj
