@@ -113,8 +113,6 @@ namespace TranslationWPF.Model
 
             return sb.ToString();
         }
-
         
-
     }
 }

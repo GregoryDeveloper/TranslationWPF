@@ -5,6 +5,7 @@ using TranslationWPF.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TranslationWPF.Helper;
 
 namespace TranslationWPF.ViewModel
 {
@@ -171,8 +172,7 @@ namespace TranslationWPF.ViewModel
             Display = true;
 
         }
-
-
+        
         public void Save()
         {
             Translation.Languages[0] = Language1;
@@ -186,6 +186,25 @@ namespace TranslationWPF.ViewModel
             Translation.SetLanguageSynonysms(Language2.GetLanguage(), Language2Synonyms.ToList());
             
 
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Language1.Value)
+              .Append(FormattedStringHelper.GetWordWithWhiteSpaces(sb.ToString(), Constants.SPACE_NUMBER_BOUNDARY))
+              .Append(Constants.SEPARATOR)
+              .Append(' ', Constants.SPACE_NUMBER)
+              .Append(Language2.Value);
+
+            foreach (string item in Language2.Synonysms)
+            {
+                sb.Append(Constants.SYNONYM_SEPARATOR)
+                  .Append(item);
+            }
+
+            return sb.ToString();
         }
 
         //TODO refactoring
@@ -242,9 +261,7 @@ namespace TranslationWPF.ViewModel
             
             Line = translation.Line;
         }
-
-
-
+        
         /// <summary>
         /// Returns the language from the model to attatch to the viewmodel
         /// </summary>
@@ -261,8 +278,6 @@ namespace TranslationWPF.ViewModel
 
             throw new KeyNotFoundException($"The language {languageType} hasn't been found");
         }
-
-       
 
         private void AssignWord(Language language)
         {

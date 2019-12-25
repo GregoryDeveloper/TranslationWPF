@@ -235,7 +235,6 @@ namespace TranslationWPF.ViewModel
             {
                 SaveTranslationToTextFile(sfd.FileName);
             }
-
            
         }
 
@@ -244,7 +243,7 @@ namespace TranslationWPF.ViewModel
             using (StreamWriter file =
            new StreamWriter(filename))
             {
-                foreach (Translation translation in translationService.Translations)
+                foreach (TranslationVM translation in translationService.TranslationsVM)
                 {
                     file.WriteLine(translation.ToString());
                 }
